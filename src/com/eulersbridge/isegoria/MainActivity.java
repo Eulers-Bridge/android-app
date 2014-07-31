@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -47,7 +49,7 @@ public class MainActivity extends Activity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String[] mMenuTitles;
+    private String[] mPlanetTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +57,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mTitle = mDrawerTitle = getTitle();
-        mMenuTitles = getResources().getStringArray(R.array.menu_array);
+        mPlanetTitles = getResources().getStringArray(R.array.menu_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mMenuTitles));
+                R.layout.drawer_list_item, mPlanetTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -144,7 +146,7 @@ public class MainActivity extends Activity {
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         mDrawerList.setItemChecked(position, true);
-        setTitle(mMenuTitles[position]);
+        setTitle(mPlanetTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
@@ -166,18 +168,12 @@ public class MainActivity extends Activity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public static class MenuFragment extends Fragment {
-
+    public static class MenuFragment extends TabsFragment {
+    	private TabHost mTabHost;
+    	View rootView;
+    	 
         public MenuFragment() {
             
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main_nav, container, false);
-
-            return rootView;
         }
     }
 }
