@@ -163,13 +163,40 @@ public class MainActivity extends Activity {
 	        mDrawerLayout.closeDrawer(mDrawerList);    		
     	}
     	else if(position == 2) { //Poll
-    		
+	        Fragment fragment = new PollFragment();
+	        Bundle args = new Bundle();
+	        fragment.setArguments(args);
+	
+	        FragmentManager fragmentManager = getFragmentManager();
+	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	
+	        mDrawerList.setItemChecked(position, true);
+	        setTitle(mMenuTitles[position]);
+	        mDrawerLayout.closeDrawer(mDrawerList);    	    		
     	}
     	else if(position == 3) { //Vote
-    		
+	        Fragment fragment = new VoteFragment();
+	        Bundle args = new Bundle();
+	        fragment.setArguments(args);
+	
+	        FragmentManager fragmentManager = getFragmentManager();
+	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	
+	        mDrawerList.setItemChecked(position, true);
+	        setTitle(mMenuTitles[position]);
+	        mDrawerLayout.closeDrawer(mDrawerList);    	    		
     	}
     	else if(position == 4) { //Profile
-    		
+	        Fragment fragment = new ProfileFragment();
+	        Bundle args = new Bundle();
+	        fragment.setArguments(args);
+	
+	        FragmentManager fragmentManager = getFragmentManager();
+	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	
+	        mDrawerList.setItemChecked(position, true);
+	        setTitle(mMenuTitles[position]);
+	        mDrawerLayout.closeDrawer(mDrawerList);    	    		
     	}
     }
 
