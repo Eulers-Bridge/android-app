@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String[] mPlanetTitles;
+    private String[] mMenuTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +57,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mTitle = mDrawerTitle = getTitle();
-        mPlanetTitles = getResources().getStringArray(R.array.menu_array);
+        mMenuTitles = getResources().getStringArray(R.array.menu_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mPlanetTitles));
+                R.layout.drawer_list_item, mMenuTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -138,16 +138,39 @@ public class MainActivity extends Activity {
     }
 
     private void selectItem(int position) {
-        Fragment fragment = new MenuFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
+    	if(position == 0) { //Feed
+	        Fragment fragment = new FeedFragment();
+	        Bundle args = new Bundle();
+	        fragment.setArguments(args);
+	
+	        FragmentManager fragmentManager = getFragmentManager();
+	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	
+	        mDrawerList.setItemChecked(position, true);
+	        setTitle(mMenuTitles[position]);
+	        mDrawerLayout.closeDrawer(mDrawerList);
+    	}
+    	else if(position == 1) { //Election
+	        Fragment fragment = new ElectionFragment();
+	        Bundle args = new Bundle();
+	        fragment.setArguments(args);
+	
+	        FragmentManager fragmentManager = getFragmentManager();
+	        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	
+	        mDrawerList.setItemChecked(position, true);
+	        setTitle(mMenuTitles[position]);
+	        mDrawerLayout.closeDrawer(mDrawerList);    		
+    	}
+    	else if(position == 2) { //Poll
+    		
+    	}
+    	else if(position == 3) { //Vote
+    		
+    	}
+    	else if(position == 4) { //Profile
+    		
+    	}
     }
 
     @Override
@@ -166,14 +189,5 @@ public class MainActivity extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    public static class MenuFragment extends TabsFragment {
-    	private TabHost mTabHost;
-    	View rootView;
-    	 
-        public MenuFragment() {
-            
-        }
     }
 }
