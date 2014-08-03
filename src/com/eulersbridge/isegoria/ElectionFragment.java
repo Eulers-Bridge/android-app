@@ -82,16 +82,22 @@ public class ElectionFragment extends Fragment implements TabHost.OnTabChangeLis
 	            .setText("Candidates")
 	            .setTabListener(tabListener));
 	    
-	    TabHost tabHost = (TabHost) rootView.findViewById(android.R.id.tabhost);
+	    
+		
+		return rootView;
+	}
+	
+	@Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+		TabHost tabHost = (TabHost) rootView.findViewById(android.R.id.tabhost);
 		tabHost.setup();
 		tabHost.setBackgroundColor(Color.parseColor("#000000"));
 		tabHost.setOnTabChangedListener(this);
 		setLoaded(true);
+		
 		getElectionTabs();
 		tabHost.setCurrentTab(1);
 		tabHost.setCurrentTab(0);
-		
-		return rootView;
 	}
 	
 	public boolean isLoaded() {
