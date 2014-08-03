@@ -53,12 +53,21 @@
         android:background="@android:color/white"
         android:layout_weight="1" >
     
-	      <Button 
-	          android:id="@+id/tab2" 
-	          android:text="This is another button"
-	          android:layout_width="match_parent" 
-	          android:layout_height="match_parent">
-	      </Button>
+	      <TextView
+	          android:id="@+id/tabTextViewContent"
+	          android:layout_width="match_parent"
+	          android:layout_height="match_parent"
+	          android:paddingLeft="10dp"
+	          android:text="Welcome to the 2014 University of Melbourne Student Union Elections!
+\n\n
+Here, you&apos;ll find a host of information on your current student council, the new candidates and the different parties they represent. You&apos;ll be able to find 
+information on your current activities, volunteer opportunities and major campaign events.
+\n\n
+Every day there will be a new poll question from yours peers to help the candidates better understand their consitituents and increase transparency within our elections.
+\n\n
+Reader, Set, Vote!" >
+
+	      </TextView>
       </FrameLayout>
       
     <TabWidget

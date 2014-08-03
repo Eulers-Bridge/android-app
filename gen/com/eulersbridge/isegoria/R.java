@@ -47,7 +47,7 @@ public final class R {
         public static final int imageView1=0x7f0a0006;
         public static final int left_drawer=0x7f0a0002;
         public static final int okbutton=0x7f0a000e;
-        public static final int tab2=0x7f0a0005;
+        public static final int tabTextViewContent=0x7f0a0005;
         public static final int textView1=0x7f0a0007;
         public static final int textView2=0x7f0a0008;
     }
