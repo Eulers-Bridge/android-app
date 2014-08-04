@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawerLayout,
-                R.drawable.ic_drawer,
+                R.drawable.app_icon,
                 R.string.drawer_open, 
                 R.string.drawer_close  
                 ) {
