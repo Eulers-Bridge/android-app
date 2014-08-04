@@ -15,6 +15,7 @@ public final class R {
     }
     public static final class color {
         public static final int black=0x7f040001;
+        public static final int grey=0x7f040002;
         public static final int white=0x7f040000;
     }
     public static final class dimen {
@@ -26,54 +27,67 @@ public final class R {
          */
         public static final int activity_horizontal_margin=0x7f050000;
         public static final int activity_vertical_margin=0x7f050001;
+        public static final int profileTextSize=0x7f050002;
+        public static final int profileTextSizeLabel=0x7f050003;
+        public static final int profileTextSizeSmall=0x7f050004;
     }
     public static final class drawable {
         public static final int action_search=0x7f020000;
         public static final int app_icon=0x7f020001;
         public static final int drawer_shadow=0x7f020002;
         public static final int event0=0x7f020003;
-        public static final int ic_drawer=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int news0=0x7f020006;
-        public static final int news1=0x7f020007;
-        public static final int news10=0x7f020008;
-        public static final int news11=0x7f020009;
-        public static final int news12=0x7f02000a;
-        public static final int news13=0x7f02000b;
-        public static final int news14=0x7f02000c;
-        public static final int news2=0x7f02000d;
-        public static final int news3=0x7f02000e;
-        public static final int news4=0x7f02000f;
-        public static final int news5=0x7f020010;
-        public static final int news6=0x7f020011;
-        public static final int news7=0x7f020012;
-        public static final int news8=0x7f020013;
-        public static final int news9=0x7f020014;
+        public static final int event1=0x7f020004;
+        public static final int event2=0x7f020005;
+        public static final int event3=0x7f020006;
+        public static final int event4=0x7f020007;
+        public static final int event5=0x7f020008;
+        public static final int event6=0x7f020009;
+        public static final int event7=0x7f02000a;
+        public static final int ic_drawer=0x7f02000b;
+        public static final int ic_launcher=0x7f02000c;
+        public static final int me=0x7f02000d;
+        public static final int news0=0x7f02000e;
+        public static final int news1=0x7f02000f;
+        public static final int news10=0x7f020010;
+        public static final int news11=0x7f020011;
+        public static final int news12=0x7f020012;
+        public static final int news13=0x7f020013;
+        public static final int news14=0x7f020014;
+        public static final int news2=0x7f020015;
+        public static final int news3=0x7f020016;
+        public static final int news4=0x7f020017;
+        public static final int news5=0x7f020018;
+        public static final int news6=0x7f020019;
+        public static final int news7=0x7f02001a;
+        public static final int news8=0x7f02001b;
+        public static final int news9=0x7f02001c;
     }
     public static final class id {
-        public static final int Text1=0x7f0a0012;
+        public static final int Text1=0x7f0a0014;
         public static final int Text2=0x7f0a0004;
-        public static final int Text3=0x7f0a0013;
-        public static final int Text4=0x7f0a0014;
+        public static final int Text3=0x7f0a0015;
+        public static final int Text4=0x7f0a0016;
         public static final int TextView01=0x7f0a0003;
-        public static final int action_websearch=0x7f0a0016;
-        public static final int button1=0x7f0a0011;
+        public static final int action_websearch=0x7f0a0018;
         public static final int content_frame=0x7f0a0001;
         public static final int drawer_layout=0x7f0a0000;
-        public static final int editText1=0x7f0a0010;
-        public static final int imageView1=0x7f0a0008;
-        public static final int imageView2=0x7f0a000a;
+        public static final int editText1=0x7f0a000e;
+        public static final int editText12=0x7f0a000f;
+        public static final int editText13=0x7f0a0010;
+        public static final int eventsTableLayout=0x7f0a0007;
+        public static final int imageView1=0x7f0a000a;
         public static final int left_drawer=0x7f0a0002;
-        public static final int newsTableLayout=0x7f0a000d;
-        public static final int okbutton=0x7f0a0015;
+        public static final int mytextview1=0x7f0a0012;
+        public static final int mytextview2=0x7f0a0013;
+        public static final int newsTableLayout=0x7f0a0008;
+        public static final int okbutton=0x7f0a0017;
+        public static final int relativeLayout=0x7f0a0011;
         public static final int scrollView1=0x7f0a0006;
         public static final int tabTextViewContent=0x7f0a0005;
-        public static final int tableRow1=0x7f0a0007;
-        public static final int tableRow2=0x7f0a0009;
-        public static final int tableRow3=0x7f0a000b;
-        public static final int tableRow4=0x7f0a000c;
-        public static final int textView1=0x7f0a000e;
-        public static final int textView2=0x7f0a000f;
+        public static final int tableRow1=0x7f0a000d;
+        public static final int textView1=0x7f0a000b;
+        public static final int textView2=0x7f0a000c;
+        public static final int topBackground=0x7f0a0009;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

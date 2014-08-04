@@ -78,7 +78,7 @@ public class NewsFragment extends Fragment {
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 5);
 			else
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 0);
-			
+
 	        TextView textViewArticle = new TextView(getActivity());
 	        textViewArticle.setTextColor(Color.parseColor("#F8F8F8"));
 	        textViewArticle.setTextSize(16.0f);
@@ -114,9 +114,9 @@ public class NewsFragment extends Fragment {
 			relativeLayout = new RelativeLayout(getActivity());
 			relativeLayout.setLayoutParams(new TableRow.LayoutParams((int)(dpWidth / 2), (int)(dpHeight / 2.3)));
 			if(lastCell)
-				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 5);
+				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(0, 5, 5, 5);
 			else
-				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 0);
+				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(0, 5, 5, 0);
 			
 	        textViewArticle = new TextView(getActivity());
 	        textViewArticle.setTextColor(Color.parseColor("#F8F8F8"));
