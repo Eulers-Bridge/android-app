@@ -10,6 +10,6 @@ import android.view.ViewGroup;
 
 public class MainView extends SherlockFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.activity_main, container, false);
+		return inflater.inflate(R.layout.news_fragment, container, false);
 	}
 }

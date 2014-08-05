@@ -68,6 +68,14 @@ Every day there will be a new poll question from yours peers to help the candida
 Reader, Set, Vote!" >
 
 	      </TextView>
+	      
+	      <TableLayout
+                android:id="@+id/positionsTableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*" >
+
+           </TableLayout>
       </FrameLayout>
       
     <TabWidget

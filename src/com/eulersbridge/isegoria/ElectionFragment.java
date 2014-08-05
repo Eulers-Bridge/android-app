@@ -84,8 +84,6 @@ public class ElectionFragment extends Fragment implements TabHost.OnTabChangeLis
 	            .setText("Candidates")
 	            .setTabListener(tabListener));
 	    
-	    
-		
 		return rootView;
 	}
 	
@@ -97,9 +95,7 @@ public class ElectionFragment extends Fragment implements TabHost.OnTabChangeLis
 		tabHost.setOnTabChangedListener(this);
 		setLoaded(true);
 		
-		getElectionTabs();
-		tabHost.setCurrentTab(1);
-		tabHost.setCurrentTab(0);
+		
 	}
 	
 	public boolean isLoaded() {
@@ -115,7 +111,6 @@ public class ElectionFragment extends Fragment implements TabHost.OnTabChangeLis
 			return;
 		
 		TabHost tabHost = (TabHost) rootView.findViewById(android.R.id.tabhost);
-		
 		for(int i=0; i<tabHost.getTabWidget().getChildCount(); i++)  {
 			tabHost.getTabWidget().removeAllViews();
 		}
@@ -132,7 +127,7 @@ public class ElectionFragment extends Fragment implements TabHost.OnTabChangeLis
 
 		spec = tabHost.newTabSpec("tab3");
 		spec.setIndicator("Positions");
-		spec.setContent(R.id.tabTextViewContent);
+		spec.setContent(R.id.positionsTableLayout);
 		tabHost.addTab(spec);
 		
 	    for(int i=0;i<tabHost.getTabWidget().getChildCount();i++)  {
