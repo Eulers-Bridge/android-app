@@ -2,15 +2,16 @@ package com.eulersbridge.isegoria;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FeedFragment extends Fragment implements ActionBar.TabListener {
+
+public class FeedFragment extends android.support.v4.app.Fragment implements ActionBar.TabListener {
 	private View rootView;
 	private NewsFragment newsFragment = null;
 	private PhotosFragment photosFragment = null;
@@ -51,7 +52,7 @@ public class FeedFragment extends Fragment implements ActionBar.TabListener {
 	}
 	
     @Override
-    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
     	if(tab.getText().equals("News")) {
     		ft.replace(R.id.content_frame, newsFragment);
     	}
@@ -64,11 +65,11 @@ public class FeedFragment extends Fragment implements ActionBar.TabListener {
     }
 	
     @Override
-    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+    public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
     }
 
     @Override
-    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+    public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
     	if(tab.getText().equals("News")) {
     		ft.remove(newsFragment);
     	}

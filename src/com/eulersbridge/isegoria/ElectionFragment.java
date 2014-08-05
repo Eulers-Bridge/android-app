@@ -1,8 +1,10 @@
 package com.eulersbridge.isegoria;
 
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.app.ActionBar.Tab;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -54,7 +56,7 @@ public class ElectionFragment extends Fragment implements TabHost.OnTabChangeLis
 		getActivity().setTitle("Isegoria");
 		
 		ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-		    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+		    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
 		    	if(tab.getText().equals("Election")) {
 		    		getElectionTabs();
 		    	}
@@ -63,11 +65,11 @@ public class ElectionFragment extends Fragment implements TabHost.OnTabChangeLis
 		    	}		    	
 		    }
 		
-		    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+		    public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
 	
 		    }
 		
-		    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+		    public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
 	
 		    }
 		};
