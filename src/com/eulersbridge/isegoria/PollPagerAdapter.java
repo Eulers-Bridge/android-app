@@ -20,6 +20,11 @@ public class PollPagerAdapter extends FragmentPagerAdapter {
 	 }
 	 
 	 @Override
+	    public CharSequence getPageTitle(int position) {
+	      return "Test";
+	    }
+	 
+	 @Override
 	 public int getCount() {
 		 return this.fragments.size();
 	 }

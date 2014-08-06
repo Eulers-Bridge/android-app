@@ -30,7 +30,7 @@ public class SlidingMenuItems extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		String[] colors = getResources().getStringArray(R.array.menu_array);
 		ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(), 
-				android.R.layout.simple_list_item_1, android.R.id.text1, colors);
+				R.layout.sliding_menu_item, android.R.id.text1, colors);
 		setListAdapter(colorAdapter);
 	}
 

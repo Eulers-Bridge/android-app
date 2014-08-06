@@ -3,6 +3,9 @@ package com.eulersbridge.isegoria;
 import java.util.List;
 import java.util.Vector;
 
+import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.TitlePageIndicator;
+
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,6 +37,9 @@ public class PollFragment extends Fragment {
 		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.pollViewPager);
 		pollPagerAdapter = new PollPagerAdapter(getChildFragmentManager(), fragments);
 		mViewPager.setAdapter(pollPagerAdapter);
+		
+		CirclePageIndicator circleIndicator = (CirclePageIndicator) rootView.findViewById(R.id.titles);
+		circleIndicator.setViewPager(mViewPager);
 		
 		return rootView;
 	}

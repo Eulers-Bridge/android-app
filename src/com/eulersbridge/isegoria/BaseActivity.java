@@ -35,14 +35,14 @@ public class BaseActivity extends SlidingFragmentActivity {
 		ft.commit();
 		
 		SlidingMenu sm = getSlidingMenu();
-		sm.setShadowWidth(15);
-		sm.setShadowDrawable(R.drawable.shadow);
-		sm.setBehindOffset(60);
+		sm.setShadowWidth(5);
+		//sm.setShadowDrawable(R.drawable.shadow);
+		sm.setBehindOffset(400);
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setIcon(R.drawable.ic_launcher);
+		getSupportActionBar().setIcon(R.drawable.app_icon);
 
 	}
 	
