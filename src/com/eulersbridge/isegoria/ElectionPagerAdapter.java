@@ -22,13 +22,13 @@ public class ElectionPagerAdapter extends FragmentPagerAdapter {
 	 @Override
 	    public CharSequence getPageTitle(int position) {
 		 	if(position == 0) {
-		 		return "Position";
+		 		return "Overview";
 		 	}
 		 	else if(position == 1) {
-		 		return "Ticket";
+		 		return "Process";
 		 	}
 		 	else if(position == 2) {
-		 		return "All";
+		 		return "Positions";
 		 	}
 		 	
 		 	return "";

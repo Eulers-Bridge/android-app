@@ -1,12 +1,17 @@
 package com.eulersbridge.isegoria;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
+
 import android.app.Fragment;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,10 +58,33 @@ public class PhotosFragment extends Fragment {
         addTableRow("Coffee at Lakeside Restaurant", "41 photos - 2nd May 2014, 10:00AM");
         addTableRow("Flirt", "41 photos - 2nd May 2014, 10:00AM");
         addTableRow("Polling Day", "41 photos - 2nd May 2014, 10:00AM");
+        
+        createPhotoAlbums();
 		
 		return rootView;
 	}
 	
+	public void createPhotoAlbums() {
+		AssetManager assetManager = getActivity().getAssets();
+		
+        try {
+        	String[] filelist = assetManager.list("");
+            String[] filelistInSubfolder = assetManager.list("Photos");
+            
+			if (filelist == null) {
+			} 
+			else {
+				String filename;
+				
+			    for (int i=0; i<filelist.length; i++) {
+			        filename = filelist[i];
+			    }
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void addTableRow(String label, String caption) {
 		TableRow tr = new TableRow(getActivity());
 		if(!insertedFirstRow) {
