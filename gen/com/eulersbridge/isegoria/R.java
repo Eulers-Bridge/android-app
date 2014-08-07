@@ -1628,7 +1628,6 @@ containing a value of this type.
          */
         public static final int AppBaseTheme=0x7f09005d;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f09005e;
         public static final int Sherlock___TextAppearance_Small=0x7f09004a;
