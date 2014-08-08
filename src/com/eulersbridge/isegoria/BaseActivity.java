@@ -44,6 +44,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setIcon(R.drawable.app_icon);
+
 	}
 	
 	@Override

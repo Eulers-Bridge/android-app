@@ -2,6 +2,8 @@ package com.eulersbridge.isegoria;
 
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;

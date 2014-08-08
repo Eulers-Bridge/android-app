@@ -1,26 +1,27 @@
 package com.eulersbridge.isegoria;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
+import java.io.InputStream;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -49,16 +50,6 @@ public class PhotosFragment extends Fragment {
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
         
-        addTableRow("Baillieu Library Refurbishment University", "20 photos - 28th April 2014 10:00AM");
-        addTableRow("Cocktail Party Numero Uno", "30 photos - 2nd May 2014, 10:00AM");
-        addTableRow("Head of the Yarra", "41 photos - 2nd May 2014, 10:00AM");
-        addTableRow("Clubs & Societies Day Rocks!", "41 photos - 2nd May 2014, 10:00AM");
-        addTableRow("Clive Palmer Press Conference", "41 photos - 2nd May 2014, 10:00AM");
-        addTableRow("Slam Dunk Festival 2014", "41 photos - 2nd May 2014, 10:00AM");
-        addTableRow("Coffee at Lakeside Restaurant", "41 photos - 2nd May 2014, 10:00AM");
-        addTableRow("Flirt", "41 photos - 2nd May 2014, 10:00AM");
-        addTableRow("Polling Day", "41 photos - 2nd May 2014, 10:00AM");
-        
         createPhotoAlbums();
 		
 		return rootView;
@@ -76,8 +67,15 @@ public class PhotosFragment extends Fragment {
 			else {
 				String filename;
 				
-			    for (int i=0; i<filelist.length; i++) {
-			        filename = filelist[i];
+			    for (int i=0; i<filelistInSubfolder.length; i++) {
+			        filename = filelistInSubfolder[i];
+
+			        String[] photosInAlbum = assetManager.list("Photos/" + filename);
+			        String photo =  "Photos/" + filelistInSubfolder[i] + "/" + photosInAlbum[0];
+			        Bitmap bitmap = decodeSampledBitmapFromBitmap(assetManager.open(photo), 150, 150);     
+			        
+			        addTableRow(filename, "41 photos - 2nd May 2014, 10:00AM", bitmap);
+
 			    }
 			}
 		} catch (IOException e) {
@@ -85,7 +83,7 @@ public class PhotosFragment extends Fragment {
 		}
 	}
 
-	public void addTableRow(String label, String caption) {
+	public void addTableRow(String label, String caption, Bitmap bitmap) {
 		TableRow tr = new TableRow(getActivity());
 		if(!insertedFirstRow) {
 			insertedFirstRow = true;
@@ -101,7 +99,7 @@ public class PhotosFragment extends Fragment {
 		view.setColorFilter(Color.argb(125, 35, 35, 35));
 		view.setLayoutParams(new TableRow.LayoutParams(100, (int)(100)));
 		view.setScaleType(ScaleType.CENTER_CROP);
-        view.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.news0, 100, 100));
+        view.setImageBitmap(bitmap);
 		
 		LinearLayout linearLayout = new LinearLayout(getActivity());
 		linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -109,11 +107,41 @@ public class PhotosFragment extends Fragment {
 		linearLayout.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 		linearLayout.setPadding(10, 0, 0, 0);
         
-        TextView textViewArticle = new TextView(getActivity());
+        final TextView textViewArticle = new TextView(getActivity());
         textViewArticle.setTextColor(Color.parseColor("#000000"));
         textViewArticle.setTextSize(18.0f);
         textViewArticle.setText(label);
         textViewArticle.setGravity(Gravity.LEFT);
+        
+        textViewArticle.setOnClickListener(new View.OnClickListener() {        
+            @Override
+            public void onClick(View view) {
+		    		FragmentManager fragmentManager2 = getFragmentManager();
+		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+		    		PhotoAlbumFragment fragment2 = new PhotoAlbumFragment();
+		    		Bundle args = new Bundle();
+		    		args.putString("Album", (String) textViewArticle.getText());
+		    		fragment2.setArguments(args);
+		    		fragmentTransaction2.addToBackStack(null);
+		    		fragmentTransaction2.add(android.R.id.content, fragment2);
+		    		fragmentTransaction2.commit();
+            }
+       });
+        
+       view.setOnClickListener(new View.OnClickListener() {        
+            @Override
+            public void onClick(View view) {
+		    		FragmentManager fragmentManager2 = getFragmentManager();
+		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+		    		PhotoAlbumFragment fragment2 = new PhotoAlbumFragment();
+		    		Bundle args = new Bundle();
+		    		args.putString("Album", (String) textViewArticle.getText());
+		    		fragment2.setArguments(args);
+		    		fragmentTransaction2.addToBackStack(null);
+		    		fragmentTransaction2.add(android.R.id.content, fragment2);
+		    		fragmentTransaction2.commit();
+            }
+      });
         
         TextView textViewArticleTime = new TextView(getActivity());
         textViewArticleTime.setTextColor(Color.parseColor("#000000"));
@@ -132,18 +160,14 @@ public class PhotosFragment extends Fragment {
 	
 	public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
-	    // Raw height and width of image
 	    final int height = options.outHeight;
 	    final int width = options.outWidth;
 	    int inSampleSize = 1;
 	
 	    if (height > reqHeight || width > reqWidth) {
-	
 	        final int halfHeight = height / 2;
 	        final int halfWidth = width / 2;
-	
-	        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-	        // height and width larger than the requested height and width.
+	        
 	        while ((halfHeight / inSampleSize) > reqHeight
 	                && (halfWidth / inSampleSize) > reqWidth) {
 	            inSampleSize *= 2;
@@ -155,17 +179,22 @@ public class PhotosFragment extends Fragment {
 	
 	public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
 	        int reqWidth, int reqHeight) {
-
-	    // First decode with inJustDecodeBounds=true to check dimensions
 	    final BitmapFactory.Options options = new BitmapFactory.Options();
 	    options.inJustDecodeBounds = true;
 	    BitmapFactory.decodeResource(res, resId, options);
 
-	    // Calculate inSampleSize
 	    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-	    // Decode bitmap with inSampleSize set
 	    options.inJustDecodeBounds = false;
 	    return BitmapFactory.decodeResource(res, resId, options);
+	}
+	
+	public static Bitmap decodeSampledBitmapFromBitmap(InputStream is,
+	        int reqWidth, int reqHeight) {
+	    final BitmapFactory.Options options = new BitmapFactory.Options();
+	    options.inJustDecodeBounds = true;
+	    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+	    options.inJustDecodeBounds = false;
+	    return BitmapFactory.decodeStream(is);
 	}
 }

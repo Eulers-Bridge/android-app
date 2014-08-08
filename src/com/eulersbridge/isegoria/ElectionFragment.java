@@ -27,7 +27,6 @@ import android.widget.TextView;
 public class ElectionFragment extends Fragment {
 	private View rootView;
 	private boolean loaded = false;
-	private Fragment mContent;
 	private ElectionPagerAdapter electionPagerAdapter;
 	
 	public ElectionFragment() {
@@ -55,15 +54,10 @@ public class ElectionFragment extends Fragment {
 		ActionBar.TabListener tabListener = new ActionBar.TabListener() {
 		    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
 		    	if(tab.getText().equals("Election")) {
-
+		  
 		    	}
 		    	else if(tab.getText().equals("Candidates")) {
-		    		FragmentManager fragmentManager2 = getFragmentManager();
-		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-		    		CandidateFragment fragment2 = new CandidateFragment();
-		    		fragmentTransaction2.addToBackStack(null);
-		    		fragmentTransaction2.replace(android.R.id.content, fragment2);
-		    		fragmentTransaction2.commit();
+		  
 		    	}		    	
 		    }
 		
@@ -91,7 +85,9 @@ public class ElectionFragment extends Fragment {
 	
 	@Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
+	
+		
+		
 	}
 	
 	public boolean isLoaded() {
@@ -108,12 +104,5 @@ public class ElectionFragment extends Fragment {
 	
 	public void getCandidatesTabs() {
 	
-	}
-	
-	public void switchContent(Fragment fragment) {
-		getActivity().getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.content_frame, fragment)
-		.commit();
 	}
 }
