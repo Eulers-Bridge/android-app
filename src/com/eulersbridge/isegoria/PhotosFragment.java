@@ -141,7 +141,7 @@ public class PhotosFragment extends Fragment {
 		    		fragmentTransaction2.add(android.R.id.content, fragment2);
 		    		fragmentTransaction2.commit();
             }
-      });
+         });
         
         TextView textViewArticleTime = new TextView(getActivity());
         textViewArticleTime.setTextColor(Color.parseColor("#000000"));

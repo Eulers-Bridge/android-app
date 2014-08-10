@@ -2,6 +2,7 @@ package com.eulersbridge.isegoria;
 
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -146,6 +147,21 @@ public class NewsFragment extends Fragment {
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 			view.setScaleType(ScaleType.CENTER_CROP);
 	        view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable2, 100, 100));
+	        view.setOnClickListener(new View.OnClickListener() {        
+	            @Override
+	            public void onClick(View view) {
+			    		FragmentManager fragmentManager2 = getFragmentManager();
+			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+			    		NewsArticleFragment fragment2 = new NewsArticleFragment();
+			    		Bundle args = new Bundle();
+			    		//args.putString("Album", (String) textViewArticle.getText());
+			    		fragment2.setArguments(args);
+			    		fragmentTransaction2.addToBackStack(null);
+			    		fragmentTransaction2.add(android.R.id.content, fragment2);
+			    		fragmentTransaction2.commit();
+	            }
+	         });
+	        
 	        relativeLayout.addView(view);
 	        relativeLayout.addView(textViewArticle, params1);
 	        relativeLayout.addView(textViewArticleTime, params2);
@@ -172,6 +188,20 @@ public class NewsFragment extends Fragment {
 			view.setScaleType(ScaleType.CENTER_CROP);
 			view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable1, 100, 100));
 	        view.setImageResource(drawable1);
+	        view.setOnClickListener(new View.OnClickListener() {        
+	            @Override
+	            public void onClick(View view) {
+			    		FragmentManager fragmentManager2 = getFragmentManager();
+			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+			    		NewsArticleFragment fragment2 = new NewsArticleFragment();
+			    		Bundle args = new Bundle();
+			    		args.putInt("ArticleImage", R.drawable.news0);
+			    		fragment2.setArguments(args);
+			    		fragmentTransaction2.addToBackStack(null);
+			    		fragmentTransaction2.add(android.R.id.content, fragment2);
+			    		fragmentTransaction2.commit();
+	            }
+	         });
 	        
 	        TextView textViewArticle = new TextView(getActivity());
 	        textViewArticle.setTextColor(Color.parseColor("#F8F8F8"));
