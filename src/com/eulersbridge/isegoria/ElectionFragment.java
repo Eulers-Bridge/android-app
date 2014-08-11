@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,8 @@ public class ElectionFragment extends Fragment {
 		TabPageIndicator tabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.tabPageIndicator);
 		tabPageIndicator.setViewPager(mViewPager);
 		
+		tabPageIndicator.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
+		
 		ActionBar.TabListener tabListener = new ActionBar.TabListener() {
 		    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
 		    	if(tab.getText().equals("Election")) {
@@ -85,8 +88,6 @@ public class ElectionFragment extends Fragment {
 	
 	@Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-	
-		
 		
 	}
 	

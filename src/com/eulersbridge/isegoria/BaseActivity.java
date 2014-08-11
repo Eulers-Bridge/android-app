@@ -37,7 +37,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 		SlidingMenu sm = getSlidingMenu();
 		sm.setShadowWidth(5);
 		//sm.setShadowDrawable(R.drawable.shadow);
-		sm.setBehindOffset(400);
+		sm.setBehindOffset(300);
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 		setSlidingActionBarEnabled(true);

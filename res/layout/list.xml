@@ -4,7 +4,7 @@
     style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/navyBlue"
     android:divider="@color/white"
     android:dividerHeight="1dip" />
 

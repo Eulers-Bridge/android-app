@@ -19,8 +19,13 @@ package com.eulersbridge.isegoria;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends BaseActivity {
 	private Fragment mContent;

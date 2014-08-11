@@ -28,10 +28,10 @@ public class SlidingMenuItems extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		String[] colors = getResources().getStringArray(R.array.menu_array);
-		ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(), 
-				R.layout.sliding_menu_item, android.R.id.text1, colors);
-		setListAdapter(colorAdapter);
+		String[] items = getResources().getStringArray(R.array.menu_array);
+		ArrayAdapter<String> itemAdapter = new ArrayAdapter<String>(getActivity(), 
+				R.layout.sliding_menu_item, android.R.id.text1, items);
+		setListAdapter(itemAdapter);
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package com.eulersbridge.isegoria;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 
 public class FeedFragment extends android.support.v4.app.Fragment implements ActionBar.TabListener {
@@ -48,6 +51,11 @@ public class FeedFragment extends android.support.v4.app.Fragment implements Act
 	            .setText("Events")
 	            .setTabListener(this));
 	    
+		ActionBar bar = getActivity().getActionBar();
+		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3C7EC9")));
+		bar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
+		bar.setSplitBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
+		
 		return rootView;
 	}
 	

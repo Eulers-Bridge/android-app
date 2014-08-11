@@ -30,6 +30,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.ScaleDrawable;
 
 public class NewsArticleFragment extends Fragment {
 	private View rootView;
@@ -53,18 +55,19 @@ public class NewsArticleFragment extends Fragment {
         dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
 		
 		LinearLayout backgroundLinearLayout = (LinearLayout) rootView.findViewById(R.id.topBackgroundNews);
-		backgroundLinearLayout.getLayoutParams().height = (int) (dpHeight / 2);
+		backgroundLinearLayout.getLayoutParams().height = (int) (displayMetrics.heightPixels / 2.7);
 		Bitmap original = BitmapFactory.decodeResource(getActivity().getResources(), backgroundDrawableResource);
 		Bitmap b = Bitmap.createScaledBitmap(original, (int)dpWidth, (int)dpHeight/2, false);
 		Drawable d = new BitmapDrawable(getActivity().getResources(), b);
+		d.setColorFilter(Color.argb(125, 35, 35, 35), Mode.DARKEN);
 		backgroundLinearLayout.setBackgroundDrawable(d);
 		
 		TextView newsText = (TextView) rootView.findViewById(R.id.textNews);
-		newsText.setText("Test");
+		newsText.setText("A Fairfax/Nielsen poll, the first since the September 7 election, showed the opposition with a 52-48 per cent lead over the government.\n\nThat's the quickest poll lead achieved by any federal opposition after losing an election.");
 		
 		return rootView;
 	}
-	
+
 	public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
 	    // Raw height and width of image

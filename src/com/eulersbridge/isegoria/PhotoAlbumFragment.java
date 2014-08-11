@@ -107,7 +107,6 @@ public class PhotoAlbumFragment extends Fragment {
 		tr.setLayoutParams(rowParams);
 		
 		ImageView view = new ImageView(getActivity());
-		view.setColorFilter(Color.argb(125, 35, 35, 35));
 		view.setLayoutParams(new TableRow.LayoutParams(squareSize, squareSize));
 		view.setScaleType(ScaleType.CENTER_CROP);
         view.setImageBitmap(bitmap);
