@@ -20,6 +20,7 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -64,6 +65,22 @@ public class NewsArticleFragment extends Fragment {
 		
 		TextView newsText = (TextView) rootView.findViewById(R.id.textNews);
 		newsText.setText("A Fairfax/Nielsen poll, the first since the September 7 election, showed the opposition with a 52-48 per cent lead over the government.\n\nThat's the quickest poll lead achieved by any federal opposition after losing an election.");
+		
+		final ImageView flagView = (ImageView) rootView.findViewById(R.id.flagView);
+		flagView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				flagView.setImageResource(R.drawable.flag);
+			}
+		});
+
+		final ImageView starView = (ImageView) rootView.findViewById(R.id.starView);
+		flagView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				starView.setImageResource(R.drawable.star);
+			}
+		});
 		
 		return rootView;
 	}

@@ -56,28 +56,98 @@
 	            	android:layout_width="fill_parent"
 	                android:layout_height="1dip"
 	                android:background="#676475" />
-	        </LinearLayout>    
-                    	               
-            <TextView
-            	android:id="@+id/editText1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:text="Eva Menendez"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/white"
-                android:textSize="@dimen/newsArticleName" />
-                    
-            <TextView
-                android:id="@+id/editText1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:text="Yesterday, 9:00 AM"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/white"
-                android:textSize="@dimen/newsTimeSize" />
-      
+	        </LinearLayout>   
+	         
+            <RelativeLayout
+			    android:id="@+id/RelativeLayout01" 
+			    android:layout_width="fill_parent" 
+			    android:layout_height="fill_parent"
+			    android:paddingTop="10dp"
+			    >
+	            <LinearLayout
+		        	android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:layout_alignParentLeft="true" 
+		            android:gravity="bottom"
+		             >  
+		             
+		             <ImageView
+		            	    android:id="@+id/newsArticleHeadView"
+		            	    android:layout_width="wrap_content"
+		            	    android:layout_height="wrap_content"
+		            	    android:layout_gravity="center_vertical"
+		            	    android:layout_weight="1"
+		            	    android:paddingRight="5dp"
+		            	    android:src="@drawable/head1" />
+		             
+			        <LinearLayout
+			        	android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:orientation="vertical"
+			            android:gravity="bottom"
+			            android:layout_gravity="center_vertical"
+			             >       
+			                         	               
+				            <TextView
+				            	android:id="@+id/editText1"
+				                android:layout_width="wrap_content"
+				                android:layout_height="wrap_content"
+				                android:ems="10"
+				                android:text="Eva Menendez"
+				                android:textAppearance="?android:attr/textAppearanceSmall"
+				                android:textColor="@color/white"
+				                android:textSize="@dimen/newsArticleName" />
+				                    
+				            <TextView
+				                android:id="@+id/editText1"
+				                android:layout_width="wrap_content"
+				                android:layout_height="wrap_content"
+				                android:ems="10"
+				                android:text="Yesterday, 9:00 AM"
+				                android:textAppearance="?android:attr/textAppearanceSmall"
+				                android:textColor="@color/white"
+				                android:textSize="@dimen/newsTimeSize" />
+			      	
+			        </LinearLayout> 
+		        </LinearLayout> 
+		        <LinearLayout
+		        	android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal"
+		            android:layout_gravity="center_vertical"
+		            android:layout_alignParentRight="true" 
+		             >       
+		             
+		            	 <TextView
+		            	     android:id="@+id/editText19"
+		            	     android:layout_width="wrap_content"
+		            	     android:layout_height="wrap_content"
+		            	     android:gravity="right"  
+		            	     android:layout_gravity="center_vertical"
+		            	     android:layout_weight="1"
+		            	     android:ems="10"
+		            	     android:text="205"
+		            	     android:textAppearance="?android:attr/textAppearanceSmall"
+		            	     android:textColor="@color/white"
+		            	     android:textSize="@dimen/newsPointsSize" />
+
+			            <ImageView
+			                android:id="@+id/starView"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:layout_weight="1"
+			                android:src="@drawable/stardefault" />
+			            
+			            <ImageView
+			                android:id="@+id/flagView"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:layout_weight="1"
+			                android:src="@drawable/flagdefault" />
+		      	
+		        </LinearLayout> 
+	        </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

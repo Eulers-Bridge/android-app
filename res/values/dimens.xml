@@ -9,5 +9,6 @@
     <dimen name="newsArticleSize">16dp</dimen>
     <dimen name="newsTimeSize">14dp</dimen>
     <dimen name="newsArticleName">14dp</dimen>
+    <dimen name="newsPointsSize">15dp</dimen>
 
 </resources>

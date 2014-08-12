@@ -150,14 +150,14 @@ public class NewsFragment extends Fragment {
 	        view.setOnClickListener(new View.OnClickListener() {        
 	            @Override
 	            public void onClick(View view) {
-			    		FragmentManager fragmentManager2 = getFragmentManager();
+			    		FragmentManager fragmentManager2 = getChildFragmentManager();
 			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
 			    		NewsArticleFragment fragment2 = new NewsArticleFragment();
 			    		Bundle args = new Bundle();
 			    		//args.putString("Album", (String) textViewArticle.getText());
 			    		fragment2.setArguments(args);
 			    		fragmentTransaction2.addToBackStack(null);
-			    		fragmentTransaction2.add(android.R.id.content, fragment2);
+			    		fragmentTransaction2.replace(android.R.id.content, fragment2);
 			    		fragmentTransaction2.commit();
 	            }
 	         });
