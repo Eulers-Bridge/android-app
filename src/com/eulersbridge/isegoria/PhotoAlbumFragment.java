@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -81,7 +83,7 @@ public class PhotoAlbumFragment extends Fragment {
 			        String photoPath = "Photos/" + album + "/" + filename;
 			        Bitmap bitmap = decodeSampledBitmapFromBitmap(assetManager.open(photoPath), 150, 150);     
 			        
-			        addTableRow(bitmap);
+			        addTableRow(bitmap, photoPath);
 			    }
 			}
 		} catch (IOException e) {
@@ -89,7 +91,7 @@ public class PhotoAlbumFragment extends Fragment {
 		}
 	}
 
-	public void addTableRow(Bitmap bitmap) {
+	public void addTableRow(Bitmap bitmap, final String photoPath) {
 		photosPerRow = photosPerRow + 1;
 		if(photosPerRow == fitPerRow) {
 			photosPerRow = 0;
@@ -110,6 +112,21 @@ public class PhotoAlbumFragment extends Fragment {
 		view.setLayoutParams(new TableRow.LayoutParams(squareSize, squareSize));
 		view.setScaleType(ScaleType.CENTER_CROP);
         view.setImageBitmap(bitmap);
+        
+        view.setOnClickListener(new View.OnClickListener() {        
+            @Override
+            public void onClick(View view) {
+		    		FragmentManager fragmentManager2 = getFragmentManager();
+		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+		    		PhotoViewFragment fragment2 = new PhotoViewFragment();
+		    		Bundle args = new Bundle();
+		    		args.putString("PhotoName", (String) photoPath);
+		    		fragment2.setArguments(args);
+		    		fragmentTransaction2.addToBackStack(null);
+		    		fragmentTransaction2.add(android.R.id.content, fragment2);
+		    		fragmentTransaction2.commit();
+            }
+         });
 		
 		LinearLayout linearLayout = new LinearLayout(getActivity());
 		linearLayout.setOrientation(LinearLayout.VERTICAL);

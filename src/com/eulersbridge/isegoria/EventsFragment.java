@@ -48,7 +48,7 @@ public class EventsFragment extends Fragment {
 		newsTableLayout = (TableLayout) rootView.findViewById(R.id.eventsTableLayout);
 		
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
+        dpHeight = displayMetrics.heightPixels;  
 		
 		addTableRow(R.drawable.event0, false, "Barbeque", "Yesterday, 9:00 AM");
 		addTableRow(R.drawable.event1, false, "Barbeque", "Yesterday, 9:00 AM");
@@ -70,7 +70,7 @@ public class EventsFragment extends Fragment {
 		tr.setLayoutParams(rowParams);
 			
 		RelativeLayout relativeLayout = new RelativeLayout(getActivity());
-		relativeLayout.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(dpHeight / 2.3)));
+		relativeLayout.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(dpHeight / 3.5)));
 		((TableRow.LayoutParams) relativeLayout.getLayoutParams()).span = 2;
 		if(lastCell)
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 5);
@@ -79,7 +79,7 @@ public class EventsFragment extends Fragment {
 			
 		ImageView view = new ImageView(getActivity());
 		view.setColorFilter(Color.argb(125, 35, 35, 35));
-		view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(dpHeight / 2.3)));
+		view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(dpHeight / 3.5)));
 		view.setScaleType(ScaleType.CENTER_CROP);
 		view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable1, (int)(dpWidth/2), (int)(dpHeight/2)));
 	        
