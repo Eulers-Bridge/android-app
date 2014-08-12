@@ -157,9 +157,9 @@ public class PollVoteFragment extends android.support.v4.app.Fragment {
 		
 		ImageView view = new ImageView(getActivity());
 		//view.setColorFilter(Color.argb(125, 35, 35, 35));
-		view.setLayoutParams(new TableRow.LayoutParams(75, (int)(75)));
-		view.setScaleType(ScaleType.CENTER_CROP);
-        view.setImageResource(R.drawable.head1);
+		//view.setLayoutParams(new TableRow.LayoutParams(75, (int)(75)));
+		//view.setScaleType(ScaleType.CENTER_CROP);
+        view.setImageResource(R.drawable.tick);
 		
         tr.addView(view);
 		tr.addView(layout1);

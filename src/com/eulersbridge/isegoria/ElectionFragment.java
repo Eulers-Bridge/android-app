@@ -57,10 +57,17 @@ public class ElectionFragment extends Fragment {
 		ActionBar.TabListener tabListener = new ActionBar.TabListener() {
 		    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
 		    	if(tab.getText().equals("Election")) {
-		  
+		    		
 		    	}
 		    	else if(tab.getText().equals("Candidates")) {
-		  
+		    		FragmentManager fragmentManager2 = getFragmentManager();
+		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+		    		CandidateFragment fragment2 = new CandidateFragment();
+		    		Bundle args = new Bundle();
+		    		fragment2.setArguments(args);
+		    		fragmentTransaction2.addToBackStack(null);
+		    		fragmentTransaction2.replace(android.R.id.content, fragment2);
+		    		fragmentTransaction2.commit();
 		    	}		    	
 		    }
 		

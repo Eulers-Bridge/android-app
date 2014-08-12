@@ -4,19 +4,20 @@ import java.util.List;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 public class CandidatePagerAdapter extends FragmentPagerAdapter {
-	private List<SherlockFragment> fragments;
+	private List<Fragment> fragments;
 	
-	public CandidatePagerAdapter(FragmentManager fm, List<SherlockFragment> fragments) {
+	public CandidatePagerAdapter(FragmentManager fm, List<Fragment> fragments) {
 		super(fm);
 	    this.fragments = fragments;
 	}
 	
 	 @Override
-	 public SherlockFragment getItem(int position) {
+	 public Fragment getItem(int position) {
 		 return this.fragments.get(position);
 	 }
 	 
