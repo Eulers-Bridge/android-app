@@ -2,6 +2,7 @@ package com.eulersbridge.isegoria;
 
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -82,6 +83,21 @@ public class EventsFragment extends Fragment {
 		view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(dpHeight / 3.5)));
 		view.setScaleType(ScaleType.CENTER_CROP);
 		view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable1, (int)(dpWidth/2), (int)(dpHeight/2)));
+		
+		view.setOnClickListener(new View.OnClickListener() {        
+            @Override
+            public void onClick(View view) {
+		    		FragmentManager fragmentManager2 = getFragmentManager();
+		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+		    		EventsDetailFragment fragment2 = new EventsDetailFragment();
+		    		Bundle args = new Bundle();
+		    		args.putInt("ArticleImage", R.drawable.news0);
+		    		fragment2.setArguments(args);
+		    		fragmentTransaction2.addToBackStack(null);
+		    		fragmentTransaction2.add(android.R.id.content, fragment2);
+		    		fragmentTransaction2.commit();
+            }
+         });
 	        
 	    TextView textViewArticle = new TextView(getActivity());
 	    textViewArticle.setTextColor(Color.parseColor("#F8F8F8"));
