@@ -1,8 +1,8 @@
 package com.eulersbridge.isegoria;
 
-import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +34,7 @@ import android.widget.TextView;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ScaleDrawable;
 
-public class EventsDetailFragment extends Fragment {
+public class EventsDetailFragment extends SherlockFragment {
 	private View rootView;
 	private float dpWidth;
 	private float dpHeight;

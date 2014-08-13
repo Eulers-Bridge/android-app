@@ -3,7 +3,8 @@ package com.eulersbridge.isegoria;
 import java.io.IOException;
 import java.io.InputStream;
 
-import android.app.Fragment;
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,7 +22,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 
-public class PhotoViewFragment extends Fragment {
+public class PhotoViewFragment extends SherlockFragment {
 	private View rootView;
 	
 	private float dpWidth;

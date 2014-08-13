@@ -3,14 +3,16 @@ package com.eulersbridge.isegoria;
 import java.io.IOException;
 import java.io.InputStream;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import com.actionbarsherlock.app.SherlockFragment;
+
+
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,7 +25,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 
-public class PhotoAlbumFragment extends Fragment {
+public class PhotoAlbumFragment extends SherlockFragment {
 	private View rootView;
 	private TableLayout photosAlbumTableLayout;
 	private TableRow tr;

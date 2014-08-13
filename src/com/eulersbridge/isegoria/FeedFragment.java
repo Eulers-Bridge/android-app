@@ -1,7 +1,10 @@
 package com.eulersbridge.isegoria;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.ActionBar.TabListener;
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 
-public class FeedFragment extends android.support.v4.app.Fragment implements ActionBar.TabListener {
+public class FeedFragment extends android.support.v4.app.Fragment implements TabListener {
 	private View rootView;
 	private NewsFragment newsFragment = null;
 	private PhotosFragment photosFragment = null;
@@ -37,21 +40,21 @@ public class FeedFragment extends android.support.v4.app.Fragment implements Act
 		//rootView = inflater.inflate(R.layout.news_fragment, container, false);
 		fragmentManager = getFragmentManager();
 
-		getActivity().getActionBar().removeAllTabs();
-	    getActivity().getActionBar().addTab(
-	            getActivity().getActionBar().newTab()
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().removeAllTabs();
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().addTab(
+				((SherlockFragmentActivity) getActivity()).getSupportActionBar().newTab()
 	            .setText("News")
 	            .setTabListener(this));
-	    getActivity().getActionBar().addTab(
-	            getActivity().getActionBar().newTab()
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().addTab(
+				((SherlockFragmentActivity) getActivity()).getSupportActionBar().newTab()
 	            .setText("Photos")
 	            .setTabListener(this));
-	    getActivity().getActionBar().addTab(
-	            getActivity().getActionBar().newTab()
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().addTab(
+				((SherlockFragmentActivity) getActivity()).getSupportActionBar().newTab()
 	            .setText("Events")
 	            .setTabListener(this));
 	    
-		ActionBar bar = getActivity().getActionBar();
+		ActionBar bar = ((SherlockFragmentActivity) getActivity()).getSupportActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3C7EC9")));
 		bar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
 		bar.setSplitBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
@@ -60,7 +63,7 @@ public class FeedFragment extends android.support.v4.app.Fragment implements Act
 	}
 	
     @Override
-    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
     	if(tab.getText().equals("News")) {
     		ft.replace(R.id.content_frame, newsFragment);
     	}
@@ -73,11 +76,11 @@ public class FeedFragment extends android.support.v4.app.Fragment implements Act
     }
 	
     @Override
-    public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
     }
 
     @Override
-    public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     	if(tab.getText().equals("News")) {
     		ft.remove(newsFragment);
     	}

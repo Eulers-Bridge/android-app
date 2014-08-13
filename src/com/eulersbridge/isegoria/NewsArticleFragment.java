@@ -1,8 +1,10 @@
 package com.eulersbridge.isegoria;
 
-import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +36,7 @@ import android.widget.TextView;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ScaleDrawable;
 
-public class NewsArticleFragment extends Fragment {
+public class NewsArticleFragment extends SherlockFragment {
 	private View rootView;
 	private float dpWidth;
 	private float dpHeight;
@@ -46,8 +48,8 @@ public class NewsArticleFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.news_article_fragment, container, false);
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		getActivity().getActionBar().removeAllTabs();
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().removeAllTabs();
 		Bundle bundle = this.getArguments();
 		int backgroundDrawableResource = bundle.getInt("ArticleImage");
 
