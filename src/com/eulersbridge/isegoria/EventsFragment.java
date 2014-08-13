@@ -1,6 +1,8 @@
 package com.eulersbridge.isegoria;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -45,6 +47,7 @@ public class EventsFragment extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+		//((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		rootView = inflater.inflate(R.layout.events_fragment, container, false);
 		newsTableLayout = (TableLayout) rootView.findViewById(R.id.eventsTableLayout);
 		

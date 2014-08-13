@@ -6,6 +6,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -13,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -37,16 +42,14 @@ public class CandidateTicketFragment extends SherlockFragment {
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
         
-        addTableRow(R.drawable.photo0, R.drawable.photo1, true, false, "President", "Secretary");
-        addTableRow(R.drawable.photo2, R.drawable.photo3, true, false, "Women's Officer", "LGBT Officer");
-        addTableRow(R.drawable.photo4, R.drawable.photo5, true, false, "Clubs and Societies", "Environment Officer");
-        addTableRow(R.drawable.photo6, R.drawable.photo7, true, false, "Welfare Officer", "Creative Arts Officer");
-        addTableRow(R.drawable.photo8, R.drawable.photo9, true, false, "Faculty Liaison", "");
+        addTableRow("#78BB88", "#697AB2", true, false, "Green Students", "Liberty", "1240 supporters", "1240 supporters");
+        addTableRow("#D0A86A", "#C15650", true, false, "STAR", "Young Labor", "1240 supporters", "1240 supporters");
+        addTableRow("#7A7981", "#53589A", true, true, "Young Liberal", "Socialist Alternative", "1240 supporters", "1240 supporters");
         
 		return rootView;
 	}
 	
-	public void addTableRow(int drawable1, int drawable2, boolean doubleCell, boolean lastCell, String title1, String title2) {
+	public void addTableRow(String colour1, String colour2, boolean doubleCell, boolean lastCell, String title1, String title2, String supporters1, String supporters2) {
 		TableRow tr;
 		
 		if(doubleCell) {
@@ -62,27 +65,42 @@ public class CandidateTicketFragment extends SherlockFragment {
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 0);
 
 	        TextView textViewTitle = new TextView(getActivity());
-	        textViewTitle.setTextColor(Color.parseColor("#F8F8F8"));
+	        textViewTitle.setTextColor(Color.parseColor("#3A3F43"));
 	        textViewTitle.setTextSize(16.0f);
 	        textViewTitle.setText(title1);
 	        textViewTitle.setPadding(10, 0, 10, 0);
 	        textViewTitle.setGravity(Gravity.CENTER);
 	        
+	        TextView textViewTitleSuport1 = new TextView(getActivity());
+	        textViewTitleSuport1.setTextColor(Color.parseColor(colour1));
+	        textViewTitleSuport1.setTextSize(16.0f);
+	        textViewTitleSuport1.setText(supporters1);
+	        textViewTitleSuport1.setPadding(10, 0, 10, 0);
+	        textViewTitleSuport1.setGravity(Gravity.CENTER);
+	        
 	        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);  
 	        params1.addRule(RelativeLayout.CENTER_HORIZONTAL, textViewTitle.getId());
 	        params1.addRule(RelativeLayout.CENTER_VERTICAL, textViewTitle.getId());
-	        
-	        RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);  
-	        params2.addRule(RelativeLayout.CENTER_HORIZONTAL, textViewTitle.getId());
-	        params2.addRule(RelativeLayout.CENTER_VERTICAL, textViewTitle.getId());
 			
-			ImageView view = new ImageView(getActivity());
-			view.setColorFilter(Color.argb(125, 35, 35, 35));
+	        RectShape rect = new RectShape();
+	        ShapeDrawable rectShapeDrawable = new ShapeDrawable(rect);
+	        Paint paint = rectShapeDrawable.getPaint();
+	        paint.setColor(Color.parseColor(colour1));
+	        paint.setStyle(Style.STROKE);
+	        paint.setStrokeWidth(5);	        
+	        
+			View view = new View(getActivity());
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-			view.setScaleType(ScaleType.CENTER_CROP);
-	        view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable1, 100, 100));
+			view.setBackgroundDrawable(rectShapeDrawable);
+
+	        LinearLayout linLayout = new LinearLayout(getActivity());
+	        linLayout.setOrientation(LinearLayout.VERTICAL);
+	        LayoutParams linLayoutParam = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT); 
+	        linLayout.addView(textViewTitle);
+	        linLayout.addView(textViewTitleSuport1);
+			
 	        relativeLayout.addView(view);
-	        relativeLayout.addView(textViewTitle, params1);
+	        relativeLayout.addView(linLayout, params1);
 	        tr.addView(relativeLayout);
 	        
 			relativeLayout = new RelativeLayout(getActivity());
@@ -93,27 +111,41 @@ public class CandidateTicketFragment extends SherlockFragment {
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(0, 5, 5, 0);
 			
 	        textViewTitle = new TextView(getActivity());
-	        textViewTitle.setTextColor(Color.parseColor("#F8F8F8"));
+	        textViewTitle.setTextColor(Color.parseColor("#3A3F43"));
 	        textViewTitle.setTextSize(16.0f);
 	        textViewTitle.setText(title2);
 	        textViewTitle.setPadding(10, 0, 10, 0);
 	        textViewTitle.setGravity(Gravity.CENTER);
 	        
+	        TextView textViewTitleSuport2 = new TextView(getActivity());
+	        textViewTitleSuport2.setTextColor(Color.parseColor(colour2));
+	        textViewTitleSuport2.setTextSize(16.0f);
+	        textViewTitleSuport2.setText(supporters1);
+	        textViewTitleSuport2.setPadding(10, 0, 10, 0);
+	        textViewTitleSuport2.setGravity(Gravity.CENTER);
+	        
 	        params1 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);  
 	        params1.addRule(RelativeLayout.CENTER_HORIZONTAL, textViewTitle.getId());
 	        params1.addRule(RelativeLayout.CENTER_VERTICAL, textViewTitle.getId());
-	        
-	        params2 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);  
-	        params2.addRule(RelativeLayout.CENTER_HORIZONTAL, textViewTitle.getId());
-	        params2.addRule(RelativeLayout.CENTER_VERTICAL, textViewTitle.getId());
 			
-			view = new ImageView(getActivity());
-			view.setColorFilter(Color.argb(125, 35, 35, 35));
+	        RectShape rect2 = new RectShape();
+	        ShapeDrawable rect2ShapeDrawable = new ShapeDrawable(rect2);
+	        Paint paint2 = rect2ShapeDrawable.getPaint();
+	        paint2.setColor(Color.parseColor(colour2));
+	        paint2.setStyle(Style.STROKE);
+	        paint2.setStrokeWidth(5);
+	        
+	        linLayout = new LinearLayout(getActivity());
+	        linLayout.setOrientation(LinearLayout.VERTICAL);
+	        linLayoutParam = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT); 
+	        linLayout.addView(textViewTitle);
+	        linLayout.addView(textViewTitleSuport2);
+	        
+			view = new View(getActivity());
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-			view.setScaleType(ScaleType.CENTER_CROP);
-	        view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable2, 100, 100));
+			view.setBackgroundDrawable(rect2ShapeDrawable);
 	        relativeLayout.addView(view);
-	        relativeLayout.addView(textViewTitle, params1);
+	        relativeLayout.addView(linLayout, params1);
 	        tr.addView(relativeLayout);
 	        
 	        positionsTableLayout.addView(tr);
@@ -131,12 +163,9 @@ public class CandidateTicketFragment extends SherlockFragment {
 			else
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 0);
 			
-			ImageView view = new ImageView(getActivity());
-			view.setColorFilter(Color.argb(125, 35, 35, 35));
+			View view = new View(getActivity());
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(dpHeight / 2.3)));
-			view.setScaleType(ScaleType.CENTER_CROP);
-	        view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable1, 100, 100));
-	        
+
 	        TextView textViewTitle = new TextView(getActivity());
 	        textViewTitle.setTextColor(Color.parseColor("#F8F8F8"));
 	        textViewTitle.setTextSize(20.0f);
