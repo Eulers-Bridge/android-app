@@ -15,10 +15,11 @@ import com.actionbarsherlock.app.SherlockListFragment;
 public class SlidingMenuItems extends ListFragment {
 	
 	Fragment feedFragment = new FeedFragment();
-	Fragment electionFragment = new ElectionFragment();
+	Fragment electionFragment = new ElectionMasterFragment();
 	Fragment pollFragment = new PollFragment();
 	Fragment voteFragment = new VoteFragment();
 	Fragment profileFragment = new ProfileFragment();
+	Fragment userSettingsFragment = new UserSettingsFragment();
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +53,9 @@ public class SlidingMenuItems extends ListFragment {
 			break;
 		case 4:
 			newContent = profileFragment;
+			break;
+		case 5:
+			newContent = userSettingsFragment;
 			break;
 		}
 		if (newContent != null)

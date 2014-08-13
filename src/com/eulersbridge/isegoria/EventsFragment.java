@@ -91,7 +91,7 @@ public class EventsFragment extends Fragment {
 		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
 		    		EventsDetailFragment fragment2 = new EventsDetailFragment();
 		    		Bundle args = new Bundle();
-		    		args.putInt("ArticleImage", R.drawable.news0);
+		    		args.putInt("EventImage", R.drawable.event0);
 		    		fragment2.setArguments(args);
 		    		fragmentTransaction2.addToBackStack(null);
 		    		fragmentTransaction2.add(android.R.id.content, fragment2);

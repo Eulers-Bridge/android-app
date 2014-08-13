@@ -15,25 +15,24 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
-public class ProfileFragment extends Fragment {
+public class UserSettingsFragment extends Fragment {
 	private View rootView;
 	
 	private float dpWidth;
 	private float dpHeight;
 	
-	public ProfileFragment() {
+	public UserSettingsFragment() {
 
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-		rootView = inflater.inflate(R.layout.profile_fragment, container, false);
+		rootView = inflater.inflate(R.layout.user_settings_fragment, container, false);
 		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		getActivity().getActionBar().removeAllTabs();
 

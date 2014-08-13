@@ -1,29 +1,24 @@
 package com.eulersbridge.isegoria;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Vector;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import com.viewpagerindicator.TitlePageIndicator;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
+
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TabHost;
-import android.widget.TabHost.OnTabChangeListener;
-import android.widget.TabHost.TabSpec;
-import android.widget.TabWidget;
-import android.widget.TextView;
 
 public class ElectionFragment extends Fragment {
 	private View rootView;
@@ -51,46 +46,24 @@ public class ElectionFragment extends Fragment {
 		
 		TabPageIndicator tabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.tabPageIndicator);
 		tabPageIndicator.setViewPager(mViewPager);
-		
 		tabPageIndicator.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
-		
-		ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-		    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
-		    	if(tab.getText().equals("Election")) {
-		    		
-		    	}
-		    	else if(tab.getText().equals("Candidates")) {
-		    		FragmentManager fragmentManager2 = getFragmentManager();
-		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-		    		CandidateFragment fragment2 = new CandidateFragment();
-		    		Bundle args = new Bundle();
-		    		fragment2.setArguments(args);
-		    		fragmentTransaction2.addToBackStack(null);
-		    		fragmentTransaction2.replace(android.R.id.content, fragment2);
-		    		fragmentTransaction2.commit();
-		    	}		    	
-		    }
-		
-		    public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-	
-		    }
-		
-		    public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-	
-		    }
-		};
-		
-		getActivity().getActionBar().removeAllTabs();
-	    getActivity().getActionBar().addTab(
-	            getActivity().getActionBar().newTab()
-	            .setText("Election")
-	            .setTabListener(tabListener));
-	    getActivity().getActionBar().addTab(
-	            getActivity().getActionBar().newTab()
-	            .setText("Candidates")
-	            .setTabListener(tabListener));
-	    
+
 		return rootView;
+	}
+	
+	public void onDetach() {
+	    super.onDetach();
+
+	    try {
+	        Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+	        childFragmentManager.setAccessible(true);
+	        childFragmentManager.set(this, null);
+
+	    } catch (NoSuchFieldException e) {
+	        throw new RuntimeException(e);
+	    } catch (IllegalAccessException e) {
+	        throw new RuntimeException(e);
+	    }
 	}
 	
 	@Override

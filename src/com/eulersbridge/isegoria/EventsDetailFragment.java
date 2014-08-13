@@ -49,7 +49,7 @@ public class EventsDetailFragment extends Fragment {
 		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		getActivity().getActionBar().removeAllTabs();
 		Bundle bundle = this.getArguments();
-		int backgroundDrawableResource = bundle.getInt("ArticleImage");
+		int backgroundDrawableResource = bundle.getInt("EventImage");
 
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
@@ -63,25 +63,9 @@ public class EventsDetailFragment extends Fragment {
 		d.setColorFilter(Color.argb(125, 35, 35, 35), Mode.DARKEN);
 		backgroundLinearLayout.setBackgroundDrawable(d);
 		
-		TextView newsText = (TextView) rootView.findViewById(R.id.textNews);
-		newsText.setText("A Fairfax/Nielsen poll, the first since the September 7 election, showed the opposition with a 52-48 per cent lead over the government.\n\nThat's the quickest poll lead achieved by any federal opposition after losing an election.");
-		
-		final ImageView flagView = (ImageView) rootView.findViewById(R.id.flagView);
-		flagView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				flagView.setImageResource(R.drawable.flag);
-			}
-		});
+		TextView eventsText = (TextView) rootView.findViewById(R.id.eventDetails);
+		eventsText.setText("LOCATION: The University of Melbourne\nTIME: 10:10\nDESC: This is an event that wo;; be happening an the University quite soon. There's going t obe all sorts of free things and good times. You may even learn something about the subject of the event. Perhaps something to do with voting? Or maybe it's just a BBQ.\n\n Want to VOLUNTEER?");
 
-		final ImageView starView = (ImageView) rootView.findViewById(R.id.starView);
-		flagView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				starView.setImageResource(R.drawable.star);
-			}
-		});
-		
 		return rootView;
 	}
 

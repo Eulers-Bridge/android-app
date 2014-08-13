@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Labor pulls ahead in Nielson poll"
+            android:text="Barbeque"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white" />
 		</LinearLayout>
@@ -67,49 +67,25 @@
 	            <LinearLayout
 		        	android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-		            android:orientation="horizontal"
+		            android:orientation="vertical"
 		            android:layout_alignParentLeft="true" 
-		            android:gravity="bottom"
-		             >  
-		             
-		             <ImageView
-		            	    android:id="@+id/newsArticleHeadView"
-		            	    android:layout_width="wrap_content"
-		            	    android:layout_height="wrap_content"
-		            	    android:layout_gravity="center_vertical"
-		            	    android:layout_weight="1"
-		            	    android:paddingRight="5dp"
-		            	    android:src="@drawable/head1" />
-		             
-			        <LinearLayout
-			        	android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:orientation="vertical"
-			            android:gravity="bottom"
-			            android:layout_gravity="center_vertical"
-			             >       
-			                         	               
-				            <TextView
-				            	android:id="@+id/editText1"
-				                android:layout_width="wrap_content"
-				                android:layout_height="wrap_content"
-				                android:ems="10"
-				                android:text="Eva Menendez"
-				                android:textAppearance="?android:attr/textAppearanceSmall"
-				                android:textColor="@color/white"
-				                android:textSize="@dimen/newsArticleName" />
-				                    
-				            <TextView
-				                android:id="@+id/editText1"
-				                android:layout_width="wrap_content"
-				                android:layout_height="wrap_content"
-				                android:ems="10"
-				                android:text="Yesterday, 9:00 AM"
-				                android:textAppearance="?android:attr/textAppearanceSmall"
-				                android:textColor="@color/white"
-				                android:textSize="@dimen/newsTimeSize" />
-			      	
-			        </LinearLayout> 
+		            android:layout_gravity="center_vertical"
+		             >
+
+   				<TextView
+   				    android:id="@+id/eventTime"
+   				    android:layout_width="wrap_content"
+   				    android:layout_height="fill_parent"
+   				    android:layout_gravity="center_vertical"
+   				    android:layout_weight="1"
+   				    android:ems="10"
+   				    android:gravity="center_vertical"
+   				    android:minHeight="48dp"
+   				    android:text="Yesterday, 9:00 AM"
+   				    android:textAppearance="?android:attr/textAppearanceSmall"
+   				    android:textColor="@color/white"
+   				    android:textSize="@dimen/newsTimeSize" />
+
 		        </LinearLayout> 
 		        <LinearLayout
 		        	android:layout_width="wrap_content"
@@ -118,54 +94,70 @@
 		            android:layout_gravity="center_vertical"
 		            android:layout_alignParentRight="true" 
 		             >       
-		             
-		            	 <TextView
-		            	     android:id="@+id/editText19"
+
+		            	 <Button
+		            	     android:id="@+id/button1"
+		            	     style="?android:attr/buttonStyleSmall"
 		            	     android:layout_width="wrap_content"
 		            	     android:layout_height="wrap_content"
-		            	     android:gravity="right"  
 		            	     android:layout_gravity="center_vertical"
 		            	     android:layout_weight="1"
-		            	     android:ems="10"
-		            	     android:text="205"
-		            	     android:textAppearance="?android:attr/textAppearanceSmall"
-		            	     android:textColor="@color/white"
-		            	     android:textSize="@dimen/newsPointsSize" />
+		            	     android:gravity="center_vertical"
+		            	     android:text="Add to Calendar"
+		            	     android:textColor="@color/white" />
 
-			            <ImageView
-			                android:id="@+id/starView"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:layout_weight="1"
-			                android:src="@drawable/stardefault" />
-			            
-			            <ImageView
-			                android:id="@+id/flagView"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:layout_weight="1"
-			                android:src="@drawable/flagdefault" />
-		      	
 		        </LinearLayout> 
 	        </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
+    
+    <LinearLayout
+    	android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        <TextView
+            android:id="@+id/eventLocationLine1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:paddingLeft="10dp"
+            android:text="Public Lecture Theatre"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            android:textSize="@dimen/eventLocationSize" />
+'
+			
+        <TextView
+			android:id="@+id/eventLocationLine2"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:paddingTop="3dp"
+			android:paddingLeft="10dp"
+			android:paddingBottom="3dp"
+			android:ems="10"
+			android:text="The University of Melbourne, Victoria 3010"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="@color/black"
+			android:textSize="@dimen/newsTimeSize" />
+        
+       	 <View
+	     	android:layout_width="fill_parent"
+	        android:layout_height="1dip"
+	        android:paddingTop="3dp"
+	        android:background="#676475" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/textNews"
+        android:id="@+id/eventDetails"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp"
         android:textSize="@dimen/newsArticleSize" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-    </LinearLayout>
-
 </LinearLayout>

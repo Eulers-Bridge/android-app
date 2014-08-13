@@ -10,5 +10,6 @@
     <dimen name="newsTimeSize">14dp</dimen>
     <dimen name="newsArticleName">14dp</dimen>
     <dimen name="newsPointsSize">15dp</dimen>
+    <dimen name="eventLocationSize">16dp</dimen>
 
 </resources>

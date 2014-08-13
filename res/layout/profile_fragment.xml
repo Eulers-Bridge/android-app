@@ -162,10 +162,10 @@
         android:orientation="vertical" >
         	
 	     <RelativeLayout
-		    android:id="@+id/relativeLayout" 
-		    android:layout_width="fill_parent" 
-		    android:layout_height="fill_parent"
-		 >
+	         android:id="@+id/relativeLayout"
+	         android:layout_width="fill_parent"
+	         android:layout_height="fill_parent"
+	         android:background="@color/offGrey" >
 
 		    <TextView
 		        android:id="@+id/mytextview1"
@@ -192,14 +192,15 @@
 		        android:layout_height="1dip"
 		        android:layout_alignLeft="@+id/mytextview1"
 		        android:layout_below="@+id/mytextview1"
-		        android:background="#676475" />
+		        android:background="@color/offGrey" />
 
 		</RelativeLayout>
+
 		<RelativeLayout
-		    android:id="@+id/relativeLayout" 
-		    android:layout_width="fill_parent" 
+		    android:id="@+id/relativeLayout"
+		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
-		 >
+		    android:background="@color/offGrey" >
 
 		    <TextView
 		        android:id="@+id/mytextview1"
@@ -226,7 +227,7 @@
 		        android:layout_height="1dip"
 		        android:layout_alignLeft="@+id/mytextview1"
 		        android:layout_below="@+id/mytextview1"
-		        android:background="#676475" />
+		        android:background="@color/offGrey" />
 
 		</RelativeLayout>
     </LinearLayout>
