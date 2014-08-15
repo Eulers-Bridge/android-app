@@ -10,7 +10,8 @@
 	      android:layout_height="wrap_content"
 	      android:layout_alignParentBottom="true"
 	      android:layout_gravity="center_vertical"
-	      android:background="@color/offGrey" >
+	      android:background="@color/offGrey"
+	      android:paddingBottom="3dp" >
 
 	      <TextView
 	          android:id="@+id/textView1"
@@ -30,7 +31,10 @@
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:layout_alignParentRight="true"
-	          android:text="Post" />
+	          android:layout_margin="3dp"
+	          android:background="@drawable/green_button"
+	          android:text="Post"
+	          android:textColor="#52BB42" />
 
 	  </RelativeLayout>
     

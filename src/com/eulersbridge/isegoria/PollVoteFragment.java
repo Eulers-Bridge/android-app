@@ -123,7 +123,6 @@ public class PollVoteFragment extends android.support.v4.app.Fragment {
 		pb.setProgress(50);
 		pb.setMax(100);
 		pb.getProgressDrawable().setColorFilter(Color.parseColor(color), Mode.SRC_IN);
-
 		
 		LinearLayout layout1 = new LinearLayout(getActivity());
 		layout1.setOrientation(LinearLayout.VERTICAL);
@@ -134,14 +133,14 @@ public class PollVoteFragment extends android.support.v4.app.Fragment {
 		
         TextView textViewParty = new TextView(getActivity());
         textViewParty.setSingleLine(false);
-        textViewParty.setTextColor(Color.parseColor(color));
-        textViewParty.setTextSize(18.0f);
+        textViewParty.setTextColor(Color.parseColor("#000000"));
+        textViewParty.setTextSize(16.0f);
         textViewParty.setText(party);
         textViewParty.setGravity(Gravity.RIGHT);
         
         TextView textViewVotes = new TextView(getActivity());
-        textViewVotes.setTextColor(Color.parseColor(color));
-        textViewVotes.setTextSize(18.0f);
+        textViewVotes.setTextColor(Color.parseColor("#000000"));
+        textViewVotes.setTextSize(16.0f);
         DecimalFormat formatter = new DecimalFormat("#,###");
         textViewVotes.setText(formatter.format(votes));
         textViewVotes.setPadding(0, 0, 0, 0);
@@ -156,9 +155,8 @@ public class PollVoteFragment extends android.support.v4.app.Fragment {
 		layout1.addView(layout2, params1);
 		
 		ImageView view = new ImageView(getActivity());
-		//view.setColorFilter(Color.argb(125, 35, 35, 35));
-		//view.setLayoutParams(new TableRow.LayoutParams(75, (int)(75)));
-		//view.setScaleType(ScaleType.CENTER_CROP);
+		view.setLayoutParams(new TableRow.LayoutParams(40, (int)(40)));
+		view.setScaleType(ScaleType.CENTER_INSIDE);
         view.setImageResource(R.drawable.tick);
 		
         tr.addView(view);
@@ -179,7 +177,6 @@ public class PollVoteFragment extends android.support.v4.app.Fragment {
 		tr.setLayoutParams(rowParams);
 		
 		ImageView view = new ImageView(getActivity());
-		//view.setColorFilter(Color.argb(125, 35, 35, 35));
 		view.setLayoutParams(new TableRow.LayoutParams(75, (int)(75)));
 		view.setScaleType(ScaleType.CENTER_CROP);
         view.setImageResource(R.drawable.head1);

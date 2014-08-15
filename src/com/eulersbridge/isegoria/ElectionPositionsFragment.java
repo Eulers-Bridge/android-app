@@ -80,7 +80,7 @@ public class ElectionPositionsFragment extends SherlockFragment {
 			view.setColorFilter(Color.argb(125, 35, 35, 35));
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 			view.setScaleType(ScaleType.CENTER_CROP);
-	        view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable1, 100, 100));
+	        view.setImageBitmap(decodeSampledBitmapFromResource(getResources(), drawable1, 100, 100));
 	        relativeLayout.addView(view);
 	        relativeLayout.addView(textViewTitle, params1);
 	        tr.addView(relativeLayout);

@@ -97,12 +97,14 @@
 
 		            	 <Button
 		            	     android:id="@+id/button1"
-		            	     style="?android:attr/buttonStyleSmall"
 		            	     android:layout_width="wrap_content"
 		            	     android:layout_height="wrap_content"
 		            	     android:layout_gravity="center_vertical"
+		            	     android:layout_marginRight="10dp"
 		            	     android:layout_weight="1"
+		            	     android:background="@drawable/white_button"
 		            	     android:gravity="center_vertical"
+		            	     android:paddingRight="10dp"
 		            	     android:text="Add to Calendar"
 		            	     android:textColor="@color/white" />
 
