@@ -48,6 +48,9 @@ public class SlidingArrayAdapter extends ArrayAdapter {
         else if(position == 4) {
         	imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.profileblue));
         }   
+        else if(position == 5) {
+        	imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.settings));
+        }   
         return currentView;
     }
 }
