@@ -38,7 +38,7 @@ public class CandidateFragment extends Fragment {
 		getActivity().getActionBar().setSelectedNavigationItem(1);
 		
 		List<Fragment> fragments = new Vector<Fragment>();
-        fragments.add(Fragment.instantiate(getActivity(), ElectionPositionsFragment.class.getName()));
+        fragments.add(Fragment.instantiate(getActivity(), CandidatePositionsFragment.class.getName()));
         fragments.add(Fragment.instantiate(getActivity(), CandidateTicketFragment.class.getName()));
         fragments.add(Fragment.instantiate(getActivity(), CandidateAllFragment.class.getName()));
 
