@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -81,6 +83,19 @@ public class ElectionPositionsFragment extends SherlockFragment {
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 			view.setScaleType(ScaleType.CENTER_CROP);
 	        view.setImageBitmap(decodeSampledBitmapFromResource(getResources(), drawable1, 100, 100));
+	        view.setOnClickListener(new View.OnClickListener() {        
+	            @Override
+	            public void onClick(View view) {
+			    		FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+			    		ElectionPositionFragment fragment2 = new ElectionPositionFragment();
+			    		Bundle args = new Bundle();
+			    		fragment2.setArguments(args);
+			    		fragmentTransaction2.addToBackStack(null);
+			    		fragmentTransaction2.replace(R.id.content_frame, fragment2);
+			    		fragmentTransaction2.commit();
+	            }
+	         });
 	        relativeLayout.addView(view);
 	        relativeLayout.addView(textViewTitle, params1);
 	        tr.addView(relativeLayout);
