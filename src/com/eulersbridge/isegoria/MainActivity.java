@@ -26,6 +26,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends BaseActivity {
@@ -58,6 +59,18 @@ public class MainActivity extends BaseActivity {
 		setSlidingActionBarEnabled(true);
 		
 		switchContent(new LoginScreenFragment());
+	}
+	
+	public void signupClicked(View view) {
+		switchContent(new UserSignupFragment());
+	}
+	
+	public void userSignupNext(View view) {
+		switchContent(new UserConsentAgreementFragment());
+	}
+	
+	public void userConsentNext(View view) {
+		switchContent(new FeedFragment());
 	}
 	
 	@Override

@@ -24,7 +24,7 @@ public class LoginScreenFragment extends android.support.v4.app.Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-		rootView = inflater.inflate(R.layout.login_screen, container, false);
+		rootView = inflater.inflate(R.layout.user_login_screen_fragment, container, false);
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
 		
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
