@@ -12,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -85,6 +87,20 @@ public class CandidateTicketDetailFragment extends SherlockFragment {
 		candidateProfileImage.setScaleType(ScaleType.CENTER_CROP);
 		candidateProfileImage.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.profilelight, 80, 80));
 		candidateProfileImage.setPadding(10, 0, 10, 0);
+		
+		candidateProfileImage.setOnClickListener(new View.OnClickListener() {        
+            @Override
+            public void onClick(View view) {
+		    		FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+		    		ProfileSimpleFragment fragment2 = new ProfileSimpleFragment();
+		    		Bundle args = new Bundle();
+		    		fragment2.setArguments(args);
+		    		fragmentTransaction2.addToBackStack(null);
+		    		fragmentTransaction2.replace(R.id.content_frame, fragment2);
+		    		fragmentTransaction2.commit();
+            }
+         });
 		
         TextView textViewParty = new TextView(getActivity());
         textViewParty.setTextColor(Color.parseColor("#FFFFFF"));
