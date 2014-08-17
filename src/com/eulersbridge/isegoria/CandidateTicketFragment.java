@@ -11,6 +11,8 @@ import android.graphics.Paint.Style;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -92,6 +94,19 @@ public class CandidateTicketFragment extends SherlockFragment {
 			View view = new View(getActivity());
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 			view.setBackgroundDrawable(rectShapeDrawable);
+	        view.setOnClickListener(new View.OnClickListener() {        
+	            @Override
+	            public void onClick(View view) {
+			    		FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+			    		CandidateTicketDetailFragment fragment2 = new CandidateTicketDetailFragment();
+			    		Bundle args = new Bundle();
+			    		fragment2.setArguments(args);
+			    		fragmentTransaction2.addToBackStack(null);
+			    		fragmentTransaction2.replace(R.id.content_frame, fragment2);
+			    		fragmentTransaction2.commit();
+	            }
+	         });
 
 	        LinearLayout linLayout = new LinearLayout(getActivity());
 	        linLayout.setOrientation(LinearLayout.VERTICAL);
@@ -144,6 +159,20 @@ public class CandidateTicketFragment extends SherlockFragment {
 			view = new View(getActivity());
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 			view.setBackgroundDrawable(rect2ShapeDrawable);
+	        view.setOnClickListener(new View.OnClickListener() {        
+	            @Override
+	            public void onClick(View view) {
+			    		FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+			    		CandidateTicketDetailFragment fragment2 = new CandidateTicketDetailFragment();
+			    		Bundle args = new Bundle();
+			    		fragment2.setArguments(args);
+			    		fragmentTransaction2.addToBackStack(null);
+			    		fragmentTransaction2.replace(R.id.content_frame, fragment2);
+			    		fragmentTransaction2.commit();
+	            }
+	         });
+	        
 	        relativeLayout.addView(view);
 	        relativeLayout.addView(linLayout, params1);
 	        tr.addView(relativeLayout);
