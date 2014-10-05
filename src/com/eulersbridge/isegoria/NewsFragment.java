@@ -3,6 +3,7 @@ package com.eulersbridge.isegoria;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import android.app.Application;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,7 +41,7 @@ public class NewsFragment extends SherlockFragment {
 	private float dpHeight;
 	
 	public NewsFragment() {
-	
+
 	}
 
 	@Override
@@ -51,8 +52,12 @@ public class NewsFragment extends SherlockFragment {
 		
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
-		
-		addTableRow(R.drawable.news0, -1, false, false, "Labor pulls ahead in Nielson poll", "Yesterday, 9:00 AM", "", "");
+        
+        MainActivity mainActivity = (MainActivity) getActivity();
+        Network network = mainActivity.getIsegoriaApplication().getNetwork();
+        network.getNewsArticles(this);
+        
+/*		addTableRow(R.drawable.news0, -1, false, false, "Labor pulls ahead in Nielson poll", "Yesterday, 9:00 AM", "", "");
 		addTableRow(R.drawable.news1, R.drawable.news2, true, false, "MELBOURNE RANKED #1 IN STUDENT VOTING", "Friday, 1:00 PM", "NEW BALLOT BOXES OPEN", "Friday, 1:00 PM");
 		addTableRow(R.drawable.news3, -1, false, false, "ANON PROTEST ON CAMPUS", "Wednesday, 2:00 PM", "", "");
 		addTableRow(R.drawable.news4, R.drawable.news5, true, false, "Fem Protest", "Wednesday, 2:00 PM", "UNI FUNDING CUTS", "Friday, 1:00 PM");
@@ -61,7 +66,7 @@ public class NewsFragment extends SherlockFragment {
 		addTableRow(R.drawable.news9, -1, false, false, "UNIMELB IS NOW SMOKE FREE", "Wednesday, 2:00 PM", "", "");
 		addTableRow(R.drawable.news10, R.drawable.news11, true, false, "MORE ACTIVITIES TO CHANGE PREFERENCES", "Wednesday, 2:00 PM", "It's Good to Be White...", "Friday, 1:00 PM");
 		addTableRow(R.drawable.news12, -1, false, false, "MURDOCH TO BE DEMOLISHED", "Wednesday, 2:00 PM", "", "");
-		addTableRow(R.drawable.news13, R.drawable.news14, true, true, "EULERS BRIDGE INCREASES TURNOUT 400%", "Wednesday, 2:00 PM", "ELECTION DATE", "Friday, 1:00 PM");
+		addTableRow(R.drawable.news13, R.drawable.news14, true, true, "EULERS BRIDGE INCREASES TURNOUT 400%", "Wednesday, 2:00 PM", "ELECTION DATE", "Friday, 1:00 PM");*/
 
 		return rootView;
 	}

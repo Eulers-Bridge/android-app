@@ -165,16 +165,17 @@
 	         android:id="@+id/relativeLayout"
 	         android:layout_width="fill_parent"
 	         android:layout_height="fill_parent"
-	         android:background="@color/offGrey" >
+	         android:background="@color/barBackground" >
 
 		    <TextView
 		        android:id="@+id/mytextview1"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignParentLeft="true"
+		        android:paddingLeft="10dp"
+		        android:paddingRight="10dp"
 		        android:text="Badges"
-		        android:paddingLeft="10dp"
-		        android:paddingRight="10dp"
+		        android:textColor="@color/barText"
 		        android:textSize="@dimen/profileTextSizeLabel" />
 		
 		    <TextView
@@ -182,9 +183,10 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_alignParentRight="true"
+		        android:paddingLeft="10dp"
+		        android:paddingRight="10dp"
 		        android:text="Show All"
-		        android:paddingLeft="10dp"
-		        android:paddingRight="10dp"
+		        android:textColor="@color/white"
 		        android:textSize="@dimen/profileTextSizeLabel" />
 	
 		    <View
@@ -196,40 +198,42 @@
 
 		</RelativeLayout>
 
-		<RelativeLayout
-		    android:id="@+id/relativeLayout"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:background="@color/offGrey" >
+	     <RelativeLayout
+	         android:id="@+id/relativeLayout"
+	         android:layout_width="fill_parent"
+	         android:layout_height="fill_parent"
+	         android:background="@color/barBackground" >
 
-		    <TextView
-		        android:id="@+id/mytextview1"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentLeft="true"
-		        android:text="Tasks"
-		        android:paddingLeft="10dp"
-		        android:paddingRight="10dp"
-		        android:textSize="@dimen/profileTextSizeLabel" />
-		
-		    <TextView
-		        android:id="@+id/mytextview2"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentRight="true"
-		        android:text="Show Progress"
-		        android:paddingLeft="10dp"
-		        android:paddingRight="10dp"
-		        android:textSize="@dimen/profileTextSizeLabel" />
-	
-		    <View
-		        android:layout_width="wrap_content"
-		        android:layout_height="1dip"
-		        android:layout_alignLeft="@+id/mytextview1"
-		        android:layout_below="@+id/mytextview1"
-		        android:background="@color/offGrey" />
+	         <TextView
+	             android:id="@+id/mytextview1"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignParentLeft="true"
+	             android:paddingLeft="10dp"
+	             android:paddingRight="10dp"
+	             android:text="Tasks"
+	             android:textColor="@color/barText"
+	             android:textSize="@dimen/profileTextSizeLabel" />
 
-		</RelativeLayout>
+	         <TextView
+	             android:id="@+id/mytextview2"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignParentRight="true"
+	             android:paddingLeft="10dp"
+	             android:paddingRight="10dp"
+	             android:text="Show Progress"
+	             android:textColor="@color/white"
+	             android:textSize="@dimen/profileTextSizeLabel" />
+
+	         <View
+	             android:layout_width="wrap_content"
+	             android:layout_height="1dip"
+	             android:layout_alignLeft="@+id/mytextview1"
+	             android:layout_below="@+id/mytextview1"
+	             android:background="@color/offGrey" />
+	     </RelativeLayout>
+
     </LinearLayout>
 
 </LinearLayout>

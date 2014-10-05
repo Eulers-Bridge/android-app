@@ -10,7 +10,7 @@
 	      android:layout_height="wrap_content"
 	      android:layout_alignParentBottom="true"
 	      android:layout_gravity="center_vertical"
-	      android:background="@color/offGrey"
+	      android:background="@color/barBackground"
 	      android:paddingBottom="3dp" >
 
 	      <TextView
@@ -22,7 +22,7 @@
 	          android:layout_gravity="center_vertical"
 	          android:paddingLeft="10dp"
 	          android:text="Enter a comment"
-	          android:textColor="#000"
+	          android:textColor="@color/white"
 	          android:textSize="16sp" />
 
 	      <Button
@@ -32,9 +32,9 @@
 	          android:layout_height="wrap_content"
 	          android:layout_alignParentRight="true"
 	          android:layout_margin="3dp"
-	          android:background="@drawable/green_button"
+	          android:background="@color/greenButtonBackground"
 	          android:text="Post"
-	          android:textColor="#52BB42" />
+	          android:textColor="@color/white" />
 
 	  </RelativeLayout>
     

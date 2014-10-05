@@ -71,10 +71,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/offGrey"
+            android:background="@color/barBackground"
             android:ems="10"
             android:paddingLeft="5dp"
             android:text="Privacy Settings"
+            android:textColor="@color/barText"
             android:textSize="18dp" >
 
         </TextView>
@@ -137,14 +138,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/offGrey"
+            android:background="@color/barBackground"
             android:ems="10"
             android:paddingLeft="5dp"
             android:text="Credits"
+            android:textColor="@color/barText"
             android:textSize="18dp" >
 
         </TextView>
     
 	</LinearLayout>
+
+    <Switch
+        android:id="@+id/Switch01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text="About this App"
+        android:textSize="14sp" />
 
 </LinearLayout>

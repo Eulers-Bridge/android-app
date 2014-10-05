@@ -15,14 +15,13 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class BaseActivity extends SlidingFragmentActivity {
-	
 	private int mTitleRes;
 	protected SlidingMenuItems mFrag;
 	
 	public BaseActivity(int titleRes){
 		mTitleRes = titleRes;
 	}
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,7 +43,6 @@ public class BaseActivity extends SlidingFragmentActivity {
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setIcon(R.drawable.app_icon);
-
 	}
 	
 	@Override
