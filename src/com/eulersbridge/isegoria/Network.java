@@ -43,7 +43,7 @@ public class Network {
 		return networkResponse;
 	}
 
-	public void getNewsArticles(NewsFragment newsFragment) {
+	public void getNewsArticles(final NewsFragment newsFragment) {
 		this.newsFragment = newsFragment;
 
 		Runnable r = new Runnable() {
@@ -54,8 +54,18 @@ public class Network {
 					
 					for (int i=0; i<jArray.length(); i++) {
 						JSONObject currentArticle = jArray.getJSONObject(i);
+						int articleId = currentArticle.getInt("articleId");
+						int institutionId = currentArticle.getInt("institutionId");
+						String title = currentArticle.getString("title");
+						String content = currentArticle.getString("content");
+						String picture = null;
+						String likers = null;
+						long date = currentArticle.getLong("date");
+						String creatorEmail = currentArticle.getString("creatorEmail");
+						String studentYear = currentArticle.getString("studentYear");
+						String link = null;
 						
-						
+						newsFragment.addNewsArticle(articleId, institutionId, title, content, picture, likers, date, creatorEmail, studentYear, link);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

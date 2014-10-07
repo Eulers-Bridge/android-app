@@ -38,7 +38,7 @@ public class FeedFragment extends android.support.v4.app.Fragment implements Tab
 		this.container = container;
 		
 		//rootView = inflater.inflate(R.layout.news_fragment, container, false);
-		fragmentManager = getFragmentManager();
+		fragmentManager = getChildFragmentManager();
 
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().removeAllTabs();
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().addTab(

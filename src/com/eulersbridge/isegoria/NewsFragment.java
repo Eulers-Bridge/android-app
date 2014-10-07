@@ -1,6 +1,9 @@
 package com.eulersbridge.isegoria;
 
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import com.actionbarsherlock.app.SherlockFragment;
 
 import android.app.Application;
@@ -40,9 +43,23 @@ public class NewsFragment extends SherlockFragment {
 	private float dpWidth;
 	private float dpHeight;
 	
-	public NewsFragment() {
-
-	}
+	private NewsFragment newsFragment;
+	
+	private int[] drawables = new int[14];
+	private int drawableInt = 0;
+	
+	private int lastArticleId; 
+	private int lastInstitutionId; 
+	private String lastTitle;
+	private String lastContent; 
+	private String lastPicture; 
+	private String lastLikers;
+	private long lastDate;
+	private String lastCreatorEmail; 
+	private String lastStudentYear; 
+	private String lastLink;
+	
+	private boolean doubleCell = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
@@ -52,6 +69,7 @@ public class NewsFragment extends SherlockFragment {
 		
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
+        this.newsFragment = this;
         
         MainActivity mainActivity = (MainActivity) getActivity();
         Network network = mainActivity.getIsegoriaApplication().getNetwork();
@@ -67,8 +85,62 @@ public class NewsFragment extends SherlockFragment {
 		addTableRow(R.drawable.news10, R.drawable.news11, true, false, "MORE ACTIVITIES TO CHANGE PREFERENCES", "Wednesday, 2:00 PM", "It's Good to Be White...", "Friday, 1:00 PM");
 		addTableRow(R.drawable.news12, -1, false, false, "MURDOCH TO BE DEMOLISHED", "Wednesday, 2:00 PM", "", "");
 		addTableRow(R.drawable.news13, R.drawable.news14, true, true, "EULERS BRIDGE INCREASES TURNOUT 400%", "Wednesday, 2:00 PM", "ELECTION DATE", "Friday, 1:00 PM");*/
-
+        
+        drawables[0] = R.drawable.news0;
+        drawables[1] = R.drawable.news1;
+        drawables[2] = R.drawable.news2;
+        drawables[3] = R.drawable.news3;
+        drawables[4] = R.drawable.news4;
+        drawables[5] = R.drawable.news5;
+        drawables[6] = R.drawable.news6;
+        drawables[7] = R.drawable.news7;
+        drawables[8] = R.drawable.news8;
+        drawables[9] = R.drawable.news9;
+        drawables[10] = R.drawable.news10;
+        drawables[11] = R.drawable.news11;
+        drawables[12] = R.drawable.news12;
+        
 		return rootView;
+	}
+	
+	public void addNewsArticle(final int articleId, final int institutionId, final String title, final String content, final String picture, final String likers, 
+			final long date, final String creatorEmail, final String studentYear, final String link) {
+		getActivity().runOnUiThread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 Timestamp stamp = new Timestamp(date);
+		    	 Date date = new Date(stamp.getTime());
+		    	 
+		    	 Timestamp lastStamp = new Timestamp(lastDate);
+		    	 Date lastDate = new Date(lastStamp.getTime());
+		    	  
+		    	 if(!doubleCell) {
+		    		 doubleCell = true;
+		    		 newsFragment.addTableRow(drawables[drawableInt], -1, false, false, title, date.toString(), "", "");
+		     	 }
+		    	 else {
+		    		 doubleCell = false;
+			    	 if(drawableInt < 12)
+			    		 drawableInt = drawableInt + 1;
+			    	 
+		    		 newsFragment.addTableRow(drawables[drawableInt-1], drawables[drawableInt], true, false, lastTitle, lastDate.toString(), title, date.toString());
+		    	 }
+		    	 
+		    	 if(drawableInt < 12)
+		    		 drawableInt = drawableInt + 1;
+		    	 
+		    	 lastArticleId = articleId;
+		    	 lastInstitutionId = institutionId;
+		    	 lastTitle = title;
+		    	 lastContent = content;
+		    	 lastPicture = picture;
+		    	 lastLikers = likers;
+		    	 lastDate = date;
+		    	 lastCreatorEmail = creatorEmail;
+		    	 lastStudentYear = studentYear;
+		    	 lastLink = link;
+		    }
+		});
 	}
 	
 	public void addTableRow(int drawable1, int drawable2, boolean doubleCell, boolean lastCell, String articleTitle1, String articleTime1, 
