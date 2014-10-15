@@ -132,45 +132,31 @@
 	                android:layout_marginLeft="10dp"
 	                android:layout_marginRight="10dp"
 	                android:background="#676475" />
-	            	            	 
-	            <EditText
+	            
+	            <Spinner
 	                android:id="@+id/country"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
+	                android:layout_width="fill_parent"
 	                android:layout_marginLeft="10dp"
 	                android:layout_marginRight="10dp"
 	                android:background="@color/white"
-	                android:ems="10"
-	                android:minHeight="40dp"
-	                android:paddingLeft="5dp"
-	                android:singleLine="true"
-	                android:text="Country"
-	                android:textColor="@color/grey" >
-
-	            </EditText>	 
-	            
+	                android:layout_height="40dp"
+	                android:minHeight="40dp" />
+	            	            	 
 	            <View
 	            	android:layout_width="fill_parent"
 	                android:layout_height="1dip"
 	                android:layout_marginLeft="10dp"
 	                android:layout_marginRight="10dp"
 	                android:background="#676475" />
-	            	            	  
-	            <EditText
-	                android:id="@+id/university"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
+	            
+	            <Spinner
+	                android:id="@+id/institution"
+	                android:layout_width="fill_parent"
 	                android:layout_marginLeft="10dp"
 	                android:layout_marginRight="10dp"
 	                android:background="@color/white"
-	                android:ems="10"
-	                android:minHeight="40dp"
-	                android:paddingLeft="5dp"
-	                android:singleLine="true"
-	                android:text="University"
-	                android:textColor="@color/grey" >
-
-	            </EditText>	 
+	                android:layout_height="40dp"
+	                android:minHeight="40dp" />
 	            
 	            <Button
 	                android:id="@+id/Button01"

@@ -25,6 +25,7 @@ public class Network {
 	private String password;
 	
 	private NewsFragment newsFragment;
+	private UserSignupFragment userSignupFragment;
 	
 	public Network(String username, String password) {
 		this.username = username;
@@ -42,6 +43,47 @@ public class Network {
 		
 		return networkResponse;
 	}
+	
+	public void signup(String fullName, String email, String password, String confirmPassword, String country, String university) {
+		
+	}
+	
+	public void getGeneralInfo(final UserSignupFragment userSignupFragment) {
+		this.userSignupFragment = userSignupFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/general-info");
+				try {
+					JSONObject jObject = new JSONObject(response);
+					JSONArray jArray = jObject.getJSONArray("countrys");
+					
+					for (int i=0; i<jArray.length(); i++) {
+						JSONObject currentCountry = jArray.getJSONObject(i);
+						String country = currentCountry.getString("countryName");
+						
+						CountryInfo countryInfo = new CountryInfo(country);
+						userSignupFragment.addCountry(countryInfo);
+						
+						JSONArray institutionsArray = currentCountry.getJSONArray("institutions");
+						for (int j=0; j<institutionsArray.length(); j++) {
+							JSONObject currentInstitution = institutionsArray.getJSONObject(j);
+							
+							String institution = currentInstitution.getString("institutionName");
+							countryInfo.addInstituion(institution);
+						}
+					}
+				
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t = new Thread(r);
+		t.start();		
+	}
+	
 
 	public void getNewsArticles(final NewsFragment newsFragment) {
 		this.newsFragment = newsFragment;
@@ -107,12 +149,6 @@ public class Network {
 		return networkResponse;
 	}
 
-	public NetworkResponse getInstitutions() {
-		NetworkResponse networkResponse = null;
-		
-		return networkResponse;
-	}
-	
 	public NetworkResponse getEvents() {
 		NetworkResponse networkResponse = null;
 		
