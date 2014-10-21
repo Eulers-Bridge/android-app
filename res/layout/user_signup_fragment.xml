@@ -40,7 +40,7 @@
 	    	</TextView>
 
 	            <EditText
-	                android:id="@+id/fullname"
+	                android:id="@+id/firstName"
 	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
 	                android:layout_marginLeft="10dp"
@@ -51,11 +51,22 @@
 	                android:minHeight="40dp"
 	                android:paddingLeft="5dp"
 	                android:singleLine="true"
-	                android:text="Full Name"
-	                android:textColor="@color/grey" >
+	                android:text="First Name"
+	                android:textColor="@color/grey" />
 
-	                <requestFocus />
-	            </EditText>
+	            <EditText
+	                android:id="@+id/lastName"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="10dp"
+	                android:layout_marginRight="10dp"
+	                android:background="@color/white"
+	                android:ems="10"
+	                android:minHeight="40dp"
+	                android:paddingLeft="5dp"
+	                android:singleLine="true"
+	                android:text="Last Name"
+	                android:textColor="@color/grey" />
 	            
 	            <View
 	            	android:layout_width="fill_parent"

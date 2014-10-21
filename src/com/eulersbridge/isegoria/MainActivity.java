@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class MainActivity extends BaseActivity {
 	private Fragment mContent;
@@ -25,7 +26,6 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		
 		application = (Isegoria) getApplicationContext();
 		
 		if (savedInstanceState != null)
@@ -57,7 +57,36 @@ public class MainActivity extends BaseActivity {
 		switchContent(new UserSignupFragment());
 	}
 	
+	public void login(View v) {
+		TextView userNameField = (TextView) findViewById(R.id.username);
+		TextView passwordField = (TextView) findViewById(R.id.password);
+		
+		application.setUsername(userNameField.getText().toString());
+		application.setPassword(passwordField.getText().toString());
+		
+		application.login();
+		
+		switchContent(new FeedFragment());
+	}
+	
 	public void userSignupNext(View view) {
+		TextView firstNameField = (TextView) findViewById(R.id.firstName);
+		TextView lastNameField = (TextView) findViewById(R.id.lastName);
+		TextView universityEmailField = (TextView) findViewById(R.id.universityEmail);
+		TextView newPasswordField = (TextView) findViewById(R.id.newPassword);
+		TextView confirmNewPasswordField = (TextView) findViewById(R.id.confirmNewPassword);
+		TextView countryField = (TextView) findViewById(R.id.country);
+		TextView institutionField = (TextView) findViewById(R.id.institution);
+		
+		String firstName = firstNameField.getText().toString();
+		String lastName = lastNameField.getText().toString(); 
+		String email = universityEmailField.getText().toString();
+		String password = newPasswordField.getText().toString(); 
+		String confirmPassword = confirmNewPasswordField.getText().toString(); 
+		String country = countryField.getText().toString();
+		String institution = institutionField.getText().toString();
+		
+		application.getNetwork().signup(firstName, lastName, email, password, confirmPassword, country, institution);
 		switchContent(new UserConsentAgreementFragment());
 	}
 	
@@ -72,11 +101,11 @@ public class MainActivity extends BaseActivity {
 	}
 	
 	public void switchContent(Fragment fragment) {
-		mContent = fragment;
-		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.content_frame, fragment)
-		.commit();
-		getSlidingMenu().showContent();
+			mContent = fragment;
+			getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.content_frame, fragment)
+				.commit();
+			getSlidingMenu().showContent();
 	}
 }

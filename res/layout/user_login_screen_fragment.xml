@@ -51,7 +51,7 @@
 	                android:minHeight="40dp"
 	                android:paddingLeft="5dp"
 	                android:singleLine="true"
-	                android:text="Email"
+	                android:text="greg.newitt@unimelb.edu.au"
 	                android:textColor="@color/grey" >
 
 	                <requestFocus />
@@ -72,10 +72,11 @@
 	                android:layout_marginRight="10dp"
 	                android:background="@color/white"
 	                android:ems="10"
+	                android:inputType="textWebPassword"
 	                android:minHeight="40dp"
 	                android:paddingLeft="5dp"
 	                android:singleLine="true"
-	                android:text="Password"
+	                android:text="test123"
 	                android:textColor="@color/grey" >
 
 	                <requestFocus />
@@ -90,6 +91,7 @@
 	                android:layout_marginTop="10dp"
 	                android:background="#52BB42"
 	                android:minHeight="40dip"
+	                android:onClick="login"
 	                android:text="Login"
 	                android:textColor="@color/white"
 	                android:textStyle="bold" />

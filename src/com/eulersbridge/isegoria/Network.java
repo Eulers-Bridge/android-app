@@ -44,7 +44,7 @@ public class Network {
 		return networkResponse;
 	}
 	
-	public void signup(String fullName, String email, String password, String confirmPassword, String country, String university) {
+	public void signup(String firstName, String lastName, String email, String password, String confirmPassword, String country, String institution) {
 		
 	}
 	
@@ -90,7 +90,7 @@ public class Network {
 
 		Runnable r = new Runnable() {
 			public void run() {
-				String response = getRequest("dbInterface/api/newsArticles/6276");
+				String response = getRequest("dbInterface/api/newsArticles/26");
 				try {
 					JSONArray jArray = new JSONArray(response);
 					
@@ -103,8 +103,8 @@ public class Network {
 						String picture = null;
 						String likers = null;
 						long date = currentArticle.getLong("date");
-						String creatorEmail = currentArticle.getString("creatorEmail");
-						String studentYear = currentArticle.getString("studentYear");
+						String creatorEmail = "";
+						String studentYear = "";
 						String link = null;
 						
 						newsFragment.addNewsArticle(articleId, institutionId, title, content, picture, likers, date, creatorEmail, studentYear, link);

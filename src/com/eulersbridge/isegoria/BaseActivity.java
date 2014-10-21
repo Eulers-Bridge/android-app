@@ -17,6 +17,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 public class BaseActivity extends SlidingFragmentActivity {
 	private int mTitleRes;
 	protected SlidingMenuItems mFrag;
+	private Isegoria application;
 	
 	public BaseActivity(int titleRes){
 		mTitleRes = titleRes;
@@ -26,6 +27,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle(mTitleRes);
+		application = (Isegoria) getApplicationContext();
 		
 		setBehindContentView(R.layout.menu_frame);
 		android.support.v4.app.FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
@@ -49,7 +51,9 @@ public class BaseActivity extends SlidingFragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch(item.getItemId()){
 			case android.R.id.home:
-				toggle();
+				if(application.isLoggedIn()) {
+					toggle();
+				}
 				return true;
 			}
 		return onOptionsItemSelected(item);
