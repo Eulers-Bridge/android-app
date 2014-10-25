@@ -27,7 +27,7 @@
             android:paddingTop="6dp" >
             
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/newsArticleTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -90,7 +90,7 @@
 			             >       
 			                         	               
 				            <TextView
-				            	android:id="@+id/editText1"
+				                android:id="@+id/newsArticleName"
 				                android:layout_width="wrap_content"
 				                android:layout_height="wrap_content"
 				                android:ems="10"
@@ -100,7 +100,7 @@
 				                android:textSize="@dimen/newsArticleName" />
 				                    
 				            <TextView
-				                android:id="@+id/editText1"
+				                android:id="@+id/newsArticleName"
 				                android:layout_width="wrap_content"
 				                android:layout_height="wrap_content"
 				                android:ems="10"
@@ -120,13 +120,13 @@
 		             >       
 		             
 		            	 <TextView
-		            	     android:id="@+id/editText19"
+		            	     android:id="@+id/newsArticleLikes"
 		            	     android:layout_width="wrap_content"
 		            	     android:layout_height="wrap_content"
-		            	     android:gravity="right"  
 		            	     android:layout_gravity="center_vertical"
 		            	     android:layout_weight="1"
 		            	     android:ems="10"
+		            	     android:gravity="right"
 		            	     android:text="205"
 		            	     android:textAppearance="?android:attr/textAppearanceSmall"
 		            	     android:textColor="@color/white"
@@ -151,7 +151,16 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+                <TextView
         android:id="@+id/textNews"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -161,6 +170,10 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp"
         android:textSize="@dimen/newsArticleSize" />
+        </LinearLayout>
+    </ScrollView>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"

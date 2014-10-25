@@ -4,11 +4,11 @@ import java.util.Vector;
 
 public class CountryInfo {
 	private String country;
-	private Vector<String> institutions;
+	private Vector<InstitutionInfo> institutions;
 	
 	public CountryInfo(String country) {
 		this.country = country;
-		this.institutions = new Vector<String>();
+		this.institutions = new Vector<InstitutionInfo>();
 	}
 
 	public String getCountry() {
@@ -19,15 +19,15 @@ public class CountryInfo {
 		this.country = country;
 	}
 	
-	public void addInstituion(String institution) {
-		institutions.add(institution);
+	public void addInstituion(String id, String institution) {
+		institutions.add(new InstitutionInfo(id, institution));
 	}
 
-	public Vector<String> getInstitutions() {
+	public Vector<InstitutionInfo> getInstitutions() {
 		return institutions;
 	}
 
-	public void setInstitutions(Vector<String> institutions) {
+	public void setInstitutions(Vector<InstitutionInfo> institutions) {
 		this.institutions = institutions;
 	}
 }

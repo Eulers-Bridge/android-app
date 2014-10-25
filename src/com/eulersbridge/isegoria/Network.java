@@ -5,37 +5,74 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 public class Network {
 	private static String SERVER_URL = "http://eulersbridge.com:8080/";
+	private static String PICTURE_URL = "https://s3-ap-southeast-2.amazonaws.com/isegoria/";
 	private String username;
 	private String password;
 	
 	private NewsFragment newsFragment;
+	private NewsArticleFragment newsArticleFragment;
 	private UserSignupFragment userSignupFragment;
+	private Isegoria application;
 	
-	public Network(String username, String password) {
+	public Network(Isegoria application) {
+		this.application = application;
+	}
+	
+	public Network(Isegoria application, String username, String password) {
+		this.application = application;
 		this.username = username;
 		this.password = password;
 	}
 	
-	public NetworkResponse login() {
-		NetworkResponse networkResponse = null;
+	public void login() {
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/login");
+				try {
+					JSONObject jObject = new JSONObject(response);
+					application.setLoggedIn(true);
+					application.setFeedFragment();
+				} catch (JSONException e) {
+					e.printStackTrace();
+					application.getMainActivity().runOnUiThread(new Runnable() {
+						public void run() {
+							application.loginFailed();
+						}
+					});
+				}
+			}
+		};
 		
-		return networkResponse;
+		Thread t = new Thread(r);
+		t.start();		
 	}
 
 	public NetworkResponse logout() {
@@ -44,8 +81,76 @@ public class Network {
 		return networkResponse;
 	}
 	
-	public void signup(String firstName, String lastName, String email, String password, String confirmPassword, String country, String institution) {
-		
+	public void signup(final String firstName, final String lastName, final String gender, final String country, final String yearOfBirth, final String email, final String password, String confirmPassword, final String institution) {
+       Runnable r = new Runnable() {
+    	   public void run() {
+    		   StringBuffer stringBuffer = new StringBuffer();
+    	        BufferedReader bufferedReader = null;
+    	        
+    	        try {
+    	            HttpClient httpClient = new DefaultHttpClient();
+    	            HttpPost httpPost = new HttpPost();
+
+    	            URI uri = new URI(SERVER_URL + "dbInterface/api/signup");
+    	            httpPost.setURI(uri);
+    	            httpPost.addHeader("Accept", "application/json");
+    	            httpPost.addHeader("Content-type", "application/json");
+    	            
+    	            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+    	            nameValuePairs.add(new BasicNameValuePair("email", email));
+    	            nameValuePairs.add(new BasicNameValuePair("givenName", firstName));
+    	            nameValuePairs.add(new BasicNameValuePair("familyName", lastName));
+    	            nameValuePairs.add(new BasicNameValuePair("gender", gender));
+    	            nameValuePairs.add(new BasicNameValuePair("nationality", country));
+    	            nameValuePairs.add(new BasicNameValuePair("yearOfBirth", yearOfBirth));
+    	            nameValuePairs.add(new BasicNameValuePair("accountVerified", "false"));
+    	            nameValuePairs.add(new BasicNameValuePair("password", password));
+    	            nameValuePairs.add(new BasicNameValuePair("institutionId", String.valueOf(institution)));
+    	            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+    	            HttpResponse httpResponse = httpClient.execute(httpPost);
+    	            InputStream inputStream = httpResponse.getEntity().getContent();
+    	            bufferedReader = new BufferedReader(new InputStreamReader(
+    	                    inputStream));
+
+    	            String readLine = bufferedReader.readLine();
+    	            while (readLine != null) {
+    	                stringBuffer.append(readLine);
+    	                stringBuffer.append("\n");
+    	                readLine = bufferedReader.readLine();
+    	            }
+    	            
+    	            if(stringBuffer.toString().contains(email)) {
+    					application.getMainActivity().runOnUiThread(new Runnable() {
+    						public void run() {
+    							application.signupSucceded();
+    						}
+    					});
+    	            }
+    	            else {
+    					application.getMainActivity().runOnUiThread(new Runnable() {
+    						public void run() {
+    							application.signupFailed();
+    						}
+    					});
+    	            }
+    	            
+    	        } catch (Exception e) {
+    	        	Log.e("Isegoria", "exception", e);
+    	        } finally {
+    	            if (bufferedReader != null) {
+    	                try {
+    	                    bufferedReader.close();
+    	                } catch (IOException e) {
+    	                	Log.e("Isegoria", "exception", e);
+    	                }
+    	            }
+    	        }    		   
+    	   }
+       };
+       
+       Thread t = new Thread(r);
+       t.start();
 	}
 	
 	public void getGeneralInfo(final UserSignupFragment userSignupFragment) {
@@ -53,7 +158,7 @@ public class Network {
 
 		Runnable r = new Runnable() {
 			public void run() {
-				String response = getRequest("dbInterface/api/general-info");
+				String response = getRequestNoAuth("dbInterface/api/general-info");
 				try {
 					JSONObject jObject = new JSONObject(response);
 					JSONArray jArray = jObject.getJSONArray("countrys");
@@ -69,8 +174,9 @@ public class Network {
 						for (int j=0; j<institutionsArray.length(); j++) {
 							JSONObject currentInstitution = institutionsArray.getJSONObject(j);
 							
+							String institutionId = currentInstitution.getString("institutionId");
 							String institution = currentInstitution.getString("institutionName");
-							countryInfo.addInstituion(institution);
+							countryInfo.addInstituion(institutionId, institution);
 						}
 					}
 				
@@ -100,14 +206,17 @@ public class Network {
 						int institutionId = currentArticle.getInt("institutionId");
 						String title = currentArticle.getString("title");
 						String content = currentArticle.getString("content");
-						String picture = null;
+						String picture = PICTURE_URL + currentArticle.getString("picture");
+						picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
+						Bitmap bitmapPicture = getPicture(picture);
+						
 						String likers = null;
 						long date = currentArticle.getLong("date");
 						String creatorEmail = "";
 						String studentYear = "";
 						String link = null;
 						
-						newsFragment.addNewsArticle(articleId, institutionId, title, content, picture, likers, date, creatorEmail, studentYear, link);
+						newsFragment.addNewsArticle(articleId, institutionId, title, content, bitmapPicture, likers, date, creatorEmail, studentYear, link);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -119,10 +228,76 @@ public class Network {
 		t.start();
 	}
 
-	public NetworkResponse getNewsArticle() {
-		NetworkResponse networkResponse = null;
+	public void getNewsArticle(final NewsArticleFragment newsArticleFragment, final int articleId) {
+		this.newsArticleFragment = newsArticleFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/newsArticle/" + String.valueOf(articleId));
+				try {
+					JSONObject currentArticle = new JSONObject(response);
+					
+					int articleId = currentArticle.getInt("articleId");
+					int institutionId = currentArticle.getInt("institutionId");
+					String title = currentArticle.getString("title");
+					String likes = currentArticle.getString("likes");
+					String content = currentArticle.getString("content");
+					String picture = PICTURE_URL + currentArticle.getString("picture");
+					String email = currentArticle.getString("creatorEmail");
+					picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
+					Bitmap bitmapPicture = getPicture(picture);
+						
+					String likers = null;
+					long date = currentArticle.getLong("date");
+					String creatorEmail = "";
+					String studentYear = "";
+					String link = null;
+					
+					newsArticleFragment.populateContent(title, content, likes, bitmapPicture);
+					//getUser(newsArticleFragment, email);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
 		
-		return networkResponse;
+		Thread t = new Thread(r);
+		t.start();
+	}
+	
+	public void getUser(final NewsArticleFragment newsArticleFragment, final String userEmail) {
+		this.newsArticleFragment = newsArticleFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/user/" + userEmail.replace("@", "%40"));
+				try {
+					JSONObject currentArticle = new JSONObject(response);
+					
+					String givenName = currentArticle.getString("givenName");
+					String familyName = currentArticle.getString("familyName");
+					String gender = currentArticle.getString("gender");
+					String name = givenName + " " + familyName;
+					//String picture = PICTURE_URL + currentArticle.getString("picture");
+					//picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
+					Bitmap bitmapPicture = null;
+					
+						
+					String likers = null;
+					long date = currentArticle.getLong("date");
+					String creatorEmail = "";
+					String studentYear = "";
+					String link = null;
+					
+					newsArticleFragment.populateUserContent(name, bitmapPicture);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t = new Thread(r);
+		t.start();
 	}
 	
 	public NetworkResponse getElections() {
@@ -217,4 +392,96 @@ public class Network {
         }
         return stringBuffer.toString();
     }
+	
+	public String getRequestNoAuth(String params) {
+        StringBuffer stringBuffer = new StringBuffer();
+        BufferedReader bufferedReader = null;
+        
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet();
+
+            URI uri = new URI(SERVER_URL + params);
+            httpGet.setURI(uri);
+            httpGet.addHeader("Accept", "application/json");
+            httpGet.addHeader("Content-type", "application/json");
+
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            InputStream inputStream = httpResponse.getEntity().getContent();
+            bufferedReader = new BufferedReader(new InputStreamReader(
+                    inputStream));
+
+            String readLine = bufferedReader.readLine();
+            while (readLine != null) {
+                stringBuffer.append(readLine);
+                stringBuffer.append("\n");
+                readLine = bufferedReader.readLine();
+            }
+        } catch (Exception e) {
+        	Log.e("Isegoria", "exception", e);
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                	Log.e("Isegoria", "exception", e);
+                }
+            }
+        }
+        return stringBuffer.toString();
+    }
+	
+	public Bitmap getPicture(String params) {
+        StringBuffer stringBuffer = new StringBuffer();
+        Bitmap output = null;
+        
+        try {
+        	HttpUriRequest request = new HttpGet(params);
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpResponse response = httpClient.execute(request);
+
+            HttpEntity entity = response.getEntity();
+            byte[] bytes = EntityUtils.toByteArray(entity);
+            output = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);  
+        } catch (Exception e) {
+        	Log.e("Isegoria", "exception", e);
+        } finally {
+
+        }
+        
+        return output;
+    }
+	
+	public static Bitmap decodeSampledBitmapFromBitmap(InputStream is,
+	        int reqWidth, int reqHeight) {
+	    final BitmapFactory.Options options = new BitmapFactory.Options();
+	    options.inJustDecodeBounds = true;
+	    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+	    options.inJustDecodeBounds = false;
+	    return BitmapFactory.decodeStream(is);
+	}
+	
+	public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+	    // Raw height and width of image
+	    final int height = options.outHeight;
+	    final int width = options.outWidth;
+	    int inSampleSize = 1;
+	
+	    if (height > reqHeight || width > reqWidth) {
+	
+	        final int halfHeight = height / 2;
+	        final int halfWidth = width / 2;
+	
+	        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+	        // height and width larger than the requested height and width.
+	        while ((halfHeight / inSampleSize) > reqHeight
+	                && (halfWidth / inSampleSize) > reqWidth) {
+	            inSampleSize *= 2;
+	        }
+	    }
+	
+	    return inSampleSize;
+	}
 }

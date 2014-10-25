@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 public class UserConsentAgreementFragment extends Fragment {
 	private View rootView;
+	private Isegoria isegoria;
 	
 	public UserConsentAgreementFragment() {
 		
@@ -17,6 +18,7 @@ public class UserConsentAgreementFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.user_consent_agreement_fragment, container, false);
+		this.isegoria = (Isegoria) getActivity().getApplication();
 		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		
 		return rootView;

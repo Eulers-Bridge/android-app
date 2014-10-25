@@ -1,6 +1,8 @@
 package com.eulersbridge.isegoria;
 
 
+import java.io.InputStream;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -40,51 +42,83 @@ public class NewsArticleFragment extends SherlockFragment {
 	private View rootView;
 	private float dpWidth;
 	private float dpHeight;
+	private Isegoria isegoria;
 	
 	public NewsArticleFragment() {
-	
+		
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.news_article_fragment, container, false);
+		this.isegoria = (Isegoria) getActivity().getApplication();
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().removeAllTabs();
 		Bundle bundle = this.getArguments();
-		int backgroundDrawableResource = bundle.getInt("ArticleImage");
-
-		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
 		
-		LinearLayout backgroundLinearLayout = (LinearLayout) rootView.findViewById(R.id.topBackgroundNews);
-		backgroundLinearLayout.getLayoutParams().height = (int) (displayMetrics.heightPixels / 2.7);
-		Bitmap original = BitmapFactory.decodeResource(getActivity().getResources(), backgroundDrawableResource);
-		Bitmap b = Bitmap.createScaledBitmap(original, (int)dpWidth, (int)dpHeight/2, false);
-		Drawable d = new BitmapDrawable(getActivity().getResources(), b);
-		d.setColorFilter(Color.argb(125, 35, 35, 35), Mode.DARKEN);
-		backgroundLinearLayout.setBackgroundDrawable(d);
-		
-		TextView newsText = (TextView) rootView.findViewById(R.id.textNews);
-		newsText.setText("A Fairfax/Nielsen poll, the first since the September 7 election, showed the opposition with a 52-48 per cent lead over the government.\n\nThat's the quickest poll lead achieved by any federal opposition after losing an election.");
-		
-		final ImageView flagView = (ImageView) rootView.findViewById(R.id.flagView);
-		flagView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				flagView.setImageResource(R.drawable.flag);
-			}
-		});
-
-		final ImageView starView = (ImageView) rootView.findViewById(R.id.starView);
-		flagView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				starView.setImageResource(R.drawable.star);
-			}
-		});
+		isegoria.getNetwork().getNewsArticle(this, bundle.getInt("ArticleId"));
 		
 		return rootView;
+	}
+	
+	public void populateContent(final String title, final String content, final String likes, final Bitmap picture) {
+		try {
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+					dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+			        dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
+					
+					LinearLayout backgroundLinearLayout = (LinearLayout) rootView.findViewById(R.id.topBackgroundNews);
+					backgroundLinearLayout.getLayoutParams().height = (int) (displayMetrics.heightPixels / 2.7);
+					Drawable d = new BitmapDrawable(getActivity().getResources(), picture);
+					d.setColorFilter(Color.argb(125, 35, 35, 35), Mode.DARKEN);
+					backgroundLinearLayout.setBackgroundDrawable(d);
+					
+					TextView newsTitle = (TextView) rootView.findViewById(R.id.newsArticleTitle);
+					newsTitle.setText(title);
+					
+					TextView newsArticleLikes = (TextView) rootView.findViewById(R.id.newsArticleLikes);
+					newsArticleLikes.setText(likes);
+					
+					TextView newsText = (TextView) rootView.findViewById(R.id.textNews);
+					newsText.setText(content);
+					
+					final ImageView flagView = (ImageView) rootView.findViewById(R.id.flagView);
+					flagView.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							flagView.setImageResource(R.drawable.flag);
+						}
+					});
+	
+					final ImageView starView = (ImageView) rootView.findViewById(R.id.starView);
+					flagView.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							starView.setImageResource(R.drawable.star);
+						}
+					});				
+				}
+			});
+		} catch(Exception e) {
+			
+		}
+	}
+	
+	public void populateUserContent(final String name, final Bitmap picture) {
+		try {
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					TextView newsArticleName = (TextView) rootView.findViewById(R.id.newsArticleName);
+					newsArticleName.setText(name);
+				}
+			});
+		} catch(Exception e) {
+			
+		}
 	}
 
 	public static int calculateInSampleSize(
@@ -326,4 +360,14 @@ public class NewsArticleFragment extends SherlockFragment {
 
         return (bitmap);
     }
+	
+	public static Bitmap decodeSampledBitmapFromBitmap(InputStream is,
+	        int reqWidth, int reqHeight) {
+	    final BitmapFactory.Options options = new BitmapFactory.Options();
+	    options.inJustDecodeBounds = true;
+	    options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+	    options.inJustDecodeBounds = false;
+	    return BitmapFactory.decodeStream(is);
+	}
 }

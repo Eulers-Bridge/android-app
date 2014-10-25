@@ -20,6 +20,9 @@ public class UserSignupFragment extends Fragment implements OnItemSelectedListen
 	private ArrayList<String> institutions;
 	private ArrayAdapter<String> spinnerArrayAdapter;
 	private ArrayAdapter<String> spinnerInstitutionArrayAdapter;
+	private ArrayAdapter<String> spinnerGenderArrayAdapter;
+	private ArrayAdapter<String> spinnerYearOfBirthArrayAdapter;
+	private Isegoria isegoria;
 	
 	public UserSignupFragment() {
 		
@@ -32,8 +35,10 @@ public class UserSignupFragment extends Fragment implements OnItemSelectedListen
 		countries = new ArrayList<String>();
 		countryObjects = new ArrayList<CountryInfo>();
 		
-        MainActivity mainActivity = (MainActivity) getActivity();
-        Network network = mainActivity.getIsegoriaApplication().getNetwork();
+		isegoria = (Isegoria) getActivity().getApplication();
+		isegoria.setCountryObjects(countryObjects);
+        Network network = new Network(isegoria);
+        isegoria.setNetwork(network);
         network.getGeneralInfo(this);
         
         Spinner spinner = (Spinner) rootView.findViewById(R.id.country);
@@ -46,6 +51,21 @@ public class UserSignupFragment extends Fragment implements OnItemSelectedListen
         spinnerInstitutionArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
         spinnerInstitutionArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerInstitution.setAdapter(spinnerInstitutionArrayAdapter);
+        
+        Spinner spinnerGender = (Spinner) rootView.findViewById(R.id.gender);
+        spinnerGenderArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
+        spinnerGenderArrayAdapter.add("Male");
+        spinnerGenderArrayAdapter.add("Female");
+        spinnerGenderArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerGender.setAdapter(spinnerGenderArrayAdapter);
+        
+        Spinner spinnerYearOfBirth = (Spinner) rootView.findViewById(R.id.yearOfBirth);
+        spinnerYearOfBirthArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
+        for(int i=1900; i<=2014; i++) {
+        	spinnerYearOfBirthArrayAdapter.add(String.valueOf(i));
+        }
+        spinnerYearOfBirthArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerYearOfBirth.setAdapter(spinnerYearOfBirthArrayAdapter);
         
         CountryInfo countryInfo = new CountryInfo("Select Country"); 
         addCountry(countryInfo);
@@ -74,8 +94,8 @@ public class UserSignupFragment extends Fragment implements OnItemSelectedListen
     		CountryInfo countryInfo = (CountryInfo) countryObjects.get(i);
     		if(selectedCountry.equals(countryInfo.getCountry())) {
     			for(int j=0; j<countryInfo.getInstitutions().size(); j++) {
-    				String currentInstitution = countryInfo.getInstitutions().get(j);
-    				spinnerInstitutionArrayAdapter.add(currentInstitution);
+    				InstitutionInfo currentInstitution = countryInfo.getInstitutions().get(j);
+    				spinnerInstitutionArrayAdapter.add(currentInstitution.getInstitution());
     			}
     		}
     	}

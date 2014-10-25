@@ -1,11 +1,16 @@
 package com.eulersbridge.isegoria;
 
 
+import java.util.ArrayList;
+
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
 import android.app.Application;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,11 +18,23 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends BaseActivity {
 	private Fragment mContent;
 	private Isegoria application;
+	private ProgressDialog dialog;
+	
+	private String firstName;
+	private String lastName; 
+	private String email;
+	private String password; 
+	private String confirmPassword; 
+	private String country;
+	private String institution;
+	private String yearOfBirth;
+	private String gender;
 	
 	public MainActivity(){
 		super(R.string.app_name);	
@@ -27,6 +44,7 @@ public class MainActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		application = (Isegoria) getApplicationContext();
+		application.setMainActivity(this);
 		
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
@@ -66,7 +84,47 @@ public class MainActivity extends BaseActivity {
 		
 		application.login();
 		
-		switchContent(new FeedFragment());
+		dialog = ProgressDialog.show(this, "", "Loading. Please wait...", true);
+	}
+	
+	public void hideDialog() {
+		dialog.dismiss();
+	}
+	
+	public void showLoginFailed() {
+		AlertDialog alertDialog = new AlertDialog.Builder(application.getMainActivity()).create();
+		alertDialog.setTitle("Isegoria");
+		alertDialog.setMessage("Login Failed");
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				      
+				}
+			});
+		alertDialog.show();
+	}
+	
+	public void showSignupSucceded() {
+		AlertDialog alertDialog = new AlertDialog.Builder(application.getMainActivity()).create();
+		alertDialog.setTitle("Isegoria");
+		alertDialog.setMessage("Signup Succeeded");
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				      
+				}
+			});
+		alertDialog.show();
+	}
+	
+	public void showSignupFailed() {
+		AlertDialog alertDialog = new AlertDialog.Builder(application.getMainActivity()).create();
+		alertDialog.setTitle("Isegoria");
+		alertDialog.setMessage("Signup Failed");
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				      
+				}
+			});
+		alertDialog.show();
 	}
 	
 	public void userSignupNext(View view) {
@@ -75,23 +133,55 @@ public class MainActivity extends BaseActivity {
 		TextView universityEmailField = (TextView) findViewById(R.id.universityEmail);
 		TextView newPasswordField = (TextView) findViewById(R.id.newPassword);
 		TextView confirmNewPasswordField = (TextView) findViewById(R.id.confirmNewPassword);
-		TextView countryField = (TextView) findViewById(R.id.country);
-		TextView institutionField = (TextView) findViewById(R.id.institution);
+		Spinner countryField = (Spinner) findViewById(R.id.country);
+		Spinner institutionField = (Spinner) findViewById(R.id.institution);
+		Spinner yearOfBirthField = (Spinner) findViewById(R.id.yearOfBirth);
+		Spinner genderField = (Spinner) findViewById(R.id.gender);
 		
-		String firstName = firstNameField.getText().toString();
-		String lastName = lastNameField.getText().toString(); 
-		String email = universityEmailField.getText().toString();
-		String password = newPasswordField.getText().toString(); 
-		String confirmPassword = confirmNewPasswordField.getText().toString(); 
-		String country = countryField.getText().toString();
-		String institution = institutionField.getText().toString();
+		firstName = firstNameField.getText().toString();
+		lastName = lastNameField.getText().toString(); 
+		email = universityEmailField.getText().toString();
+		password = newPasswordField.getText().toString(); 
+		confirmPassword = confirmNewPasswordField.getText().toString(); 
+		country = countryField.getSelectedItem().toString();
+		institution = institutionField.getSelectedItem().toString();
+		yearOfBirth = yearOfBirthField.getSelectedItem().toString();
+		gender = genderField.getSelectedItem().toString();
 		
-		application.getNetwork().signup(firstName, lastName, email, password, confirmPassword, country, institution);
-		switchContent(new UserConsentAgreementFragment());
+		if(firstName.equals("") || lastName.equals("") || email.equals("") || password.equals("") || password.equals("") || confirmPassword.equals("")
+				|| country.equals("") || institution.equals("") || yearOfBirth.equals("") || gender.equals("")) {
+			
+		}
+		else {
+			UserConsentAgreementFragment userConsentAgreementFragment = new UserConsentAgreementFragment();
+			switchContent(userConsentAgreementFragment);
+		}
 	}
 	
 	public void userConsentNext(View view) {
-		switchContent(new FeedFragment());
+		if(firstName.equals("") || lastName.equals("") || email.equals("") || password.equals("") || password.equals("") || confirmPassword.equals("")
+				|| country.equals("") || institution.equals("") || yearOfBirth.equals("") || gender.equals("")) {
+			
+		}
+		else {
+			String institutionID = "";
+			ArrayList<CountryInfo> countryObjects = application.getCountryObjects();
+			for(int i=0; i<countryObjects.size(); i++) {
+				CountryInfo currentCountryInfo = countryObjects.get(i);
+				
+				for(int j=0; j<currentCountryInfo.getInstitutions().size(); j++) {
+					InstitutionInfo currentInstituionInfo = currentCountryInfo.getInstitutions().get(j);
+					
+					if(currentInstituionInfo.getInstitution().equals(institution)) {
+						institutionID = currentInstituionInfo.getId();
+					}
+				}
+			}
+			
+			application.getNetwork().signup(firstName, lastName, gender, country, yearOfBirth, email, password, confirmPassword, institutionID);
+		}
+		
+		switchContent(new LoginScreenFragment());
 	}
 	
 	@Override

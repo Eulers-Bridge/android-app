@@ -28,7 +28,7 @@
 	            android:src="@drawable/app_icon" />
 	        
 	            <TextView
-	                android:id="@+id/editText1"
+	                android:id="@+id/newsArticleName"
 	                android:layout_width="98dp"
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_horizontal"
@@ -111,7 +111,7 @@
 	                android:textStyle="bold" />
 
 	            <TextView
-	                android:id="@+id/textView1"
+	                android:id="@+id/newsArticleTitle"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center"

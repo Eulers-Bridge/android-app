@@ -43,6 +43,7 @@ public class NewsFragment extends SherlockFragment {
 	private float dpWidth;
 	private float dpHeight;
 	
+	private Isegoria isegoria;
 	private NewsFragment newsFragment;
 	
 	private int[] drawables = new int[14];
@@ -52,18 +53,20 @@ public class NewsFragment extends SherlockFragment {
 	private int lastInstitutionId; 
 	private String lastTitle;
 	private String lastContent; 
-	private String lastPicture; 
+	private Bitmap lastPicture; 
 	private String lastLikers;
 	private long lastDate;
 	private String lastCreatorEmail; 
 	private String lastStudentYear; 
 	private String lastLink;
 	
-	private boolean doubleCell = false;
+	private int doubleCell = 0;
+	private int articlesAdded = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+		this.isegoria = (Isegoria) getActivity().getApplication();
 		rootView = inflater.inflate(R.layout.news_fragment, container, false);
 		newsTableLayout = (TableLayout) rootView.findViewById(R.id.newsTableLayout);
 		
@@ -75,36 +78,13 @@ public class NewsFragment extends SherlockFragment {
         Network network = mainActivity.getIsegoriaApplication().getNetwork();
         network.getNewsArticles(this);
         
-/*		addTableRow(R.drawable.news0, -1, false, false, "Labor pulls ahead in Nielson poll", "Yesterday, 9:00 AM", "", "");
-		addTableRow(R.drawable.news1, R.drawable.news2, true, false, "MELBOURNE RANKED #1 IN STUDENT VOTING", "Friday, 1:00 PM", "NEW BALLOT BOXES OPEN", "Friday, 1:00 PM");
-		addTableRow(R.drawable.news3, -1, false, false, "ANON PROTEST ON CAMPUS", "Wednesday, 2:00 PM", "", "");
-		addTableRow(R.drawable.news4, R.drawable.news5, true, false, "Fem Protest", "Wednesday, 2:00 PM", "UNI FUNDING CUTS", "Friday, 1:00 PM");
-		addTableRow(R.drawable.news6, -1, false, false, "Protesting against Russia's anti-gay laws", "Wednesday, 2:00 PM", "", "");
-		addTableRow(R.drawable.news7, R.drawable.news8, true, false, "Student fees set to double", "Wednesday, 2:00 PM", "SSA Fee Increase", "Friday, 1:00 PM");
-		addTableRow(R.drawable.news9, -1, false, false, "UNIMELB IS NOW SMOKE FREE", "Wednesday, 2:00 PM", "", "");
-		addTableRow(R.drawable.news10, R.drawable.news11, true, false, "MORE ACTIVITIES TO CHANGE PREFERENCES", "Wednesday, 2:00 PM", "It's Good to Be White...", "Friday, 1:00 PM");
-		addTableRow(R.drawable.news12, -1, false, false, "MURDOCH TO BE DEMOLISHED", "Wednesday, 2:00 PM", "", "");
-		addTableRow(R.drawable.news13, R.drawable.news14, true, true, "EULERS BRIDGE INCREASES TURNOUT 400%", "Wednesday, 2:00 PM", "ELECTION DATE", "Friday, 1:00 PM");*/
-        
-        drawables[0] = R.drawable.news0;
-        drawables[1] = R.drawable.news1;
-        drawables[2] = R.drawable.news2;
-        drawables[3] = R.drawable.news3;
-        drawables[4] = R.drawable.news4;
-        drawables[5] = R.drawable.news5;
-        drawables[6] = R.drawable.news6;
-        drawables[7] = R.drawable.news7;
-        drawables[8] = R.drawable.news8;
-        drawables[9] = R.drawable.news9;
-        drawables[10] = R.drawable.news10;
-        drawables[11] = R.drawable.news11;
-        drawables[12] = R.drawable.news12;
-        
 		return rootView;
 	}
 	
-	public void addNewsArticle(final int articleId, final int institutionId, final String title, final String content, final String picture, final String likers, 
+	public void addNewsArticle(final int articleId, final int institutionId, final String title, final String content, final Bitmap picture, final String likers, 
 			final long date, final String creatorEmail, final String studentYear, final String link) {
+		articlesAdded = articlesAdded + 1;
+
 		getActivity().runOnUiThread(new Runnable() {
 		     @Override
 		     public void run() {
@@ -114,36 +94,32 @@ public class NewsFragment extends SherlockFragment {
 		    	 Timestamp lastStamp = new Timestamp(lastDate);
 		    	 Date lastDate = new Date(lastStamp.getTime());
 		    	  
-		    	 if(!doubleCell) {
-		    		 doubleCell = true;
-		    		 newsFragment.addTableRow(drawables[drawableInt], -1, false, false, title, date.toString(), "", "");
+		    	 if(doubleCell == 0) {
+		    		 doubleCell = 1;
+		    		 newsFragment.addTableRow(articleId, -1, picture, null, false, false, title, date.toString(), "", "");
 		     	 }
-		    	 else {
-		    		 doubleCell = false;
-			    	 if(drawableInt < 12)
-			    		 drawableInt = drawableInt + 1;
-			    	 
-		    		 newsFragment.addTableRow(drawables[drawableInt-1], drawables[drawableInt], true, false, lastTitle, lastDate.toString(), title, date.toString());
+		    	 else if(doubleCell == 1) {
+		    		 doubleCell = 2;
+			    	 lastArticleId = articleId;
+			    	 lastInstitutionId = institutionId;
+			    	 lastTitle = title;
+			    	 lastContent = content;
+			    	 lastPicture = picture;
+			    	 lastLikers = likers;
+			    	 lastDate = date;
+			    	 lastCreatorEmail = creatorEmail;
+			    	 lastStudentYear = studentYear;
+			    	 lastLink = link;
 		    	 }
-		    	 
-		    	 if(drawableInt < 12)
-		    		 drawableInt = drawableInt + 1;
-		    	 
-		    	 lastArticleId = articleId;
-		    	 lastInstitutionId = institutionId;
-		    	 lastTitle = title;
-		    	 lastContent = content;
-		    	 lastPicture = picture;
-		    	 lastLikers = likers;
-		    	 lastDate = date;
-		    	 lastCreatorEmail = creatorEmail;
-		    	 lastStudentYear = studentYear;
-		    	 lastLink = link;
+		    	 else if(doubleCell == 2) {
+		    		 doubleCell = 0;
+		    		 newsFragment.addTableRow(lastArticleId, articleId, lastPicture, picture, true, false, lastTitle, lastDate.toString(), title, date.toString());
+		    	 }
 		    }
 		});
 	}
 	
-	public void addTableRow(int drawable1, int drawable2, boolean doubleCell, boolean lastCell, String articleTitle1, String articleTime1, 
+	public void addTableRow(final int articleId1, final int articleId2, Bitmap drawable1, Bitmap drawable2, boolean doubleCell, boolean lastCell, String articleTitle1, String articleTime1, 
 			String articleTitle2, String articleTime2) {
 		TableRow tr;
 		
@@ -185,7 +161,22 @@ public class NewsFragment extends SherlockFragment {
 			view.setColorFilter(Color.argb(125, 35, 35, 35));
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 			view.setScaleType(ScaleType.CENTER_CROP);
-			view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable1, 100, 100));
+			view.setImageBitmap(drawable1);
+	        view.setOnClickListener(new View.OnClickListener() {        
+	            @Override
+	            public void onClick(View view) {
+			    		FragmentManager fragmentManager2 = getFragmentManager();
+			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+			    		NewsArticleFragment fragment2 = new NewsArticleFragment();
+			    		Bundle args = new Bundle();
+			    		args.putInt("ArticleId", articleId1);
+			    		fragment2.setArguments(args);
+			    		fragmentTransaction2.addToBackStack(null);
+			    		fragmentTransaction2.replace(android.R.id.content, fragment2);
+			    		fragmentTransaction2.commit();
+	            }
+	         });
+	        
 	        relativeLayout.addView(view);
 	        relativeLayout.addView(textViewArticle, params1);
 	        relativeLayout.addView(textViewArticleTime, params2);
@@ -224,7 +215,7 @@ public class NewsFragment extends SherlockFragment {
 			view.setColorFilter(Color.argb(125, 35, 35, 35));
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
 			view.setScaleType(ScaleType.CENTER_CROP);
-	        view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable2, 100, 100));
+	        view.setImageBitmap(drawable2);
 	        view.setOnClickListener(new View.OnClickListener() {        
 	            @Override
 	            public void onClick(View view) {
@@ -232,7 +223,7 @@ public class NewsFragment extends SherlockFragment {
 			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
 			    		NewsArticleFragment fragment2 = new NewsArticleFragment();
 			    		Bundle args = new Bundle();
-			    		//args.putString("Album", (String) textViewArticle.getText());
+			    		args.putInt("ArticleId", articleId2);
 			    		fragment2.setArguments(args);
 			    		fragmentTransaction2.addToBackStack(null);
 			    		fragmentTransaction2.replace(android.R.id.content, fragment2);
@@ -264,8 +255,8 @@ public class NewsFragment extends SherlockFragment {
 			view.setColorFilter(Color.argb(125, 35, 35, 35));
 			view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(dpHeight / 2.3)));
 			view.setScaleType(ScaleType.CENTER_CROP);
-			view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable1, 100, 100));
-	        view.setImageResource(drawable1);
+			view.setImageBitmap(drawable1);
+
 	        view.setOnClickListener(new View.OnClickListener() {        
 	            @Override
 	            public void onClick(View view) {
@@ -273,7 +264,7 @@ public class NewsFragment extends SherlockFragment {
 			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
 			    		NewsArticleFragment fragment2 = new NewsArticleFragment();
 			    		Bundle args = new Bundle();
-			    		args.putInt("ArticleImage", R.drawable.news0);
+			    		args.putInt("ArticleId", articleId1);
 			    		fragment2.setArguments(args);
 			    		fragmentTransaction2.addToBackStack(null);
 			    		fragmentTransaction2.add(android.R.id.content, fragment2);

@@ -27,7 +27,7 @@
             android:src="@drawable/me" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/newsArticleTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="3dp"
@@ -77,7 +77,7 @@
                     android:orientation="vertical" >
                     	               
                     <TextView
-                        android:id="@+id/editText1"
+                        android:id="@+id/newsArticleName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -87,7 +87,7 @@
                         android:textSize="@dimen/profileTextSize" />
                     
 	                <TextView
-	                    android:id="@+id/editText1"
+	                    android:id="@+id/newsArticleName"
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="wrap_content"
 	                    android:ems="10"
