@@ -61,17 +61,17 @@ public class EventsFragment extends SherlockFragment {
 		return rootView;
 	}
 	
-	public void addEvent(final int articleId, final String eventName, long eventTime, final Bitmap bitmapPicture) {
+	public void addEvent(final int eventId, final String eventName, long eventTime, final Bitmap bitmapPicture) {
 
 		getActivity().runOnUiThread(new Runnable() {
 		     @Override
 		     public void run() {
-		    	 addTableRow(bitmapPicture, false, "Barbeque", "Yesterday, 9:00 AM");
+		    	 addTableRow(eventId, bitmapPicture, false, eventName, "Yesterday, 9:00 AM");
 		     }
 		});
 	}
 	
-	public void addTableRow(Bitmap bitmapPicture, boolean lastCell, String articleTitle1, String articleTime1) {
+	public void addTableRow(final int eventId, Bitmap bitmapPicture, boolean lastCell, String articleTitle1, String articleTime1) {
 		TableRow tr;
 		String colour = "#F8F8F8";
 		
@@ -104,7 +104,8 @@ public class EventsFragment extends SherlockFragment {
 		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
 		    		EventsDetailFragment fragment2 = new EventsDetailFragment();
 		    		Bundle args = new Bundle();
-		    		args.putInt("EventImage", R.drawable.event0);
+		    		args.putInt("EventId", eventId);
+		    		fragment2.setArguments(args);
 		    		fragment2.setArguments(args);
 		    		fragmentTransaction2.addToBackStack(null);
 		    		fragmentTransaction2.add(android.R.id.content, fragment2);

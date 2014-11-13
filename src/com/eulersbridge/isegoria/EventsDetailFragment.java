@@ -38,35 +38,53 @@ public class EventsDetailFragment extends SherlockFragment {
 	private View rootView;
 	private float dpWidth;
 	private float dpHeight;
+	private DisplayMetrics displayMetrics;
+	private Isegoria isegoria;
 	
-	public EventsDetailFragment() {
-	
-	}
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.events_detail_fragment, container, false);
+		this.isegoria = (Isegoria) getActivity().getApplication();
 		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		getActivity().getActionBar().removeAllTabs();
 		Bundle bundle = this.getArguments();
-		int backgroundDrawableResource = bundle.getInt("EventImage");
 
-		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+		displayMetrics = getActivity().getResources().getDisplayMetrics();
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
+        
+        isegoria.getNetwork().getEventDetails(this, bundle.getInt("EventId"));
 		
-		LinearLayout backgroundLinearLayout = (LinearLayout) rootView.findViewById(R.id.topBackgroundNews);
-		backgroundLinearLayout.getLayoutParams().height = (int) (displayMetrics.heightPixels / 2.7);
-		Bitmap original = BitmapFactory.decodeResource(getActivity().getResources(), backgroundDrawableResource);
-		Bitmap b = Bitmap.createScaledBitmap(original, (int)dpWidth, (int)dpHeight/2, false);
-		Drawable d = new BitmapDrawable(getActivity().getResources(), b);
-		d.setColorFilter(Color.argb(125, 35, 35, 35), Mode.DARKEN);
-		backgroundLinearLayout.setBackgroundDrawable(d);
-		
-		TextView eventsText = (TextView) rootView.findViewById(R.id.eventDetails);
-		eventsText.setText("LOCATION: The University of Melbourne\nTIME: 10:10\nDESC: This is an event that wo;; be happening an the University quite soon. There's going t obe all sorts of free things and good times. You may even learn something about the subject of the event. Perhaps something to do with voting? Or maybe it's just a BBQ.\n\n Want to VOLUNTEER?");
 
 		return rootView;
+	}
+	
+	public void populateContent(final String title, final String content, final String location, final String likes, final Bitmap picture) {
+		try {
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					LinearLayout backgroundLinearLayout = (LinearLayout) rootView.findViewById(R.id.topBackgroundNews);
+					backgroundLinearLayout.getLayoutParams().height = (int) (displayMetrics.heightPixels / 2.7);
+					//Bitmap original = BitmapFactory.decodeResource(getActivity().getResources(), backgroundDrawableResource);
+					//Bitmap b = Bitmap.createScaledBitmap(original, (int)dpWidth, (int)dpHeight/2, false);
+					Drawable d = new BitmapDrawable(getActivity().getResources(), picture);
+					d.setColorFilter(Color.argb(125, 35, 35, 35), Mode.DARKEN);
+					backgroundLinearLayout.setBackgroundDrawable(d);
+
+					TextView eventTitle = (TextView) rootView.findViewById(R.id.eventTitle);
+					eventTitle.setText(title);
+					
+					TextView eventLocationLine1 = (TextView) rootView.findViewById(R.id.eventLocationLine1);
+					eventLocationLine1.setText(location);
+					
+					TextView eventsText = (TextView) rootView.findViewById(R.id.eventDetails);
+					eventsText.setText(content);
+				}
+			});
+		} catch(Exception e) {
+			
+		}
 	}
 
 	public static int calculateInSampleSize(

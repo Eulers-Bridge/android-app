@@ -360,7 +360,7 @@ public class Network {
 						String studentYear = "";
 						String link = null;
 						
-						eventsFragment.addEvent(eventId, description, date, bitmapPicture);
+						eventsFragment.addEvent(eventId, name, date, bitmapPicture);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -372,41 +372,38 @@ public class Network {
 		t.start();
 	}
 	
-	public void getEventDetail(int eventId, final EventsDetailFragment eventsDetailFragment) {
+	public void getEventDetails(final EventsDetailFragment eventsDetailFragment, final int eventId) {
 		this.eventDetailFragment = eventsDetailFragment;
 
 		Runnable r = new Runnable() {
 			public void run() {
-				String response = getRequest("dbInterface/api/events/26/");
+				String response = getRequest("dbInterface/api/event/" + String.valueOf(eventId));
 				try {
-					JSONObject jObject = new JSONObject(response);
-					JSONArray jArray = jObject.getJSONArray("events");
+					JSONObject currentEvent = new JSONObject(response);
 					
-					for (int i=0; i<jArray.length(); i++) {
-						JSONObject currentEvent = jArray.getJSONObject(i);
-						int eventId = currentEvent.getInt("eventId");
-						int institutionId = currentEvent.getInt("institutionId");
-						String name = currentEvent.getString("name");
-						String description = currentEvent.getString("description");
-						String picture = currentEvent.getString("picture");
-						picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
-						Bitmap bitmapPicture;
+					int eventId = currentEvent.getInt("eventId");
+					int institutionId = currentEvent.getInt("institutionId");
+					String name = currentEvent.getString("name");
+					String location = currentEvent.getString("location");
+					String description = currentEvent.getString("description");
+					String picture = currentEvent.getString("picture");
+					picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
+					Bitmap bitmapPicture;
 						
-						if(picture == "") {
-							bitmapPicture = null;
-						}
-						else {
-							bitmapPicture = getPicture(picture);
-						}
-						
-						String likers = null;
-						long date = currentEvent.getLong("created");
-						String creatorEmail = "";
-						String studentYear = "";
-						String link = null;
-						
-						eventsFragment.addEvent(eventId, description, date, bitmapPicture);
+					if(picture == "") {
+						bitmapPicture = null;
 					}
+					else {
+						bitmapPicture = getPicture(picture);
+					}
+						
+					String likers = null;
+					long date = currentEvent.getLong("created");
+					String creatorEmail = "";
+					String studentYear = "";
+					String link = null;
+						
+					eventsDetailFragment.populateContent(name, description, location, "0", bitmapPicture);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
