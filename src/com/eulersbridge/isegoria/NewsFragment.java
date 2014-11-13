@@ -85,43 +85,52 @@ public class NewsFragment extends SherlockFragment {
 			final long date, final String creatorEmail, final String studentYear, final String link) {
 		articlesAdded = articlesAdded + 1;
 
-		getActivity().runOnUiThread(new Runnable() {
-		     @Override
-		     public void run() {
-		    	 Timestamp stamp = new Timestamp(date);
-		    	 Date date = new Date(stamp.getTime());
-		    	 
-		    	 Timestamp lastStamp = new Timestamp(lastDate);
-		    	 Date lastDate = new Date(lastStamp.getTime());
-		    	  
-		    	 if(doubleCell == 0) {
-		    		 doubleCell = 1;
-		    		 newsFragment.addTableRow(articleId, -1, picture, null, false, false, title, date.toString(), "", "");
-		     	 }
-		    	 else if(doubleCell == 1) {
-		    		 doubleCell = 2;
-			    	 lastArticleId = articleId;
-			    	 lastInstitutionId = institutionId;
-			    	 lastTitle = title;
-			    	 lastContent = content;
-			    	 lastPicture = picture;
-			    	 lastLikers = likers;
-			    	 lastDate = date;
-			    	 lastCreatorEmail = creatorEmail;
-			    	 lastStudentYear = studentYear;
-			    	 lastLink = link;
-		    	 }
-		    	 else if(doubleCell == 2) {
-		    		 doubleCell = 0;
-		    		 newsFragment.addTableRow(lastArticleId, articleId, lastPicture, picture, true, false, lastTitle, lastDate.toString(), title, date.toString());
-		    	 }
-		    }
-		});
+		try {
+			getActivity().runOnUiThread(new Runnable() {
+			     @Override
+			     public void run() {
+			    	 try {
+				    	 Timestamp stamp = new Timestamp(date);
+				    	 Date date = new Date(stamp.getTime());
+				    	 
+				    	 Timestamp lastStamp = new Timestamp(lastDate);
+				    	 Date lastDate = new Date(lastStamp.getTime());
+				    	  
+				    	 if(doubleCell == 0) {
+				    		 doubleCell = 1;
+				    		 newsFragment.addTableRow(articleId, -1, picture, null, false, false, title, date.toString(), "", "");
+				     	 }
+				    	 else if(doubleCell == 1) {
+				    		 doubleCell = 2;
+					    	 lastArticleId = articleId;
+					    	 lastInstitutionId = institutionId;
+					    	 lastTitle = title;
+					    	 lastContent = content;
+					    	 lastPicture = picture;
+					    	 lastLikers = likers;
+					    	 lastDate = date;
+					    	 lastCreatorEmail = creatorEmail;
+					    	 lastStudentYear = studentYear;
+					    	 lastLink = link;
+				    	 }
+				    	 else if(doubleCell == 2) {
+				    		 doubleCell = 0;
+				    		 newsFragment.addTableRow(lastArticleId, articleId, lastPicture, picture, true, false, lastTitle, lastDate.toString(), title, date.toString());
+				    	 }
+				     } catch(Exception e) {
+				    	 
+				     }
+			     }
+			});
+		} catch(Exception e) {
+			
+		}
 	}
 	
 	public void addTableRow(final int articleId1, final int articleId2, Bitmap drawable1, Bitmap drawable2, boolean doubleCell, boolean lastCell, String articleTitle1, String articleTime1, 
 			String articleTitle2, String articleTime2) {
 		TableRow tr;
+		String colour = "#F8F8F8";
 		
 		if(doubleCell) {
 			tr = new TableRow(getActivity());
@@ -135,15 +144,19 @@ public class NewsFragment extends SherlockFragment {
 			else
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 0);
 
+			if(drawable1 == null) {
+				colour = "#000000";
+			}
+			
 	        TextView textViewArticle = new TextView(getActivity());
-	        textViewArticle.setTextColor(Color.parseColor("#F8F8F8"));
+	        textViewArticle.setTextColor(Color.parseColor(colour));
 	        textViewArticle.setTextSize(16.0f);
 	        textViewArticle.setText(articleTitle1);
 	        textViewArticle.setPadding(10, 0, 10, 0);
 	        textViewArticle.setGravity(Gravity.CENTER);
 	        
 	        TextView textViewArticleTime = new TextView(getActivity());
-	        textViewArticleTime.setTextColor(Color.parseColor("#F8F8F8"));
+	        textViewArticleTime.setTextColor(Color.parseColor(colour));
 	        textViewArticleTime.setTextSize(12.0f);
 	        textViewArticleTime.setText(articleTime1);
 	        textViewArticleTime.setPadding(0, 135, 0, 0);
@@ -189,15 +202,20 @@ public class NewsFragment extends SherlockFragment {
 			else
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(0, 5, 5, 0);
 			
+			colour = "#F8F8F8";
+			if(drawable2 == null) {
+				colour = "#000000";
+			}
+			
 	        textViewArticle = new TextView(getActivity());
-	        textViewArticle.setTextColor(Color.parseColor("#F8F8F8"));
+	        textViewArticle.setTextColor(Color.parseColor(colour));
 	        textViewArticle.setTextSize(16.0f);
 	        textViewArticle.setText(articleTitle2);
 	        textViewArticle.setPadding(10, 0, 10, 0);
 	        textViewArticle.setGravity(Gravity.CENTER);
 	        
 	        textViewArticleTime = new TextView(getActivity());
-	        textViewArticleTime.setTextColor(Color.parseColor("#F8F8F8"));
+	        textViewArticleTime.setTextColor(Color.parseColor(colour));
 	        textViewArticleTime.setTextSize(12.0f);
 	        textViewArticleTime.setText(articleTime2);
 	        textViewArticleTime.setPadding(0, 135, 0, 0);
@@ -239,6 +257,10 @@ public class NewsFragment extends SherlockFragment {
 	        newsTableLayout.addView(tr);
 		}
 		else {
+			if(drawable1 == null) {
+				colour = "#000000";
+			}
+			
 			tr = new TableRow(getActivity());
 			TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
 			tr.setLayoutParams(rowParams);
@@ -273,13 +295,13 @@ public class NewsFragment extends SherlockFragment {
 	         });
 	        
 	        TextView textViewArticle = new TextView(getActivity());
-	        textViewArticle.setTextColor(Color.parseColor("#F8F8F8"));
+	        textViewArticle.setTextColor(Color.parseColor(colour));
 	        textViewArticle.setTextSize(20.0f);
 	        textViewArticle.setText(articleTitle1);
 	        textViewArticle.setGravity(Gravity.CENTER);
 	        
 	        TextView textViewArticleTime = new TextView(getActivity());
-	        textViewArticleTime.setTextColor(Color.parseColor("#F8F8F8"));
+	        textViewArticleTime.setTextColor(Color.parseColor(colour));
 	        textViewArticleTime.setTextSize(12.0f);
 	        textViewArticleTime.setText(articleTime1);
 	        textViewArticleTime.setPadding(0, 100, 0, 0);

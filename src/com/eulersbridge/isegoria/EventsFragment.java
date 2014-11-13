@@ -53,21 +53,31 @@ public class EventsFragment extends SherlockFragment {
 		
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         dpHeight = displayMetrics.heightPixels;  
-		
-		addTableRow(R.drawable.event0, false, "Barbeque", "Yesterday, 9:00 AM");
-		addTableRow(R.drawable.event1, false, "Barbeque", "Yesterday, 9:00 AM");
-		addTableRow(R.drawable.event2, false, "BBQ", "Yesterday, 9:00 AM");
-		addTableRow(R.drawable.event3, false, "Anon Protest", "Yesterday, 9:00 AM");
-		addTableRow(R.drawable.event4, false, "Fem Protest", "Yesterday, 9:00 AM");
-		addTableRow(R.drawable.event5, false, "Sochi Protest", "Yesterday, 9:00 AM");
-		addTableRow(R.drawable.event6, false, "Student Fees", "Yesterday, 9:00 AM");
-		addTableRow(R.drawable.event7, true, "Uni Cuts Protest", "Yesterday, 9:00 AM");
+	
+        MainActivity mainActivity = (MainActivity) getActivity();
+        Network network = mainActivity.getIsegoriaApplication().getNetwork();
+        network.getEvents(this);
 
 		return rootView;
 	}
 	
-	public void addTableRow(int drawable1, boolean lastCell, String articleTitle1, String articleTime1) {
+	public void addEvent(final int articleId, final String eventName, long eventTime, final Bitmap bitmapPicture) {
+
+		getActivity().runOnUiThread(new Runnable() {
+		     @Override
+		     public void run() {
+		    	 addTableRow(bitmapPicture, false, "Barbeque", "Yesterday, 9:00 AM");
+		     }
+		});
+	}
+	
+	public void addTableRow(Bitmap bitmapPicture, boolean lastCell, String articleTitle1, String articleTime1) {
 		TableRow tr;
+		String colour = "#F8F8F8";
+		
+		if(bitmapPicture == null) {
+			colour = "#000000";
+		}
 		
 		tr = new TableRow(getActivity());
 		TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
@@ -85,7 +95,7 @@ public class EventsFragment extends SherlockFragment {
 		view.setColorFilter(Color.argb(125, 35, 35, 35));
 		view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(dpHeight / 3.5)));
 		view.setScaleType(ScaleType.CENTER_CROP);
-		view.setImageBitmap(decodeSampledBitmapFromResource(getResources(),drawable1, (int)(dpWidth/2), (int)(dpHeight/2)));
+		view.setImageBitmap(bitmapPicture);
 		
 		view.setOnClickListener(new View.OnClickListener() {        
             @Override
@@ -103,13 +113,13 @@ public class EventsFragment extends SherlockFragment {
          });
 	        
 	    TextView textViewArticle = new TextView(getActivity());
-	    textViewArticle.setTextColor(Color.parseColor("#F8F8F8"));
+	    textViewArticle.setTextColor(Color.parseColor(colour));
 	    textViewArticle.setTextSize(20.0f);
 	    textViewArticle.setText(articleTitle1);
 	    textViewArticle.setGravity(Gravity.CENTER);
 	        
 	    TextView textViewArticleTime = new TextView(getActivity());
-	    textViewArticleTime.setTextColor(Color.parseColor("#F8F8F8"));
+	    textViewArticleTime.setTextColor(Color.parseColor(colour));
 	    textViewArticleTime.setTextSize(12.0f);
 	    textViewArticleTime.setText(articleTime1);
 	    textViewArticleTime.setPadding(0, 100, 0, 0);

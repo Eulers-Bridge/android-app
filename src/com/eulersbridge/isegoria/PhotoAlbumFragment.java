@@ -62,7 +62,7 @@ public class PhotoAlbumFragment extends SherlockFragment {
         dividerPadding = Math.abs(dividerPadding / fitPerRow) / 4;
         
         tr = new TableRow(getActivity());
-        createPhotoAlbums(photoAlbumName);
+        //createPhotoAlbums(photoAlbumName);
 		
 		return rootView;
 	}

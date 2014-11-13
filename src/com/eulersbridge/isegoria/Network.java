@@ -40,6 +40,8 @@ public class Network {
 	private NewsFragment newsFragment;
 	private NewsArticleFragment newsArticleFragment;
 	private UserSignupFragment userSignupFragment;
+	private EventsFragment eventsFragment;
+	private EventsDetailFragment eventDetailFragment;
 	private Isegoria application;
 	
 	public Network(Isegoria application) {
@@ -198,7 +200,8 @@ public class Network {
 			public void run() {
 				String response = getRequest("dbInterface/api/newsArticles/26");
 				try {
-					JSONArray jArray = new JSONArray(response);
+					JSONObject jObject = new JSONObject(response);
+					JSONArray jArray = jObject.getJSONArray("articles");
 					
 					for (int i=0; i<jArray.length(); i++) {
 						JSONObject currentArticle = jArray.getJSONObject(i);
@@ -206,7 +209,7 @@ public class Network {
 						int institutionId = currentArticle.getInt("institutionId");
 						String title = currentArticle.getString("title");
 						String content = currentArticle.getString("content");
-						String picture = PICTURE_URL + currentArticle.getString("picture");
+						String picture = currentArticle.getString("picture");
 						picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
 						Bitmap bitmapPicture = getPicture(picture);
 						
@@ -242,7 +245,7 @@ public class Network {
 					String title = currentArticle.getString("title");
 					String likes = currentArticle.getString("likes");
 					String content = currentArticle.getString("content");
-					String picture = PICTURE_URL + currentArticle.getString("picture");
+					String picture = currentArticle.getString("picture");
 					String email = currentArticle.getString("creatorEmail");
 					picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
 					Bitmap bitmapPicture = getPicture(picture);
@@ -254,7 +257,7 @@ public class Network {
 					String link = null;
 					
 					newsArticleFragment.populateContent(title, content, likes, bitmapPicture);
-					//getUser(newsArticleFragment, email);
+					getUser(newsArticleFragment, email);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -270,7 +273,7 @@ public class Network {
 
 		Runnable r = new Runnable() {
 			public void run() {
-				String response = getRequest("dbInterface/api/user/" + userEmail.replace("@", "%40"));
+				String response = getRequest("dbInterface/api/user/" + userEmail.replace("@", "%40") +"/");
 				try {
 					JSONObject currentArticle = new JSONObject(response);
 					
@@ -324,10 +327,94 @@ public class Network {
 		return networkResponse;
 	}
 
-	public NetworkResponse getEvents() {
-		NetworkResponse networkResponse = null;
+	public void getEvents(final EventsFragment eventsFragment) {
+		this.eventsFragment = eventsFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/events/26/");
+				try {
+					JSONObject jObject = new JSONObject(response);
+					JSONArray jArray = jObject.getJSONArray("events");
+					
+					for (int i=0; i<jArray.length(); i++) {
+						JSONObject currentEvent = jArray.getJSONObject(i);
+						int eventId = currentEvent.getInt("eventId");
+						int institutionId = currentEvent.getInt("institutionId");
+						String name = currentEvent.getString("name");
+						String description = currentEvent.getString("description");
+						String picture = currentEvent.getString("picture");
+						picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
+						Bitmap bitmapPicture;
+						
+						if(picture == "") {
+							bitmapPicture = null;
+						}
+						else {
+							bitmapPicture = getPicture(picture);
+						}
+						
+						String likers = null;
+						long date = currentEvent.getLong("created");
+						String creatorEmail = "";
+						String studentYear = "";
+						String link = null;
+						
+						eventsFragment.addEvent(eventId, description, date, bitmapPicture);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
 		
-		return networkResponse;
+		Thread t = new Thread(r);
+		t.start();
+	}
+	
+	public void getEventDetail(int eventId, final EventsDetailFragment eventsDetailFragment) {
+		this.eventDetailFragment = eventsDetailFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/events/26/");
+				try {
+					JSONObject jObject = new JSONObject(response);
+					JSONArray jArray = jObject.getJSONArray("events");
+					
+					for (int i=0; i<jArray.length(); i++) {
+						JSONObject currentEvent = jArray.getJSONObject(i);
+						int eventId = currentEvent.getInt("eventId");
+						int institutionId = currentEvent.getInt("institutionId");
+						String name = currentEvent.getString("name");
+						String description = currentEvent.getString("description");
+						String picture = currentEvent.getString("picture");
+						picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
+						Bitmap bitmapPicture;
+						
+						if(picture == "") {
+							bitmapPicture = null;
+						}
+						else {
+							bitmapPicture = getPicture(picture);
+						}
+						
+						String likers = null;
+						long date = currentEvent.getLong("created");
+						String creatorEmail = "";
+						String studentYear = "";
+						String link = null;
+						
+						eventsFragment.addEvent(eventId, description, date, bitmapPicture);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t = new Thread(r);
+		t.start();
 	}
 
 	public NetworkResponse getForums() {
