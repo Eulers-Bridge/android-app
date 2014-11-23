@@ -42,6 +42,8 @@ public class Network {
 	private UserSignupFragment userSignupFragment;
 	private EventsFragment eventsFragment;
 	private EventsDetailFragment eventDetailFragment;
+	private PhotosFragment photosFragment;
+	private PhotoAlbumFragment photoAlbumFragment;
 	private Isegoria application;
 	
 	public Network(Isegoria application) {
@@ -215,6 +217,7 @@ public class Network {
 						
 						String likers = null;
 						long date = currentArticle.getLong("date");
+						date = TimeConverter.convertTimestampTimezone(date);
 						String creatorEmail = "";
 						String studentYear = "";
 						String link = null;
@@ -250,13 +253,14 @@ public class Network {
 					picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
 					Bitmap bitmapPicture = getPicture(picture);
 						
-					String likers = null;
+					String likers = currentArticle.getString("likes");
 					long date = currentArticle.getLong("date");
+					date = TimeConverter.convertTimestampTimezone(date);
 					String creatorEmail = "";
 					String studentYear = "";
 					String link = null;
 					
-					newsArticleFragment.populateContent(title, content, likes, bitmapPicture);
+					newsArticleFragment.populateContent(title, content, likes, date, bitmapPicture);
 					getUser(newsArticleFragment, email);
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -281,16 +285,7 @@ public class Network {
 					String familyName = currentArticle.getString("familyName");
 					String gender = currentArticle.getString("gender");
 					String name = givenName + " " + familyName;
-					//String picture = PICTURE_URL + currentArticle.getString("picture");
-					//picture = picture.replace("[", "").replace("]", "").replace("\"", "").replace("\\", "");
 					Bitmap bitmapPicture = null;
-					
-						
-					String likers = null;
-					long date = currentArticle.getLong("date");
-					String creatorEmail = "";
-					String studentYear = "";
-					String link = null;
 					
 					newsArticleFragment.populateUserContent(name, bitmapPicture);
 				} catch (JSONException e) {
@@ -355,12 +350,23 @@ public class Network {
 						}
 						
 						String likers = null;
-						long date = currentEvent.getLong("created");
+						long date = 10000;
+						if(currentEvent.has("created") && !currentEvent.isNull("created")) {
+							date = currentEvent.getLong("created");
+							date = TimeConverter.convertTimestampTimezone(date);
+						}
+						
 						String creatorEmail = "";
 						String studentYear = "";
 						String link = null;
 						
-						eventsFragment.addEvent(eventId, name, date, bitmapPicture);
+						try {
+						
+							eventsFragment.addEvent(eventId, name, date, bitmapPicture);
+						
+						} catch(Exception e) {
+							
+						}
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -398,12 +404,39 @@ public class Network {
 					}
 						
 					String likers = null;
-					long date = currentEvent.getLong("created");
+					long date = 10000;
+					if(currentEvent.has("created") && !currentEvent.isNull("created")) {
+						date = currentEvent.getLong("created");
+						date = TimeConverter.convertTimestampTimezone(date);
+					}
 					String creatorEmail = "";
 					String studentYear = "";
 					String link = null;
 						
-					eventsDetailFragment.populateContent(name, description, location, "0", bitmapPicture);
+					eventsDetailFragment.populateContent(name, description, location, "0", bitmapPicture, date);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t = new Thread(r);
+		t.start();
+	}
+	
+	public void getPhotoAlbums(final PhotoAlbumFragment photosFragment) {
+		this.photoAlbumFragment = photoAlbumFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/photoAlbums/42/");
+				try {
+					JSONObject jObject = new JSONObject(response);
+					JSONArray jArray = jObject.getJSONArray("events");
+					
+					for (int i=0; i<jArray.length(); i++) {
+						
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

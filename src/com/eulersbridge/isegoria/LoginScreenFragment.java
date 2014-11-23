@@ -1,7 +1,6 @@
 package com.eulersbridge.isegoria;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,11 +39,6 @@ public class LoginScreenFragment extends android.support.v4.app.Fragment {
 		Bitmap b = Bitmap.createScaledBitmap(original, (int)dpWidth, (int)dpHeight/2, false);
 		Drawable d = new BitmapDrawable(getActivity().getResources(), fastBlur(b, 25));
 		backgroundLinearLayout.setBackgroundDrawable(d);
-		
-		ActionBar bar = ((SherlockFragmentActivity) getActivity()).getSupportActionBar();
-		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3C7EC9")));
-		bar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
-		bar.setSplitBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
 		
 		return rootView;		
 	}

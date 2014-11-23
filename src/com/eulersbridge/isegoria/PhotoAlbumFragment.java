@@ -63,6 +63,10 @@ public class PhotoAlbumFragment extends SherlockFragment {
         
         tr = new TableRow(getActivity());
         //createPhotoAlbums(photoAlbumName);
+        
+        MainActivity mainActivity = (MainActivity) getActivity();
+        Network network = mainActivity.getIsegoriaApplication().getNetwork();
+        //network.getPhotoAlbums(this);
 		
 		return rootView;
 	}

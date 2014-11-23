@@ -51,7 +51,11 @@ public class PhotosFragment extends SherlockFragment {
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
         
-        createPhotoAlbums();
+        MainActivity mainActivity = (MainActivity) getActivity();
+        Network network = mainActivity.getIsegoriaApplication().getNetwork();
+        //network.getPhotos(this);
+        
+        //createPhotoAlbums();
 		
 		return rootView;
 	}

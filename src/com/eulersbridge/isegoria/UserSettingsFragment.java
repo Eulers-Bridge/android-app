@@ -1,5 +1,8 @@
 package com.eulersbridge.isegoria;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import android.app.ActionBar;
 
 import android.content.res.Resources;
@@ -20,7 +23,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
-public class UserSettingsFragment extends Fragment {
+public class UserSettingsFragment extends SherlockFragment {
 	private View rootView;
 	
 	private float dpWidth;
@@ -33,7 +36,6 @@ public class UserSettingsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.user_settings_fragment, container, false);
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		getActivity().getActionBar().removeAllTabs();
 
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();

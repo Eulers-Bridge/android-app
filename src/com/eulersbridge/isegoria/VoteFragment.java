@@ -1,5 +1,8 @@
 package com.eulersbridge.isegoria;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import android.app.ActionBar;
 
 import android.os.Bundle;
@@ -8,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class VoteFragment extends Fragment {
+public class VoteFragment extends SherlockFragment {
 	private View rootView;
 	
 	public VoteFragment() {
@@ -18,7 +21,6 @@ public class VoteFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.vote_fragment, container, false);
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		getActivity().getActionBar().removeAllTabs();
 		return rootView;
 	}

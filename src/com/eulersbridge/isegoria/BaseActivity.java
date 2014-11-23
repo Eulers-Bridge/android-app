@@ -3,10 +3,11 @@ package com.eulersbridge.isegoria;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.view.Menu;
@@ -30,7 +31,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 		application = (Isegoria) getApplicationContext();
 		
 		setBehindContentView(R.layout.menu_frame);
-		android.support.v4.app.FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
+		FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
 		mFrag = new SlidingMenuItems();
 		ft.replace(R.id.menu_frame, mFrag);
 		ft.commit();

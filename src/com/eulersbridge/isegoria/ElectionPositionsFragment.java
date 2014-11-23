@@ -1,12 +1,11 @@
 package com.eulersbridge.isegoria;
 
-import com.actionbarsherlock.app.SherlockFragment;
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
@@ -22,7 +21,7 @@ import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TableRow.LayoutParams;
 
-public class ElectionPositionsFragment extends SherlockFragment {
+public class ElectionPositionsFragment extends Fragment {
 	private View rootView;
 	private TableLayout positionsTableLayout;
 	

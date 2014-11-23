@@ -1,15 +1,17 @@
 package com.eulersbridge.isegoria;
 
+import java.text.DateFormat.Field;
+
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.ActionBar.TabListener;
+
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +19,14 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 
-public class FeedFragment extends android.support.v4.app.Fragment implements TabListener {
+public class FeedFragment extends Fragment implements TabListener {
 	private View rootView;
 	private NewsFragment newsFragment = null;
 	private PhotosFragment photosFragment = null;
 	private EventsFragment eventsFragment = null;
-	private FragmentManager fragmentManager = null;
 	private ViewGroup container = null;
+	
+	private boolean complete = false;
 	
 	public FeedFragment () {
 		newsFragment = new NewsFragment();
@@ -33,12 +36,8 @@ public class FeedFragment extends android.support.v4.app.Fragment implements Tab
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		getActivity().setTitle("Isegoria");
-		this.container = container;
-		
-		//rootView = inflater.inflate(R.layout.news_fragment, container, false);
-		fragmentManager = getChildFragmentManager();
+		rootView = inflater.inflate(R.layout.feed_fragment, container, false);
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().show();
 
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().removeAllTabs();
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().addTab(
@@ -59,19 +58,25 @@ public class FeedFragment extends android.support.v4.app.Fragment implements Tab
 		bar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
 		bar.setSplitBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
 		
+		complete = true;
 		return rootView;
 	}
 	
+
     @Override
-    public void onTabSelected(Tab tab, FragmentTransaction ft) {
-    	if(tab.getText().equals("News")) {
-    		ft.replace(R.id.content_frame, newsFragment);
-    	}
-    	else if(tab.getText().equals("Photos")) {
-    		ft.replace(R.id.content_frame, photosFragment);
-    	}
-    	else if(tab.getText().equals("Events")) {
-    		ft.replace(R.id.content_frame, eventsFragment);
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {    	
+    	try {
+	    	if(tab.getText().equals("News")) {
+	    		ft.replace(R.id.content_feed_frame, newsFragment);
+	    	}
+	    	else if(tab.getText().equals("Photos")) {
+	    		ft.replace(R.id.content_feed_frame, photosFragment);
+	    	}
+	    	else if(tab.getText().equals("Events")) {
+	    		ft.replace(R.id.content_feed_frame, eventsFragment);
+	    	}
+    	} catch(Exception e) {
+    		
     	}
     }
 	
@@ -81,14 +86,18 @@ public class FeedFragment extends android.support.v4.app.Fragment implements Tab
 
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-    	if(tab.getText().equals("News")) {
-    		ft.remove(newsFragment);
-    	}
-    	else if(tab.getText().equals("Photos")) {
-    		ft.remove(photosFragment);
-    	}
-    	else if(tab.getText().equals("Events")) {
-    		ft.remove(eventsFragment);
+    	try {
+	    	if(tab.getText().equals("News")) {
+	    		//ft.remove(newsFragment);
+	    	}
+	    	else if(tab.getText().equals("Photos")) {
+	    		//ft.remove(photosFragment);
+	    	}
+	    	else if(tab.getText().equals("Events")) {
+	    		//ft.remove(eventsFragment);
+	    	}
+    	} catch(Exception e) {
+    		
     	}
     }
 }

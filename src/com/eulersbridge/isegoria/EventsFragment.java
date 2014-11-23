@@ -1,9 +1,8 @@
 package com.eulersbridge.isegoria;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import java.util.Calendar;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +15,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
@@ -33,7 +33,7 @@ import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
-public class EventsFragment extends SherlockFragment {
+public class EventsFragment extends Fragment {
 	private View rootView;
 	private TableLayout newsTableLayout;
 	
@@ -47,7 +47,6 @@ public class EventsFragment extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-		//((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		rootView = inflater.inflate(R.layout.events_fragment, container, false);
 		newsTableLayout = (TableLayout) rootView.findViewById(R.id.eventsTableLayout);
 		
@@ -61,12 +60,13 @@ public class EventsFragment extends SherlockFragment {
 		return rootView;
 	}
 	
-	public void addEvent(final int eventId, final String eventName, long eventTime, final Bitmap bitmapPicture) {
+	public void addEvent(final int eventId, final String eventName, final long eventTime, final Bitmap bitmapPicture) {
 
 		getActivity().runOnUiThread(new Runnable() {
 		     @Override
 		     public void run() {
-		    	 addTableRow(eventId, bitmapPicture, false, eventName, "Yesterday, 9:00 AM");
+		    	 String eventTimeStr = TimeConverter.convertTimestampToString(eventTime);
+		    	 addTableRow(eventId, bitmapPicture, false, eventName, eventTimeStr);
 		     }
 		});
 	}

@@ -96,7 +96,7 @@
 		             >       
 
 		            	 <Button
-		            	     android:id="@+id/button1"
+		            	     android:id="@+id/addToCalendar"
 		            	     android:layout_width="wrap_content"
 		            	     android:layout_height="wrap_content"
 		            	     android:layout_gravity="center_vertical"
@@ -104,6 +104,7 @@
 		            	     android:layout_weight="1"
 		            	     android:background="@drawable/white_button"
 		            	     android:gravity="center_vertical"
+		            	     android:onClick="addToCalendar"
 		            	     android:paddingRight="10dp"
 		            	     android:text="Add to Calendar"
 		            	     android:textColor="@color/white" />
@@ -125,7 +126,6 @@
             android:layout_weight="1"
             android:ems="10"
             android:paddingLeft="10dp"
-            android:text="Public Lecture Theatre"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/black"
             android:textSize="@dimen/eventLocationSize" />

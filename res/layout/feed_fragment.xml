@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/content_election_frame1" >
+    android:id="@+id/content_feed_frame" >
     
 
 </LinearLayout>

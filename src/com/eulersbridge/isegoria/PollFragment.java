@@ -3,6 +3,8 @@ package com.eulersbridge.isegoria;
 import java.util.List;
 import java.util.Vector;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.TitlePageIndicator;
 
@@ -15,7 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PollFragment extends Fragment {
+public class PollFragment extends SherlockFragment {
 	private View rootView;
 	private PagerAdapter pollPagerAdapter;
 	
@@ -26,7 +28,6 @@ public class PollFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.poll_fragment, container, false);
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		
 		List<Fragment> fragments = new Vector<Fragment>();
         fragments.add(Fragment.instantiate(getActivity(), PollVoteFragment.class.getName()));

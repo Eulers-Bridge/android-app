@@ -1,7 +1,9 @@
 package com.eulersbridge.isegoria;
 
 
+
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -62,13 +64,19 @@ public class SlidingMenuItems extends ListFragment {
 			switchFragment(newContent);
 	}
 
-	private void switchFragment(Fragment fragment) {
+	private void switchFragment(final Fragment fragment) {
 		if (getActivity() == null)
 			return;
 		
 		if (getActivity() instanceof MainActivity) {
-			MainActivity fca = (MainActivity) getActivity();
-			fca.switchContent(fragment);
+			final MainActivity fca = (MainActivity) getActivity();
+			
+			fca.runOnUiThread(new Runnable() {
+			     @Override
+			     public void run() {
+			    	 fca.switchContent(fragment);
+			     }
+			});
 		}
 	}
 }

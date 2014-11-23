@@ -1,5 +1,8 @@
 package com.eulersbridge.isegoria;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import android.app.ActionBar;
 
 import android.content.res.Resources;
@@ -21,7 +24,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends SherlockFragment {
 	private View rootView;
 	
 	private float dpWidth;
@@ -34,7 +37,7 @@ public class ProfileFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.profile_fragment, container, false);
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().hide();
 		getActivity().getActionBar().removeAllTabs();
 
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();

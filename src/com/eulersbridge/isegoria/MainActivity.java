@@ -46,6 +46,8 @@ public class MainActivity extends BaseActivity {
 		application = (Isegoria) getApplicationContext();
 		application.setMainActivity(this);
 		
+		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)

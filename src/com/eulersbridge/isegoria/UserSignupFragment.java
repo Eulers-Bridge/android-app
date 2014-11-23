@@ -2,6 +2,8 @@ package com.eulersbridge.isegoria;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +15,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-public class UserSignupFragment extends Fragment implements OnItemSelectedListener {
+public class UserSignupFragment extends SherlockFragment implements OnItemSelectedListener {
 	private View rootView;
 	private ArrayList<String> countries;
 	private ArrayList<CountryInfo> countryObjects;

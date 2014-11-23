@@ -2,6 +2,8 @@ package com.eulersbridge.isegoria;
 
 import java.text.DecimalFormat;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ClipDrawable;
@@ -24,7 +26,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 
-public class PollVoteFragment extends android.support.v4.app.Fragment {
+public class PollVoteFragment extends SherlockFragment {
 	private View rootView;
 	private TableLayout pollTableLayout;
 	

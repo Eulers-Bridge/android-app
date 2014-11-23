@@ -3,10 +3,9 @@ package com.eulersbridge.isegoria;
 
 import java.io.InputStream;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
+import android.app.ActionBar;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +19,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -38,7 +38,7 @@ import android.widget.TextView;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ScaleDrawable;
 
-public class NewsArticleFragment extends SherlockFragment {
+public class NewsArticleFragment extends Fragment {
 	private View rootView;
 	private float dpWidth;
 	private float dpHeight;
@@ -52,8 +52,6 @@ public class NewsArticleFragment extends SherlockFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.news_article_fragment, container, false);
 		this.isegoria = (Isegoria) getActivity().getApplication();
-		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		((SherlockFragmentActivity) getActivity()).getSupportActionBar().removeAllTabs();
 		Bundle bundle = this.getArguments();
 		
 		isegoria.getNetwork().getNewsArticle(this, bundle.getInt("ArticleId"));
@@ -61,7 +59,7 @@ public class NewsArticleFragment extends SherlockFragment {
 		return rootView;
 	}
 	
-	public void populateContent(final String title, final String content, final String likes, final Bitmap picture) {
+	public void populateContent(final String title, final String content, final String likes, final long date, final Bitmap picture) {
 		try {
 			getActivity().runOnUiThread(new Runnable() {
 				@Override
@@ -84,6 +82,9 @@ public class NewsArticleFragment extends SherlockFragment {
 					
 					TextView newsText = (TextView) rootView.findViewById(R.id.textNews);
 					newsText.setText(content);
+					
+					TextView newsArticleDate = (TextView) rootView.findViewById(R.id.newsArticleDate);
+					newsArticleDate.setText(TimeConverter.convertTimestampToString(date));				
 					
 					final ImageView flagView = (ImageView) rootView.findViewById(R.id.flagView);
 					flagView.setOnClickListener(new OnClickListener() {

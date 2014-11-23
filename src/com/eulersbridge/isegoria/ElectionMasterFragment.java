@@ -6,8 +6,8 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,7 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ElectionMasterFragment extends SherlockFragment implements TabListener {
+public class ElectionMasterFragment extends Fragment implements TabListener {
 	private View rootView;
 	private FragmentManager fragmentManager = null;
 	private ViewGroup container = null;
@@ -33,13 +33,10 @@ public class ElectionMasterFragment extends SherlockFragment implements TabListe
 	}
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		((SherlockFragmentActivity) getActivity()).setTitle("Isegoria");
-		this.container = container;
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {  
+		rootView = inflater.inflate(R.layout.election_master_layout, container, false);
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().show();
 		
-		fragmentManager = getChildFragmentManager();
-
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().removeAllTabs();
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().addTab(
 				((SherlockFragmentActivity) getActivity()).getSupportActionBar().newTab()
@@ -58,29 +55,17 @@ public class ElectionMasterFragment extends SherlockFragment implements TabListe
 		return rootView;
 	}
 	
-	@Override
-	public void onDetach() {
-	    super.onDetach();
-
-	    try {
-	        Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-	        childFragmentManager.setAccessible(true);
-	        childFragmentManager.set(this, null);
-
-	    } catch (NoSuchFieldException e) {
-	        throw new RuntimeException(e);
-	    } catch (IllegalAccessException e) {
-	        throw new RuntimeException(e);
-	    }
-	}
-	
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
-    	if(tab.getText().equals("Election")) {
-    		ft.replace(R.id.content_frame, electionFragment);
-    	}
-    	else if(tab.getText().equals("Candidates")) {
-    		ft.replace(R.id.content_frame, candidateFragment);
+    	try {
+    		if(tab.getText().equals("Election")) {
+    			ft.replace(R.id.content_election_frame1, electionFragment);
+    		}
+    		else if(tab.getText().equals("Candidates")) {
+    			ft.replace(R.id.content_election_frame1, candidateFragment);
+    		}
+    	} catch(Exception e) {
+    		
     	}
     }
 	

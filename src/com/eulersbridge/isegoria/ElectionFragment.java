@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import com.viewpagerindicator.TitlePageIndicator;
@@ -20,7 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ElectionFragment extends Fragment {
+public class ElectionFragment extends SherlockFragment {
 	private View rootView;
 	private boolean loaded = false;
 	private ElectionPagerAdapter electionPagerAdapter;

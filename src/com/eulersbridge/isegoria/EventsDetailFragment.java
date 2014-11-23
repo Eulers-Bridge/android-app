@@ -1,8 +1,13 @@
 package com.eulersbridge.isegoria;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
+import java.util.Calendar;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +20,10 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
+import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,20 +42,30 @@ import android.widget.TextView;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ScaleDrawable;
 
-public class EventsDetailFragment extends SherlockFragment {
+public class EventsDetailFragment extends Fragment {
 	private View rootView;
 	private float dpWidth;
 	private float dpHeight;
 	private DisplayMetrics displayMetrics;
 	private Isegoria isegoria;
+	private long timestamp;
+	private String eventTitle;
+	private String eventDesc;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.events_detail_fragment, container, false);
 		this.isegoria = (Isegoria) getActivity().getApplication();
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		getActivity().getActionBar().removeAllTabs();
 		Bundle bundle = this.getArguments();
+		
+		Button button = (Button) rootView.findViewById(R.id.addToCalendar);
+			button.setOnClickListener(new OnClickListener() {
+				@Override
+			    public void onClick(View v) {
+					addToCalendar(v);
+			    } 
+			}); 
 
 		displayMetrics = getActivity().getResources().getDisplayMetrics();
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
@@ -55,12 +73,12 @@ public class EventsDetailFragment extends SherlockFragment {
         
         isegoria.getNetwork().getEventDetails(this, bundle.getInt("EventId"));
 		
-
 		return rootView;
 	}
 	
-	public void populateContent(final String title, final String content, final String location, final String likes, final Bitmap picture) {
+	public void populateContent(final String title, final String content, final String location, final String likes, final Bitmap picture, final long timestamp) {
 		try {
+			this.timestamp = timestamp;
 			getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
@@ -72,19 +90,37 @@ public class EventsDetailFragment extends SherlockFragment {
 					d.setColorFilter(Color.argb(125, 35, 35, 35), Mode.DARKEN);
 					backgroundLinearLayout.setBackgroundDrawable(d);
 
-					TextView eventTitle = (TextView) rootView.findViewById(R.id.eventTitle);
-					eventTitle.setText(title);
+					TextView eventTitleField = (TextView) rootView.findViewById(R.id.eventTitle);
+					eventTitleField.setText(title);
+					
+					TextView eventTime = (TextView) rootView.findViewById(R.id.eventTime);
+					eventTime.setText(TimeConverter.convertTimestampToString(timestamp));
 					
 					TextView eventLocationLine1 = (TextView) rootView.findViewById(R.id.eventLocationLine1);
 					eventLocationLine1.setText(location);
 					
-					TextView eventsText = (TextView) rootView.findViewById(R.id.eventDetails);
-					eventsText.setText(content);
+					TextView eventsTextField = (TextView) rootView.findViewById(R.id.eventDetails);
+					eventsTextField.setText(content);
+					
+					eventTitle = title;
+					eventDesc = content;
 				}
 			});
 		} catch(Exception e) {
 			
 		}
+	}
+	
+	public void addToCalendar(View v) {
+	    Calendar cal = Calendar.getInstance();     
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("beginTime", timestamp);
+        intent.putExtra("allDay", false);
+        intent.putExtra("endTime", timestamp+60*60*1000);
+        intent.putExtra("title", eventTitle);
+        intent.putExtra("description", eventDesc);
+        isegoria.getMainActivity().startActivity(intent);
 	}
 
 	public static int calculateInSampleSize(

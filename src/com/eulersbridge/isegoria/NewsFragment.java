@@ -4,8 +4,6 @@ package com.eulersbridge.isegoria;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import com.actionbarsherlock.app.SherlockFragment;
-
 import android.app.Application;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -19,6 +17,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
@@ -36,7 +35,7 @@ import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
-public class NewsFragment extends SherlockFragment {
+public class NewsFragment extends Fragment {
 	private View rootView;
 	private TableLayout newsTableLayout;
 	
@@ -89,16 +88,10 @@ public class NewsFragment extends SherlockFragment {
 			getActivity().runOnUiThread(new Runnable() {
 			     @Override
 			     public void run() {
-			    	 try {
-				    	 Timestamp stamp = new Timestamp(date);
-				    	 Date date = new Date(stamp.getTime());
-				    	 
-				    	 Timestamp lastStamp = new Timestamp(lastDate);
-				    	 Date lastDate = new Date(lastStamp.getTime());
-				    	  
+			    	 try {			    	  
 				    	 if(doubleCell == 0) {
 				    		 doubleCell = 1;
-				    		 newsFragment.addTableRow(articleId, -1, picture, null, false, false, title, date.toString(), "", "");
+				    		 newsFragment.addTableRow(articleId, -1, picture, null, false, false, title, TimeConverter.convertTimestampToString(date), "", "");
 				     	 }
 				    	 else if(doubleCell == 1) {
 				    		 doubleCell = 2;
@@ -115,7 +108,7 @@ public class NewsFragment extends SherlockFragment {
 				    	 }
 				    	 else if(doubleCell == 2) {
 				    		 doubleCell = 0;
-				    		 newsFragment.addTableRow(lastArticleId, articleId, lastPicture, picture, true, false, lastTitle, lastDate.toString(), title, date.toString());
+				    		 newsFragment.addTableRow(lastArticleId, articleId, lastPicture, picture, true, false, lastTitle, TimeConverter.convertTimestampToString(lastDate), title, "");
 				    	 }
 				     } catch(Exception e) {
 				    	 

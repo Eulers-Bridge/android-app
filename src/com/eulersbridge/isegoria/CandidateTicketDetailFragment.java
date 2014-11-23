@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
@@ -31,7 +32,7 @@ import android.widget.TableRow.LayoutParams;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 
-public class CandidateTicketDetailFragment extends SherlockFragment {
+public class CandidateTicketDetailFragment extends Fragment {
 	private View rootView;
 	private TableLayout candidateTicketDetialTableLayout;
 	
