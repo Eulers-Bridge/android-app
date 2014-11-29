@@ -2,14 +2,17 @@ package com.eulersbridge.isegoria;
 
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class CandidatePagerAdapter extends FragmentPagerAdapter {
-	private List<Fragment> fragments;
+public class CandidatePagerAdapter extends FragmentStatePagerAdapter  {
+	private List<SherlockFragment> fragments;
 	
-	public CandidatePagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+	public CandidatePagerAdapter(FragmentManager fm, List<SherlockFragment> fragments) {
 		super(fm);
 	    this.fragments = fragments;
 	}

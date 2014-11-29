@@ -53,11 +53,22 @@ public class PhotosFragment extends SherlockFragment {
         
         MainActivity mainActivity = (MainActivity) getActivity();
         Network network = mainActivity.getIsegoriaApplication().getNetwork();
-        //network.getPhotos(this);
-        
-        //createPhotoAlbums();
-		
+        network.getPhotoAlbums(this);
+
 		return rootView;
+	}
+	
+	public void addPhotoAlbum(final String label, final String caption) {
+		try {
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					addTableRow(label, caption, null);
+				}
+			});
+		} catch(Exception e) {
+			
+		}
 	}
 	
 	public void createPhotoAlbums() {

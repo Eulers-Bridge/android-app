@@ -1,6 +1,7 @@
 package com.eulersbridge.isegoria;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
-public class LoginScreenFragment extends android.support.v4.app.Fragment {
+public class LoginScreenFragment extends SherlockFragment {
 	private View rootView;
 	
 	private float dpWidth;

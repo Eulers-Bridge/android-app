@@ -37,7 +37,7 @@ public class ProfileFragment extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.profile_fragment, container, false);
-		((SherlockFragmentActivity) getActivity()).getSupportActionBar().hide();
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		getActivity().getActionBar().removeAllTabs();
 
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();

@@ -32,7 +32,7 @@ import android.widget.TableRow.LayoutParams;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 
-public class CandidateTicketDetailFragment extends Fragment {
+public class CandidateTicketDetailFragment extends SherlockFragment {
 	private View rootView;
 	private TableLayout candidateTicketDetialTableLayout;
 	

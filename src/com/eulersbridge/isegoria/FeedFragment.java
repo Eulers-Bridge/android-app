@@ -4,6 +4,7 @@ import java.text.DateFormat.Field;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 
@@ -11,7 +12,6 @@ import com.actionbarsherlock.app.ActionBar.TabListener;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 
-public class FeedFragment extends Fragment implements TabListener {
+public class FeedFragment extends SherlockFragment implements TabListener {
 	private View rootView;
 	private NewsFragment newsFragment = null;
 	private PhotosFragment photosFragment = null;
@@ -37,6 +37,7 @@ public class FeedFragment extends Fragment implements TabListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.feed_fragment, container, false);
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().show();
 
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().removeAllTabs();
@@ -66,14 +67,18 @@ public class FeedFragment extends Fragment implements TabListener {
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {    	
     	try {
+
 	    	if(tab.getText().equals("News")) {
-	    		ft.replace(R.id.content_feed_frame, newsFragment);
+	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_feed_frame, newsFragment).commit();
+	    		//ft.replace(R.id.content_feed_frame, newsFragment);
 	    	}
 	    	else if(tab.getText().equals("Photos")) {
-	    		ft.replace(R.id.content_feed_frame, photosFragment);
+	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_feed_frame, photosFragment).commit();
+	    		//ft.replace(R.id.content_feed_frame, photosFragment);
 	    	}
 	    	else if(tab.getText().equals("Events")) {
-	    		ft.replace(R.id.content_feed_frame, eventsFragment);
+	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_feed_frame, eventsFragment).commit();
+	    		//ft.replace(R.id.content_feed_frame, eventsFragment);
 	    	}
     	} catch(Exception e) {
     		

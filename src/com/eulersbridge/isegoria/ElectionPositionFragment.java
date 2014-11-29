@@ -1,5 +1,7 @@
 package com.eulersbridge.isegoria;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.app.ActionBar;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-public class ElectionPositionFragment extends Fragment {
+public class ElectionPositionFragment extends SherlockFragment {
 	private View rootView;
 	
 	private float dpWidth;

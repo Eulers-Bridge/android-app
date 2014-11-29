@@ -3,6 +3,7 @@ package com.eulersbridge.isegoria;
 import java.util.Calendar;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.content.ContentResolver;
@@ -42,7 +43,7 @@ import android.widget.TextView;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ScaleDrawable;
 
-public class EventsDetailFragment extends Fragment {
+public class EventsDetailFragment extends SherlockFragment {
 	private View rootView;
 	private float dpWidth;
 	private float dpHeight;
@@ -56,7 +57,6 @@ public class EventsDetailFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.events_detail_fragment, container, false);
 		this.isegoria = (Isegoria) getActivity().getApplication();
-		getActivity().getActionBar().removeAllTabs();
 		Bundle bundle = this.getArguments();
 		
 		Button button = (Button) rootView.findViewById(R.id.addToCalendar);

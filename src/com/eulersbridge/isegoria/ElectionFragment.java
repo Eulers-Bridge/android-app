@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import com.viewpagerindicator.TitlePageIndicator;
@@ -36,13 +37,13 @@ public class ElectionFragment extends SherlockFragment {
 		rootView = inflater.inflate(R.layout.election_fragment, container, false);
 		getActivity().setTitle("Isegoria");
 		
-		List<Fragment> fragments = new Vector<Fragment>();
-        fragments.add(Fragment.instantiate(getActivity(), ElectionOverviewFragment.class.getName()));
-        fragments.add(Fragment.instantiate(getActivity(), ElectionProcessFragment.class.getName()));
-        fragments.add(Fragment.instantiate(getActivity(), ElectionPositionsFragment.class.getName()));
+		List<SherlockFragment> fragments = new Vector<SherlockFragment>();
+        fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), ElectionOverviewFragment.class.getName()));
+        fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), ElectionProcessFragment.class.getName()));
+        fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), ElectionPositionsFragment.class.getName()));
 
 		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.electionViewPager);
-		electionPagerAdapter = new ElectionPagerAdapter(getChildFragmentManager(), fragments);
+		electionPagerAdapter = new ElectionPagerAdapter(((SherlockFragmentActivity) getActivity()).getSupportFragmentManager(), fragments);
 		mViewPager.setAdapter(electionPagerAdapter);
 		
 		TabPageIndicator tabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.tabPageIndicator);

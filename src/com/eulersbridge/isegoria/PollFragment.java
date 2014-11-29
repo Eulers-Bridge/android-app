@@ -28,6 +28,7 @@ public class PollFragment extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
 		rootView = inflater.inflate(R.layout.poll_fragment, container, false);
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		
 		List<Fragment> fragments = new Vector<Fragment>();
         fragments.add(Fragment.instantiate(getActivity(), PollVoteFragment.class.getName()));

@@ -19,7 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ElectionMasterFragment extends Fragment implements TabListener {
+public class ElectionMasterFragment extends SherlockFragment implements TabListener {
 	private View rootView;
 	private FragmentManager fragmentManager = null;
 	private ViewGroup container = null;
@@ -35,6 +35,7 @@ public class ElectionMasterFragment extends Fragment implements TabListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {  
 		rootView = inflater.inflate(R.layout.election_master_layout, container, false);
+		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().show();
 		
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().removeAllTabs();
@@ -52,17 +53,22 @@ public class ElectionMasterFragment extends Fragment implements TabListener {
 		bar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
 		bar.setSplitBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
 		
+		
+		
 		return rootView;
 	}
 	
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
+    	
     	try {
     		if(tab.getText().equals("Election")) {
-    			ft.replace(R.id.content_election_frame1, electionFragment);
+    			//ft.replace(R.id.content_election_frame1, electionFragment);
+    			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_election_frame1, electionFragment).commitAllowingStateLoss();
     		}
     		else if(tab.getText().equals("Candidates")) {
-    			ft.replace(R.id.content_election_frame1, candidateFragment);
+    			//ft.replace(R.id.content_election_frame1, candidateFragment);
+    			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_election_frame1, candidateFragment).commitAllowingStateLoss();
     		}
     	} catch(Exception e) {
     		

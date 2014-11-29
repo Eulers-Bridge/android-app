@@ -3,18 +3,15 @@ package com.eulersbridge.isegoria;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -22,7 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends BaseActivity {
-	private Fragment mContent;
+	private SherlockFragment mContent;
 	private Isegoria application;
 	private ProgressDialog dialog;
 	
@@ -46,10 +43,8 @@ public class MainActivity extends BaseActivity {
 		application = (Isegoria) getApplicationContext();
 		application.setMainActivity(this);
 		
-		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		
 		if (savedInstanceState != null)
-			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
+			mContent = (SherlockFragment) getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
 			mContent = new MainView();
 		
@@ -192,7 +187,7 @@ public class MainActivity extends BaseActivity {
 		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
 	}
 	
-	public void switchContent(Fragment fragment) {
+	public void switchContent(SherlockFragment fragment) {
 			mContent = fragment;
 			getSupportFragmentManager()
 				.beginTransaction()

@@ -43,7 +43,7 @@ public class Network {
 	private EventsFragment eventsFragment;
 	private EventsDetailFragment eventDetailFragment;
 	private PhotosFragment photosFragment;
-	private PhotoAlbumFragment photoAlbumFragment;
+	private PhotosFragment photoAlbumFragment;
 	private Isegoria application;
 	
 	public Network(Isegoria application) {
@@ -424,18 +424,30 @@ public class Network {
 		t.start();
 	}
 	
-	public void getPhotoAlbums(final PhotoAlbumFragment photosFragment) {
+	public void getPhotoAlbums(final PhotosFragment photosFragment) {
 		this.photoAlbumFragment = photoAlbumFragment;
 
 		Runnable r = new Runnable() {
 			public void run() {
-				String response = getRequest("dbInterface/api/photoAlbums/42/");
+				String response = getRequest("dbInterface/api/photoAlbums/7449");
 				try {
 					JSONObject jObject = new JSONObject(response);
-					JSONArray jArray = jObject.getJSONArray("events");
+					JSONArray jArray = jObject.getJSONArray("photoAlbums");
 					
 					for (int i=0; i<jArray.length(); i++) {
+						JSONObject currentAlbum = jArray.getJSONObject(i);
 						
+						int nodeId = currentAlbum.getInt("nodeId");
+						String name = currentAlbum.getString("name");
+						String description = currentAlbum.getString("description");
+						//String responseBitmap = getRequest("dbInterface/api/photos/" + String.valueOf(nodeId));
+						//JSONObject responseJSON = new JSONObject(responseBitmap);
+						//String pictureURL = responseJSON.getString("url");
+						
+						//Bitmap bitmapPicture;
+						//bitmapPicture = getPicture();
+
+						photosFragment.addPhotoAlbum(name, description);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

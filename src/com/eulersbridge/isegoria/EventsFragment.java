@@ -2,6 +2,8 @@ package com.eulersbridge.isegoria;
 
 import java.util.Calendar;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -33,7 +35,7 @@ import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
-public class EventsFragment extends Fragment {
+public class EventsFragment extends SherlockFragment {
 	private View rootView;
 	private TableLayout newsTableLayout;
 	

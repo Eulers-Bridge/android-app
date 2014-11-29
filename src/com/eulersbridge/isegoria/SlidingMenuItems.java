@@ -1,10 +1,7 @@
 package com.eulersbridge.isegoria;
 
-
-
 import android.os.Bundle;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +9,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockListFragment;
 
 public class SlidingMenuItems extends ListFragment {
 	
-	Fragment feedFragment = new FeedFragment();
-	Fragment electionFragment = new ElectionMasterFragment();
-	Fragment pollFragment = new PollFragment();
-	Fragment voteFragment = new VoteFragment();
-	Fragment profileFragment = new ProfileFragment();
-	Fragment userSettingsFragment = new UserSettingsFragment();
+	SherlockFragment feedFragment = new FeedFragment();
+	SherlockFragment electionFragment = new ElectionMasterFragment();
+	SherlockFragment pollFragment = new PollFragment();
+	SherlockFragment voteFragment = new VoteFragment();
+	SherlockFragment profileFragment = new ProfileFragment();
+	SherlockFragment userSettingsFragment = new UserSettingsFragment();
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +37,7 @@ public class SlidingMenuItems extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView lv, View v, int position, long id) {
-		Fragment newContent = null;
+		SherlockFragment newContent = null;
 		switch (position) {
 		case 0:
 			newContent = feedFragment;
@@ -64,7 +62,7 @@ public class SlidingMenuItems extends ListFragment {
 			switchFragment(newContent);
 	}
 
-	private void switchFragment(final Fragment fragment) {
+	private void switchFragment(final SherlockFragment fragment) {
 		if (getActivity() == null)
 			return;
 		

@@ -1,5 +1,7 @@
 package com.eulersbridge.isegoria;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,7 +27,7 @@ import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TableRow.LayoutParams;
 
-public class CandidateAllFragment extends Fragment {
+public class CandidateAllFragment extends SherlockFragment {
 	private View rootView;
 	private TableLayout candidateAllTableLayout;
 	
