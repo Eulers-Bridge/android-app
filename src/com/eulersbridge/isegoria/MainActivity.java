@@ -189,6 +189,7 @@ public class MainActivity extends BaseActivity {
 	
 	public void switchContent(SherlockFragment fragment) {
 			mContent = fragment;
+			getSupportFragmentManager().popBackStack();
 			getSupportFragmentManager()
 				.beginTransaction()
 				.replace(R.id.content_frame, fragment)

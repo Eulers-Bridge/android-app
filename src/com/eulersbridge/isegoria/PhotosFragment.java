@@ -100,78 +100,82 @@ public class PhotosFragment extends SherlockFragment {
 	}
 
 	public void addTableRow(String label, String caption, Bitmap bitmap) {
-		TableRow tr = new TableRow(getActivity());
-		if(!insertedFirstRow) {
-			insertedFirstRow = true;
-			tr.setPadding(10, 10, 0, 10);
+		try {
+			TableRow tr = new TableRow(getActivity());
+			if(!insertedFirstRow) {
+				insertedFirstRow = true;
+				tr.setPadding(10, 10, 0, 10);
+			}
+			else {
+				tr.setPadding(10, 0, 0, 10);
+			}
+			TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
+			tr.setLayoutParams(rowParams);
+			
+			ImageView view = new ImageView(getActivity());
+			view.setColorFilter(Color.argb(125, 35, 35, 35));
+			view.setLayoutParams(new TableRow.LayoutParams(100, (int)(100)));
+			view.setScaleType(ScaleType.CENTER_CROP);
+	        view.setImageBitmap(bitmap);
+			
+			LinearLayout linearLayout = new LinearLayout(getActivity());
+			linearLayout.setOrientation(LinearLayout.VERTICAL);
+			linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+			linearLayout.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+			linearLayout.setPadding(10, 0, 0, 0);
+	        
+	        final TextView textViewArticle = new TextView(getActivity());
+	        textViewArticle.setTextColor(Color.parseColor("#000000"));
+	        textViewArticle.setTextSize(18.0f);
+	        textViewArticle.setText(label);
+	        textViewArticle.setGravity(Gravity.LEFT);
+	        
+	        textViewArticle.setOnClickListener(new View.OnClickListener() {        
+	            @Override
+	            public void onClick(View view) {
+			    		FragmentManager fragmentManager2 = getFragmentManager();
+			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+			    		PhotoAlbumFragment fragment2 = new PhotoAlbumFragment();
+			    		Bundle args = new Bundle();
+			    		args.putString("Album", (String) textViewArticle.getText());
+			    		fragment2.setArguments(args);
+			    		fragmentTransaction2.addToBackStack(null);
+			    		fragmentTransaction2.add(android.R.id.content, fragment2);
+			    		fragmentTransaction2.commit();
+	            }
+	       });
+	        
+	       view.setOnClickListener(new View.OnClickListener() {        
+	            @Override
+	            public void onClick(View view) {
+			    		FragmentManager fragmentManager2 = getFragmentManager();
+			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+			    		PhotoAlbumFragment fragment2 = new PhotoAlbumFragment();
+			    		Bundle args = new Bundle();
+			    		args.putString("Album", (String) textViewArticle.getText());
+			    		fragment2.setArguments(args);
+			    		fragmentTransaction2.addToBackStack(null);
+			    		fragmentTransaction2.add(android.R.id.content, fragment2);
+			    		fragmentTransaction2.commit();
+	            }
+	         });
+	        
+	        TextView textViewArticleTime = new TextView(getActivity());
+	        textViewArticleTime.setTextColor(Color.parseColor("#000000"));
+	        textViewArticleTime.setTextSize(12.0f);
+	        textViewArticleTime.setText(caption);
+	        textViewArticleTime.setPadding(0, 0, 0, 0);
+	        textViewArticleTime.setGravity(Gravity.LEFT);
+	        
+	        linearLayout.addView(textViewArticle);
+	        linearLayout.addView(textViewArticleTime);
+	        
+	        tr.addView(view);
+	        tr.addView(linearLayout);	
+	        photosTableLayout.addView(tr);
+		} catch(Exception e) {
+			
 		}
-		else {
-			tr.setPadding(10, 0, 0, 10);
-		}
-		TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
-		tr.setLayoutParams(rowParams);
-		
-		ImageView view = new ImageView(getActivity());
-		view.setColorFilter(Color.argb(125, 35, 35, 35));
-		view.setLayoutParams(new TableRow.LayoutParams(100, (int)(100)));
-		view.setScaleType(ScaleType.CENTER_CROP);
-        view.setImageBitmap(bitmap);
-		
-		LinearLayout linearLayout = new LinearLayout(getActivity());
-		linearLayout.setOrientation(LinearLayout.VERTICAL);
-		linearLayout.setGravity(Gravity.CENTER_VERTICAL);
-		linearLayout.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-		linearLayout.setPadding(10, 0, 0, 0);
-        
-        final TextView textViewArticle = new TextView(getActivity());
-        textViewArticle.setTextColor(Color.parseColor("#000000"));
-        textViewArticle.setTextSize(18.0f);
-        textViewArticle.setText(label);
-        textViewArticle.setGravity(Gravity.LEFT);
-        
-        textViewArticle.setOnClickListener(new View.OnClickListener() {        
-            @Override
-            public void onClick(View view) {
-		    		FragmentManager fragmentManager2 = getFragmentManager();
-		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-		    		PhotoAlbumFragment fragment2 = new PhotoAlbumFragment();
-		    		Bundle args = new Bundle();
-		    		args.putString("Album", (String) textViewArticle.getText());
-		    		fragment2.setArguments(args);
-		    		fragmentTransaction2.addToBackStack(null);
-		    		fragmentTransaction2.add(android.R.id.content, fragment2);
-		    		fragmentTransaction2.commit();
-            }
-       });
-        
-       view.setOnClickListener(new View.OnClickListener() {        
-            @Override
-            public void onClick(View view) {
-		    		FragmentManager fragmentManager2 = getFragmentManager();
-		    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-		    		PhotoAlbumFragment fragment2 = new PhotoAlbumFragment();
-		    		Bundle args = new Bundle();
-		    		args.putString("Album", (String) textViewArticle.getText());
-		    		fragment2.setArguments(args);
-		    		fragmentTransaction2.addToBackStack(null);
-		    		fragmentTransaction2.add(android.R.id.content, fragment2);
-		    		fragmentTransaction2.commit();
-            }
-         });
-        
-        TextView textViewArticleTime = new TextView(getActivity());
-        textViewArticleTime.setTextColor(Color.parseColor("#000000"));
-        textViewArticleTime.setTextSize(12.0f);
-        textViewArticleTime.setText(caption);
-        textViewArticleTime.setPadding(0, 0, 0, 0);
-        textViewArticleTime.setGravity(Gravity.LEFT);
-        
-        linearLayout.addView(textViewArticle);
-        linearLayout.addView(textViewArticleTime);
-        
-        tr.addView(view);
-        tr.addView(linearLayout);	
-        photosTableLayout.addView(tr);
 	}
 	
 	public static int calculateInSampleSize(

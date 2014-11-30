@@ -69,14 +69,17 @@ public class FeedFragment extends SherlockFragment implements TabListener {
     	try {
 
 	    	if(tab.getText().equals("News")) {
+	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().popBackStack();
 	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_feed_frame, newsFragment).commit();
 	    		//ft.replace(R.id.content_feed_frame, newsFragment);
 	    	}
 	    	else if(tab.getText().equals("Photos")) {
+	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().popBackStack();
 	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_feed_frame, photosFragment).commit();
 	    		//ft.replace(R.id.content_feed_frame, photosFragment);
 	    	}
 	    	else if(tab.getText().equals("Events")) {
+	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().popBackStack();
 	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_feed_frame, eventsFragment).commit();
 	    		//ft.replace(R.id.content_feed_frame, eventsFragment);
 	    	}
@@ -93,13 +96,13 @@ public class FeedFragment extends SherlockFragment implements TabListener {
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     	try {
 	    	if(tab.getText().equals("News")) {
-	    		//ft.remove(newsFragment);
+	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().remove(newsFragment).commit();
 	    	}
 	    	else if(tab.getText().equals("Photos")) {
-	    		//ft.remove(photosFragment);
+	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().remove(photosFragment).commit();
 	    	}
 	    	else if(tab.getText().equals("Events")) {
-	    		//ft.remove(eventsFragment);
+	    		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().remove(eventsFragment).commit();
 	    	}
     	} catch(Exception e) {
     		

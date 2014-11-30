@@ -18,14 +18,20 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ElectionFragment extends SherlockFragment {
+public class ElectionFragment extends SherlockFragment implements OnPageChangeListener {
 	private View rootView;
 	private boolean loaded = false;
 	private ElectionPagerAdapter electionPagerAdapter;
+	private ViewPager mViewPager;
+	public TabPageIndicator tabPageIndicator;
+	public List<SherlockFragment> fragments;
+	
+	private ElectionOverviewFragment electionOverviewFragment;
 	
 	public ElectionFragment() {
 
@@ -33,39 +39,25 @@ public class ElectionFragment extends SherlockFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		rootView = inflater.inflate(R.layout.election_fragment, container, false);
-		getActivity().setTitle("Isegoria");
 		
-		List<SherlockFragment> fragments = new Vector<SherlockFragment>();
+		fragments = new Vector<SherlockFragment>();
         fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), ElectionOverviewFragment.class.getName()));
         fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), ElectionProcessFragment.class.getName()));
         fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), ElectionPositionsFragment.class.getName()));
 
-		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.electionViewPager);
+        electionOverviewFragment = new ElectionOverviewFragment();
+        
+		mViewPager = (ViewPager) rootView.findViewById(R.id.electionViewPager);
 		electionPagerAdapter = new ElectionPagerAdapter(((SherlockFragmentActivity) getActivity()).getSupportFragmentManager(), fragments);
 		mViewPager.setAdapter(electionPagerAdapter);
 		
-		TabPageIndicator tabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.tabPageIndicator);
+		tabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.tabPageIndicator);
 		tabPageIndicator.setViewPager(mViewPager);
 		tabPageIndicator.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
-
+		tabPageIndicator.setOnPageChangeListener(this);
+		
 		return rootView;
-	}
-	
-	public void onDetach() {
-	    super.onDetach();
-
-	    try {
-	        Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-	        childFragmentManager.setAccessible(true);
-	        childFragmentManager.set(this, null);
-
-	    } catch (NoSuchFieldException e) {
-	        throw new RuntimeException(e);
-	    } catch (IllegalAccessException e) {
-	        throw new RuntimeException(e);
-	    }
 	}
 	
 	@Override
@@ -87,5 +79,17 @@ public class ElectionFragment extends SherlockFragment {
 	
 	public void getCandidatesTabs() {
 	
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onPageScrolled(int arg0, float arg1, int arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 }

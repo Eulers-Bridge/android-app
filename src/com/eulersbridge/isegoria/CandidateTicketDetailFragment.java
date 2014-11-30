@@ -99,7 +99,7 @@ public class CandidateTicketDetailFragment extends SherlockFragment {
 		    		Bundle args = new Bundle();
 		    		fragment2.setArguments(args);
 		    		fragmentTransaction2.addToBackStack(null);
-		    		fragmentTransaction2.replace(R.id.content_frame, fragment2);
+		    		fragmentTransaction2.replace(R.id.content_election_frame1, fragment2);
 		    		fragmentTransaction2.commit();
             }
          });

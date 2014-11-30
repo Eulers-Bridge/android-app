@@ -28,13 +28,16 @@ public class ElectionMasterFragment extends SherlockFragment implements TabListe
 	private CandidateFragment candidateFragment;
 	
 	public ElectionMasterFragment() {
-		electionFragment = new ElectionFragment();
-		candidateFragment = new CandidateFragment();
+
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {  
 		rootView = inflater.inflate(R.layout.election_master_layout, container, false);
+		
+		electionFragment = new ElectionFragment();
+		candidateFragment = new CandidateFragment();
+		
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().show();
 		
@@ -52,22 +55,20 @@ public class ElectionMasterFragment extends SherlockFragment implements TabListe
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3C7EC9")));
 		bar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
 		bar.setSplitBackgroundDrawable(new ColorDrawable(Color.parseColor("#313E4D")));
-		
-		
-		
+
 		return rootView;
 	}
 	
     @Override
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
-    	
     	try {
     		if(tab.getText().equals("Election")) {
-    			//ft.replace(R.id.content_election_frame1, electionFragment);
+    			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().popBackStack();
     			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_election_frame1, electionFragment).commitAllowingStateLoss();
     		}
     		else if(tab.getText().equals("Candidates")) {
     			//ft.replace(R.id.content_election_frame1, candidateFragment);
+    			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().popBackStack();
     			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_election_frame1, candidateFragment).commitAllowingStateLoss();
     		}
     	} catch(Exception e) {
@@ -81,12 +82,15 @@ public class ElectionMasterFragment extends SherlockFragment implements TabListe
 
     @Override
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-    	if(tab.getText().equals("Election")) {
-    		//ft.remove(electionFragment);
-    	}
-    	else if(tab.getText().equals("Candidates")) {
-    		//ft.remove(candidateFragment);
-    	}
+    	//try {
+	    //	if(tab.getText().equals("Election")) {
+	    //		((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().remove(electionFragment).commit();
+	    //	}
+	    	//else if(tab.getText().equals("Candidates")) {
+	    	//	((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().remove(candidateFragment).commit();
+	    	//}
+    //	} catch(Exception e) {
+    		
+    	//}
     }
-
 }

@@ -27,6 +27,7 @@ public class CandidateFragment extends SherlockFragment {
 	private View rootView;
 	private boolean loaded = false;
 	private CandidatePagerAdapter candidatePagerAdapter;
+	public List<SherlockFragment> fragments;
 	
 	public CandidateFragment() {
 
@@ -34,12 +35,9 @@ public class CandidateFragment extends SherlockFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		rootView = inflater.inflate(R.layout.candidate_fragment, container, false);
-		getActivity().setTitle("Isegoria");
-		getActivity().getActionBar().setSelectedNavigationItem(1);
-		
-		List<SherlockFragment> fragments = new Vector<SherlockFragment>();
+
+		fragments = new Vector<SherlockFragment>();
         fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), CandidatePositionsFragment.class.getName()));
         fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), CandidateTicketFragment.class.getName()));
         fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), CandidateAllFragment.class.getName()));
