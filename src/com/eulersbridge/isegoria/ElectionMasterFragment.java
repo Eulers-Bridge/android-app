@@ -63,13 +63,14 @@ public class ElectionMasterFragment extends SherlockFragment implements TabListe
     public void onTabSelected(Tab tab, FragmentTransaction ft) {
     	try {
     		if(tab.getText().equals("Election")) {
+    			//electionFragment.mViewPager.setCurrentItem(2);
     			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().popBackStack();
-    			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_election_frame1, electionFragment).commitAllowingStateLoss();
+    			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_election_frame1, new ElectionFragment()).commitAllowingStateLoss();
     		}
     		else if(tab.getText().equals("Candidates")) {
     			//ft.replace(R.id.content_election_frame1, candidateFragment);
     			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().popBackStack();
-    			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_election_frame1, candidateFragment).commitAllowingStateLoss();
+    			((SherlockFragmentActivity) getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.content_election_frame1, new CandidateFragment()).commitAllowingStateLoss();
     		}
     	} catch(Exception e) {
     		

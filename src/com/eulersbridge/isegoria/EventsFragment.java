@@ -108,9 +108,8 @@ public class EventsFragment extends SherlockFragment {
 		    		Bundle args = new Bundle();
 		    		args.putInt("EventId", eventId);
 		    		fragment2.setArguments(args);
-		    		fragment2.setArguments(args);
 		    		fragmentTransaction2.addToBackStack(null);
-		    		fragmentTransaction2.add(android.R.id.content, fragment2);
+		    		fragmentTransaction2.replace(android.R.id.content, fragment2);
 		    		fragmentTransaction2.commit();
             }
          });

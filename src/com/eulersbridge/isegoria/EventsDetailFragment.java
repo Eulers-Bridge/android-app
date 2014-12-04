@@ -43,7 +43,7 @@ import android.widget.TextView;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.ScaleDrawable;
 
-public class EventsDetailFragment extends SherlockFragment {
+public class EventsDetailFragment extends Fragment {
 	private View rootView;
 	private float dpWidth;
 	private float dpHeight;

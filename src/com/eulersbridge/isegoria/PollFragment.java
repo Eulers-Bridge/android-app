@@ -27,21 +27,21 @@ public class PollFragment extends SherlockFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-		rootView = inflater.inflate(R.layout.poll_fragment, container, false);
+		rootView = inflater.inflate(R.layout.poll_vote_fragment, container, false);
 		((SherlockFragmentActivity) getActivity()).getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		
-		List<Fragment> fragments = new Vector<Fragment>();
+	/*	List<Fragment> fragments = new Vector<Fragment>();
         fragments.add(Fragment.instantiate(getActivity(), PollVoteFragment.class.getName()));
         fragments.add(Fragment.instantiate(getActivity(), PollVoteFragment.class.getName()));
         fragments.add(Fragment.instantiate(getActivity(), PollVoteFragment.class.getName()));
         fragments.add(Fragment.instantiate(getActivity(), PollVoteFragment.class.getName()));
 		
 		ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.pollViewPager);
-		pollPagerAdapter = new PollPagerAdapter(getChildFragmentManager(), fragments);
+		pollPagerAdapter = new PollPagerAdapter(((SherlockFragmentActivity) getActivity()).getSupportFragmentManager(), fragments);
 		mViewPager.setAdapter(pollPagerAdapter);
 		
 		CirclePageIndicator circleIndicator = (CirclePageIndicator) rootView.findViewById(R.id.titles);
-		circleIndicator.setViewPager(mViewPager);
+		circleIndicator.setViewPager(mViewPager);*/
 		
 		return rootView;
 	}

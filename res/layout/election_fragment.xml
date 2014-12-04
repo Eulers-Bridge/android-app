@@ -2,7 +2,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
+
   <com.viewpagerindicator.TabPageIndicator
 	android:id="@+id/tabPageIndicator"
 	android:layout_height="wrap_content"
@@ -15,7 +15,8 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
-    android:layout_above="@id/tabPageIndicator"
+    android:layout_above="@id/tabPageIndicator" 
     />
     
 </RelativeLayout>
+

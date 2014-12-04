@@ -27,11 +27,9 @@ public class ElectionFragment extends SherlockFragment implements OnPageChangeLi
 	private View rootView;
 	private boolean loaded = false;
 	private ElectionPagerAdapter electionPagerAdapter;
-	private ViewPager mViewPager;
+	public ViewPager mViewPager;
 	public TabPageIndicator tabPageIndicator;
 	public List<SherlockFragment> fragments;
-	
-	private ElectionOverviewFragment electionOverviewFragment;
 	
 	public ElectionFragment() {
 
@@ -46,8 +44,6 @@ public class ElectionFragment extends SherlockFragment implements OnPageChangeLi
         fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), ElectionProcessFragment.class.getName()));
         fragments.add((SherlockFragment) SherlockFragment.instantiate(getActivity(), ElectionPositionsFragment.class.getName()));
 
-        electionOverviewFragment = new ElectionOverviewFragment();
-        
 		mViewPager = (ViewPager) rootView.findViewById(R.id.electionViewPager);
 		electionPagerAdapter = new ElectionPagerAdapter(((SherlockFragmentActivity) getActivity()).getSupportFragmentManager(), fragments);
 		mViewPager.setAdapter(electionPagerAdapter);
@@ -89,6 +85,12 @@ public class ElectionFragment extends SherlockFragment implements OnPageChangeLi
 
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onPageSelected(int arg0) {
 		// TODO Auto-generated method stub
 		
 	}

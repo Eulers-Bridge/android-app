@@ -59,7 +59,8 @@ public class MainActivity extends BaseActivity {
 		.replace(R.id.menu_frame, new SlidingMenuItems()).commit();
 		
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		setSlidingActionBarEnabled(true);
+		//setSlidingActionBarEnabled(true);
+		getSlidingMenu().setSlidingEnabled(false);
 		
 		switchContent(new LoginScreenFragment());
 	}

@@ -40,6 +40,7 @@ public class CandidateTicketFragment extends SherlockFragment {
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
 		
 		rootView = inflater.inflate(R.layout.election_positions_fragment, container, false);
+		rootView = inflater.inflate(R.layout.election_positions_fragment, container, false);
 		positionsTableLayout = (TableLayout) rootView.findViewById(R.id.positionsTableLayout);
 
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
