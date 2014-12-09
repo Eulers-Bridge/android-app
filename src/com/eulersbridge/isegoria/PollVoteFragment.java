@@ -35,28 +35,41 @@ public class PollVoteFragment extends SherlockFragment {
 	
 	private boolean insertedFirstRow = false;
 	
+	private String question;
+	private String answers;
+	
 	public PollVoteFragment() {
 		
 	}
 	
+	public void setData(String question, String answers) {
+		this.question = question;
+		this.answers = answers;
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {   
-		rootView = inflater.inflate(R.layout.poll_vote_fragment, container, false);
+		rootView = inflater.inflate(R.layout.poll_fragment, container, false);
 		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
 		pollTableLayout = (TableLayout) rootView.findViewById(R.id.pollTableLayout);
 		
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
 		
-        addTableRow("Consider the current federal parties if an election was held", "Asked by Eve Menedez");
-        createProgressBars("#0000FF", "Liberal Party", 18100);
-        createProgressBars("#FF0000", "Australian Labor Party", 29100);
-        createProgressBars("#00FF00", "The Greens", 16100);
-        createProgressBars("#000000", "Other", 38101);
-        addTableComment("Eva Mendendez", "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore");
-        addTableComment("Eva Mendendez", "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore");
-        addTableComment("Eva Mendendez", "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore");
-        addTableComment("Eva Mendendez", "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore");
+        addTableRow(question, "Asked by Eve Menedez");
+        String[] answersSplit = answers.split(",");
+        
+        for(int i=0; i<answersSplit.length; i++) {
+        	createProgressBars("#0000FF", answersSplit[i], 0000);
+        }
+        
+        //createProgressBars("#FF0000", "Australian Labor Party", 0000);
+        //createProgressBars("#00FF00", "The Greens", 0000);
+        //createProgressBars("#000000", "Other", 0000);
+        //addTableComment("Eva Mendendez", "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore");
+        //addTableComment("Eva Mendendez", "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore");
+        //addTableComment("Eva Mendendez", "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore");
+        //addTableComment("Eva Mendendez", "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore");
 
 		return rootView;
 	}
@@ -72,6 +85,7 @@ public class PollVoteFragment extends SherlockFragment {
 		}
 		TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 		tr.setLayoutParams(rowParams);
+		tr.setGravity(Gravity.TOP);
 		
 		ImageView view = new ImageView(getActivity());
 		//view.setColorFilter(Color.argb(125, 35, 35, 35));

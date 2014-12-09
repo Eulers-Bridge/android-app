@@ -4,6 +4,7 @@ package com.eulersbridge.isegoria;
 import java.util.ArrayList;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import android.app.AlertDialog;
@@ -186,6 +187,27 @@ public class MainActivity extends BaseActivity {
 	public void onSaveInstanceState(Bundle outState){
 		super.onSaveInstanceState(outState);
 		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		try {
+			switch(item.getItemId()){
+				case android.R.id.home:
+					if(application.isLoggedIn()) {
+						toggle();
+					}
+					return true;
+			}
+			
+			switchContent(new UserSettingsFragment());
+			
+			return true;
+		} catch(Exception e) {
+			
+		}
+		
+		return false;
 	}
 	
 	public void switchContent(SherlockFragment fragment) {

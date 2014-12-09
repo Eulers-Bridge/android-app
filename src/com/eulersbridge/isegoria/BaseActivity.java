@@ -48,17 +48,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 		getSupportActionBar().setIcon(R.drawable.app_icon);
 	}
 	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item){
-		switch(item.getItemId()){
-			case android.R.id.home:
-				if(application.isLoggedIn()) {
-					toggle();
-				}
-				return true;
-			}
-		return onOptionsItemSelected(item);
-	}
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu){

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -34,8 +36,10 @@ import android.util.Log;
 public class Network {
 	private static String SERVER_URL = "http://eulersbridge.com:8080/";
 	private static String PICTURE_URL = "https://s3-ap-southeast-2.amazonaws.com/isegoria/";
+	private long userId;
 	private String username;
 	private String password;
+	private String email;
 	
 	private NewsFragment newsFragment;
 	private NewsArticleFragment newsArticleFragment;
@@ -44,6 +48,8 @@ public class Network {
 	private EventsDetailFragment eventDetailFragment;
 	private PhotosFragment photosFragment;
 	private PhotosFragment photoAlbumFragment;
+	private VoteFragment voteFragment;
+	private PollFragment pollFragment;
 	private Isegoria application;
 	
 	public Network(Isegoria application) {
@@ -64,6 +70,9 @@ public class Network {
 					JSONObject jObject = new JSONObject(response);
 					application.setLoggedIn(true);
 					application.setFeedFragment();
+					
+					jObject.getLong("userId");
+					
 				} catch (JSONException e) {
 					e.printStackTrace();
 					application.getMainActivity().runOnUiThread(new Runnable() {
@@ -95,22 +104,33 @@ public class Network {
     	            HttpClient httpClient = new DefaultHttpClient();
     	            HttpPost httpPost = new HttpPost();
 
-    	            URI uri = new URI(SERVER_URL + "dbInterface/api/signup");
+    	            URI uri = new URI(SERVER_URL + "dbInterface/api/signUp");
     	            httpPost.setURI(uri);
     	            httpPost.addHeader("Accept", "application/json");
     	            httpPost.addHeader("Content-type", "application/json");
     	            
-    	            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-    	            nameValuePairs.add(new BasicNameValuePair("email", email));
-    	            nameValuePairs.add(new BasicNameValuePair("givenName", firstName));
-    	            nameValuePairs.add(new BasicNameValuePair("familyName", lastName));
-    	            nameValuePairs.add(new BasicNameValuePair("gender", gender));
-    	            nameValuePairs.add(new BasicNameValuePair("nationality", country));
-    	            nameValuePairs.add(new BasicNameValuePair("yearOfBirth", yearOfBirth));
-    	            nameValuePairs.add(new BasicNameValuePair("accountVerified", "false"));
-    	            nameValuePairs.add(new BasicNameValuePair("password", password));
-    	            nameValuePairs.add(new BasicNameValuePair("institutionId", String.valueOf(institution)));
-    	            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+    	            JSONObject signup = new JSONObject();
+    	            String json = "";
+    	            try {
+    	            	signup.put("email", email);
+    	            	signup.put("givenName", firstName);
+    	            	signup.put("familyName", lastName);
+    	            	signup.put("gender", gender);
+    	                signup.put("nationality", country);
+    	                signup.put("yearOfBirth",yearOfBirth);
+    	                signup.put("accountVerified", "false");
+    	                signup.put("password", password);
+    	                signup.put("institutionId", String.valueOf(institution));
+    	                
+    	                json = signup.toString();
+
+    	            } catch (JSONException e) {
+    	                // TODO Auto-generated catch block
+    	                e.printStackTrace();
+    	            }
+
+    	            StringEntity se = new StringEntity(json);
+    	            httpPost.setEntity(se);
 
     	            HttpResponse httpResponse = httpClient.execute(httpPost);
     	            InputStream inputStream = httpResponse.getEntity().getContent();
@@ -459,6 +479,94 @@ public class Network {
 		t.start();
 	}
 
+	public void getVoteRecords(final VoteFragment voteFragment) {
+		this.voteFragment = voteFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/voteRecord");
+				try {
+					JSONObject jObject = new JSONObject(response);
+					JSONArray jArray = jObject.getJSONArray("photoAlbums");
+					
+					for (int i=0; i<jArray.length(); i++) {
+						JSONObject currentAlbum = jArray.getJSONObject(i);
+						
+						int nodeId = currentAlbum.getInt("nodeId");
+						String name = currentAlbum.getString("name");
+						String description = currentAlbum.getString("description");
+						//String responseBitmap = getRequest("dbInterface/api/photos/" + String.valueOf(nodeId));
+						//JSONObject responseJSON = new JSONObject(responseBitmap);
+						//String pictureURL = responseJSON.getString("url");
+						
+						//Bitmap bitmapPicture;
+						//bitmapPicture = getPicture();
+
+						photosFragment.addPhotoAlbum(name, description);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t = new Thread(r);
+		t.start();
+	}
+	
+	public void getPollQuestions(final PollFragment pollFragment) {
+		this.pollFragment = pollFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/polls/7449/");
+				try {
+					JSONObject jObject = new JSONObject(response);
+					JSONArray jArray = jObject.getJSONArray("polls");
+					
+					for (int i=0; i<jArray.length(); i++) {
+						JSONObject currentAlbum = jArray.getJSONObject(i);
+						
+						int nodeId = currentAlbum.getInt("nodeId");
+						String question = currentAlbum.getString("question");
+						String answers = currentAlbum.getString("answers");
+						//String responseBitmap = getRequest("dbInterface/api/photos/" + String.valueOf(nodeId));
+						//JSONObject responseJSON = new JSONObject(responseBitmap);
+						//String pictureURL = responseJSON.getString("url");
+						
+						//Bitmap bitmapPicture;
+						//bitmapPicture = getPicture();
+
+						pollFragment.addQuestion(question, answers);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t = new Thread(r);
+		t.start();		
+	}
+	
+	public void likeNewsArticle(final NewsArticleFragment newsArticleFragment) {
+		this.newsArticleFragment = newsArticleFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				try {
+					String response = getRequest("dbInterface/api/newsArticle/"+String.valueOf(newsArticleFragment.getArticleId()) + "/likedBy/" + email + "/");
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t = new Thread(r);
+		t.start();		
+	}
+	
 	public NetworkResponse getForums() {
 		NetworkResponse networkResponse = null;
 		
@@ -482,6 +590,8 @@ public class Network {
 		
 		return networkResponse;
 	}
+	
+	
 	
 	public String getRequest(String params) {
         StringBuffer stringBuffer = new StringBuffer();

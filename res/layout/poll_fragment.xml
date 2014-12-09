@@ -6,27 +6,20 @@
   android:orientation="vertical"
   xmlns:app="http://schemas.android.com/apk/res/com.eulersbridge.isegoria">
   
-  <LinearLayout
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:background="@color/darkBlue"
-      android:orientation="horizontal" >
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="10dp" >
 
-  <com.viewpagerindicator.CirclePageIndicator
-      android:id="@+id/titles"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:paddingBottom="3dp"
-      android:paddingTop="3dp"
-      app:radius="4dp" />
+            <TableLayout
+                android:id="@+id/pollTableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:shrinkColumns="1"
+                android:stretchColumns="0" >
 
-  </LinearLayout>
-  
-  <android.support.v4.view.ViewPager
-    android:id="@+android:id/pollViewPager"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    />
-  
-
+            </TableLayout>
+    </ScrollView>
 </LinearLayout>

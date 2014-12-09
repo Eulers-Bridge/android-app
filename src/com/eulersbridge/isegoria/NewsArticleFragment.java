@@ -43,6 +43,7 @@ public class NewsArticleFragment extends Fragment {
 	private float dpWidth;
 	private float dpHeight;
 	private Isegoria isegoria;
+	private int articleId;
 	
 	public NewsArticleFragment() {
 		
@@ -55,10 +56,19 @@ public class NewsArticleFragment extends Fragment {
 		Bundle bundle = this.getArguments();
 		
 		isegoria.getNetwork().getNewsArticle(this, bundle.getInt("ArticleId"));
+		articleId = bundle.getInt("ArticleId");
 		
 		return rootView;
 	}
 	
+	public int getArticleId() {
+		return articleId;
+	}
+
+	public void setArticleId(int articleId) {
+		this.articleId = articleId;
+	}
+
 	public void populateContent(final String title, final String content, final String likes, final long date, final Bitmap picture) {
 		try {
 			getActivity().runOnUiThread(new Runnable() {

@@ -31,10 +31,15 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp">
 	
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="#676475" />
+	    	<Spinner
+	    	    android:id="@+id/voteLocation"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="40dp"
+	    	    android:layout_marginLeft="10dp"
+	    	    android:layout_marginRight="10dp"
+	    	    android:background="@color/white"
+	    	    android:gravity="center"
+	    	    android:minHeight="40dp" />
 	
 	</LinearLayout>  
 
