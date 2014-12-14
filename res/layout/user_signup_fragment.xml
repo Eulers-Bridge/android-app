@@ -28,7 +28,7 @@
 	            android:src="@drawable/app_icon" />
 	        
 	            <TextView
-	                android:id="@+id/newsArticleName"
+	                android:id="@+id/photoTitle"
 	                android:layout_width="98dp"
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center_horizontal"

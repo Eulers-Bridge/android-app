@@ -62,38 +62,24 @@ public class PhotoAlbumFragment extends SherlockFragment {
         dividerPadding = Math.abs(dividerPadding / fitPerRow) / 4;
         
         tr = new TableRow(getActivity());
-        //createPhotoAlbums(photoAlbumName);
         
         MainActivity mainActivity = (MainActivity) getActivity();
         Network network = mainActivity.getIsegoriaApplication().getNetwork();
-        //network.getPhotoAlbums(this);
+        network.getPhotoAlbum(this, photoAlbumName);
 		
 		return rootView;
 	}
-
-	public void createPhotoAlbums(String album) {
-		AssetManager assetManager = getActivity().getAssets();
-		
-        try {
-        	String[] filelist = assetManager.list("");
-            String[] filelistInSubfolder = assetManager.list("Photos/" + album);
-            
-			if (filelist == null) {
-			} 
-			else {
-				String filename;
-				
-			    for (int i=0; i<filelistInSubfolder.length; i++) {
-			        filename = filelistInSubfolder[i];
-
-			        String photoPath = "Photos/" + album + "/" + filename;
-			        Bitmap bitmap = decodeSampledBitmapFromBitmap(assetManager.open(photoPath), 150, 150);     
-			        
-			        addTableRow(bitmap, photoPath);
-			    }
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+	
+	public void addPhotoThumb(final Bitmap bitmap, final String photoId) {
+		try {
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					addTableRow(bitmap, photoId);
+				}
+			});
+		} catch(Exception e) {
+			
 		}
 	}
 
@@ -129,7 +115,7 @@ public class PhotoAlbumFragment extends SherlockFragment {
 		    		args.putString("PhotoName", (String) photoPath);
 		    		fragment2.setArguments(args);
 		    		fragmentTransaction2.addToBackStack(null);
-		    		fragmentTransaction2.add(android.R.id.content, fragment2);
+		    		fragmentTransaction2.replace(android.R.id.content, fragment2);
 		    		fragmentTransaction2.commit();
             }
          });

@@ -44,10 +44,10 @@ public class Network {
 	private NewsFragment newsFragment;
 	private NewsArticleFragment newsArticleFragment;
 	private UserSignupFragment userSignupFragment;
-	private EventsFragment eventsFragment;
 	private EventsDetailFragment eventDetailFragment;
 	private PhotosFragment photosFragment;
-	private PhotosFragment photoAlbumFragment;
+	private PhotoAlbumFragment photoAlbumFragment;
+	private PhotoViewFragment photoViewFragment;
 	private VoteFragment voteFragment;
 	private PollFragment pollFragment;
 	private Isegoria application;
@@ -343,8 +343,6 @@ public class Network {
 	}
 
 	public void getEvents(final EventsFragment eventsFragment) {
-		this.eventsFragment = eventsFragment;
-
 		Runnable r = new Runnable() {
 			public void run() {
 				String response = getRequest("dbInterface/api/events/26/");
@@ -445,7 +443,7 @@ public class Network {
 	}
 	
 	public void getPhotoAlbums(final PhotosFragment photosFragment) {
-		this.photoAlbumFragment = photoAlbumFragment;
+		this.photosFragment = photosFragment;
 
 		Runnable r = new Runnable() {
 			public void run() {
@@ -460,14 +458,41 @@ public class Network {
 						int nodeId = currentAlbum.getInt("nodeId");
 						String name = currentAlbum.getString("name");
 						String description = currentAlbum.getString("description");
-						//String responseBitmap = getRequest("dbInterface/api/photos/" + String.valueOf(nodeId));
-						//JSONObject responseJSON = new JSONObject(responseBitmap);
-						//String pictureURL = responseJSON.getString("url");
+						String thumbNailUrl = currentAlbum.getString("thumbNailUrl");
 						
-						//Bitmap bitmapPicture;
-						//bitmapPicture = getPicture();
+						Bitmap bitmapPicture = getPicture(thumbNailUrl);
+						photosFragment.addPhotoAlbum(nodeId, name, description, bitmapPicture);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t = new Thread(r);
+		t.start();
+	}
+	
+	public void getPhotoAlbum(final PhotoAlbumFragment photoAlbumFragment, final String albumId) {
+		this.photoAlbumFragment = photoAlbumFragment;
 
-						photosFragment.addPhotoAlbum(name, description);
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/photos/" + String.valueOf(albumId));
+				try {
+					JSONObject jObject = new JSONObject(response);
+					JSONArray jArray = jObject.getJSONArray("photos");
+					
+					for (int i=0; i<jArray.length(); i++) {
+						JSONObject currentAlbum = jArray.getJSONObject(i);
+						
+						int nodeId = currentAlbum.getInt("nodeId");
+						String title = currentAlbum.getString("title");
+						String description = currentAlbum.getString("description");
+						String thumbNailUrl = currentAlbum.getString("thumbNailUrl");
+						
+						Bitmap bitmapPicture = getPicture(thumbNailUrl);
+						photoAlbumFragment.addPhotoThumb(bitmapPicture, String.valueOf(nodeId));
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -479,6 +504,32 @@ public class Network {
 		t.start();
 	}
 
+	public void getPhoto(final PhotoViewFragment photoViewFragment, final String photoId) {
+		this.photoViewFragment = photoViewFragment;
+
+		Runnable r = new Runnable() {
+			public void run() {
+				String response = getRequest("dbInterface/api/photo/" + String.valueOf(photoId));
+				try {
+					JSONObject jObject = new JSONObject(response);
+
+					int nodeId = jObject.getInt("nodeId");
+					String title = jObject.getString("title");
+					String description = jObject.getString("description");
+					String url = jObject.getString("url");
+						
+					Bitmap bitmapPicture = getPicture(url);
+					photoViewFragment.addPhoto(title, bitmapPicture);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		
+		Thread t = new Thread(r);
+		t.start();
+	}
+	
 	public void getVoteRecords(final VoteFragment voteFragment) {
 		this.voteFragment = voteFragment;
 
@@ -501,8 +552,6 @@ public class Network {
 						
 						//Bitmap bitmapPicture;
 						//bitmapPicture = getPicture();
-
-						photosFragment.addPhotoAlbum(name, description);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -677,6 +726,7 @@ public class Network {
         try {
         	HttpUriRequest request = new HttpGet(params);
             HttpClient httpClient = new DefaultHttpClient();
+            //request.addHeader(BasicScheme.authenticate(new UsernamePasswordCredentials(username, password), HTTP.UTF_8, false));
             HttpResponse response = httpClient.execute(request);
 
             HttpEntity entity = response.getEntity();

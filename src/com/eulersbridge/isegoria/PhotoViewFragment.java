@@ -28,6 +28,7 @@ public class PhotoViewFragment extends SherlockFragment {
 	private float dpWidth;
 	private float dpHeight;
 	
+	private DisplayMetrics displayMetrics;
 	private String photoPath;
 
 	public PhotoViewFragment() {
@@ -41,24 +42,40 @@ public class PhotoViewFragment extends SherlockFragment {
 		Bundle bundle = this.getArguments();
 		photoPath = (String) bundle.getString("PhotoName");
 		
-		DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+		displayMetrics = getActivity().getResources().getDisplayMetrics();
 		dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         dpHeight = displayMetrics.heightPixels / displayMetrics.density;  
-
-		AssetManager assetManager = getActivity().getAssets();
-		ImageView photoImageView = (ImageView) rootView.findViewById(R.id.photoImageView);
-		try {
-			Bitmap bitmap = decodeSampledBitmapFromBitmap(assetManager.open(photoPath), 150, 150);
-			photoImageView.setScaleType(ScaleType.CENTER_CROP);
-			photoImageView.setImageBitmap(bitmap);
-			photoImageView.getLayoutParams().width = (int) displayMetrics.widthPixels;
-			photoImageView.getLayoutParams().height = (int) (displayMetrics.heightPixels / 2.5);
-			photoImageView.setPadding(0, 0, 0, (displayMetrics.heightPixels / 20));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}   
         
+        MainActivity mainActivity = (MainActivity) getActivity();
+        Network network = mainActivity.getIsegoriaApplication().getNetwork();
+        network.getPhoto(this, photoPath);
+
 		return rootView;
+	}
+	
+	public void addPhoto(final String title, final Bitmap bitmap) {
+		try {
+			getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					AssetManager assetManager = getActivity().getAssets();
+					TextView photoTitle = (TextView) rootView.findViewById(R.id.photoTitle);
+					photoTitle.setText(title);
+					ImageView photoImageView = (ImageView) rootView.findViewById(R.id.photoImageView);
+					try {
+						photoImageView.setScaleType(ScaleType.CENTER_CROP);
+						photoImageView.setImageBitmap(bitmap);
+						photoImageView.getLayoutParams().width = (int) displayMetrics.widthPixels;
+						photoImageView.getLayoutParams().height = (int) (displayMetrics.heightPixels / 2.5);
+						photoImageView.setPadding(0, 0, 0, (displayMetrics.heightPixels / 20));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}   
+				}
+			});
+		} catch(Exception e) {
+			
+		}
 	}
 
 	public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {

@@ -123,7 +123,7 @@ public class NewsArticleFragment extends Fragment {
 			getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					TextView newsArticleName = (TextView) rootView.findViewById(R.id.newsArticleName);
+					TextView newsArticleName = (TextView) rootView.findViewById(R.id.photoTitle);
 					newsArticleName.setText(name);
 				}
 			});

@@ -58,48 +58,20 @@ public class PhotosFragment extends SherlockFragment {
 		return rootView;
 	}
 	
-	public void addPhotoAlbum(final String label, final String caption) {
+	public void addPhotoAlbum(final int albumId, final String label, final String caption, final Bitmap photoAlbumThumb) {
 		try {
 			getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					addTableRow(label, caption, null);
+					addTableRow(albumId, label, caption, photoAlbumThumb);
 				}
 			});
 		} catch(Exception e) {
 			
 		}
 	}
-	
-	public void createPhotoAlbums() {
-		AssetManager assetManager = getActivity().getAssets();
-		
-        try {
-        	String[] filelist = assetManager.list("");
-            String[] filelistInSubfolder = assetManager.list("Photos");
-            
-			if (filelist == null) {
-			} 
-			else {
-				String filename;
-				
-			    for (int i=0; i<filelistInSubfolder.length; i++) {
-			        filename = filelistInSubfolder[i];
 
-			        String[] photosInAlbum = assetManager.list("Photos/" + filename);
-			        String photo =  "Photos/" + filelistInSubfolder[i] + "/" + photosInAlbum[0];
-			        Bitmap bitmap = decodeSampledBitmapFromBitmap(assetManager.open(photo), 150, 150);     
-			        
-			        addTableRow(filename, "41 photos - 2nd May 2014, 10:00AM", bitmap);
-
-			    }
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void addTableRow(String label, String caption, Bitmap bitmap) {
+	public void addTableRow(final int albumId, String label, String caption, Bitmap bitmap) {
 		try {
 			TableRow tr = new TableRow(getActivity());
 			if(!insertedFirstRow) {
@@ -137,10 +109,10 @@ public class PhotosFragment extends SherlockFragment {
 			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
 			    		PhotoAlbumFragment fragment2 = new PhotoAlbumFragment();
 			    		Bundle args = new Bundle();
-			    		args.putString("Album", (String) textViewArticle.getText());
+			    		args.putString("Album", (String) String.valueOf(albumId));
 			    		fragment2.setArguments(args);
 			    		fragmentTransaction2.addToBackStack(null);
-			    		fragmentTransaction2.add(android.R.id.content, fragment2);
+			    		fragmentTransaction2.replace(android.R.id.content, fragment2);
 			    		fragmentTransaction2.commit();
 	            }
 	       });
@@ -152,10 +124,10 @@ public class PhotosFragment extends SherlockFragment {
 			    		FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
 			    		PhotoAlbumFragment fragment2 = new PhotoAlbumFragment();
 			    		Bundle args = new Bundle();
-			    		args.putString("Album", (String) textViewArticle.getText());
+			    		args.putString("Album", (String) String.valueOf(albumId));
 			    		fragment2.setArguments(args);
 			    		fragmentTransaction2.addToBackStack(null);
-			    		fragmentTransaction2.add(android.R.id.content, fragment2);
+			    		fragmentTransaction2.replace(android.R.id.content, fragment2);
 			    		fragmentTransaction2.commit();
 	            }
 	         });

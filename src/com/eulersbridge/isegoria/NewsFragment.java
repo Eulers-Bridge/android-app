@@ -131,7 +131,7 @@ public class NewsFragment extends Fragment {
 			tr.setLayoutParams(rowParams);
 			
 			RelativeLayout relativeLayout = new RelativeLayout(getActivity());
-			relativeLayout.setLayoutParams(new TableRow.LayoutParams((int)(dpWidth / 2), (int)(dpHeight / 2.3)));
+			relativeLayout.setLayoutParams(new TableRow.LayoutParams((int)(dpWidth / 2), (int)(278.26)));
 			if(lastCell)
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 5);
 			else
@@ -189,7 +189,7 @@ public class NewsFragment extends Fragment {
 	        tr.addView(relativeLayout);
 	        
 			relativeLayout = new RelativeLayout(getActivity());
-			relativeLayout.setLayoutParams(new TableRow.LayoutParams((int)(dpWidth / 2), (int)(dpHeight / 2.3)));
+			relativeLayout.setLayoutParams(new TableRow.LayoutParams((int)(dpWidth / 2), (int)(278.26)));
 			if(lastCell)
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(0, 5, 5, 5);
 			else
@@ -259,7 +259,7 @@ public class NewsFragment extends Fragment {
 			tr.setLayoutParams(rowParams);
 			
 			RelativeLayout relativeLayout = new RelativeLayout(getActivity());
-			relativeLayout.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(dpHeight / 2.3)));
+			relativeLayout.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int)(278.26)));
 			((TableRow.LayoutParams) relativeLayout.getLayoutParams()).span = 2;
 			if(lastCell)
 				((ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams()).setMargins(5, 5, 5, 5);
